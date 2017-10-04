@@ -40,5 +40,26 @@
     "sass-loader": "^6.0.6",
     "style-loader": "latest",
     "webpack": "latest"
+  },
+  "dependencies": {
+    "axios": "latest",
+    "es6-promise-polyfill": "latest",
+    "json-stringify-pretty-compact": "latest",
+    "jsx-loader": "latest",
+    "jsx-to-string": "latest",
+    "keymirror": "latest",
+    "lodash-node": "^3.10.0",
+    "normalizr": "latest",
+    "object-assign": "latest",
+    "object-merge": "latest",
+    "promise": "latest",
+    "react": "^15.6.1",
+    "react-autocomplete": "^1.5.9",
+    "react-block-ui": "^0.2.6",
+    "react-bootstrap": "^0.30.7",
+    "react-burger-menu": "^1.10.14",
+    "react-dom": "^15.6.1",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
   }
 }
