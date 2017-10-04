@@ -4,25 +4,6 @@ export default class Elements extends Component {
   render() {
     return (
       <div>
-        <meta charSet="utf-8" />
-        <title>M-Store | Elements</title>
-        {/*SEO Meta Tags*/}
-        <meta name="description" content="M-Store - Modern E-Commerce Template" />
-        <meta name="keywords" content="shop, e-commerce, modern, minimalist style, responsive, online store, business, mobile, blog, bootstrap, html5, css3, jquery, js, gallery, slider, touch, creative, clean" />
-        <meta name="author" content="Rokaux" />
-        {/*Mobile Specific Meta Tag*/}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        {/*Favicon*/}
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        {/* Google Material Icons */}
-        <link href="css/vendor/material-icons.min.css" rel="stylesheet" media="screen" />
-        {/* Brand Icons */}
-        <link href="css/vendor/socicon.min.css" rel="stylesheet" media="screen" />
-        {/* Bootstrap */}
-        <link href="css/vendor/bootstrap.min.css" rel="stylesheet" media="screen" />
-        {/* Theme Styles */}
-        <link href="css/theme.min.css" rel="stylesheet" media="screen" />
         {/* Page Preloading */}
         {/* Body */}
         {/* Adding/Removing class ".page-preloading" is enabling/disabling background smooth page transition effect and spinner. Make sure you also added/removed link to page-preloading.js script in the <head> of the document. */}
