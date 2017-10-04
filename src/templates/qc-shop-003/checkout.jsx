@@ -1,5 +1,7 @@
-React.createClass({
-  render: function() {
+import React, { Component } from 'react'
+
+export default class Checkout extends Component {
+  render() {
     return (
       <div>
         <meta charSet="utf-8" />
@@ -254,6 +256,6 @@ React.createClass({
         {/* JavaScript (jQuery) libraries, plugins and custom scripts */}
         {/* <body> */}
       </div>
-    );
+    )
   }
-});
+}

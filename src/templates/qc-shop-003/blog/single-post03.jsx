@@ -1,5 +1,7 @@
-React.createClass({
-  render: function() {
+import React, { Component } from 'react'
+
+export default class SinglePost03 extends Component {
+  render() {
     return (
 
       {/* Content should always be inside "article.single-post" */}
@@ -33,6 +35,6 @@ React.createClass({
           </div>
         </div>{/* .blog-post-meta */}
       </article>{/* .single-post */}
-    );
+    )
   }
-});
+}

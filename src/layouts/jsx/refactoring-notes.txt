@@ -9,8 +9,8 @@ Search for: render: function()
 Replace with: render()
 
 2) Kill semi-colons
-Search for: );
-Replace with: )
+Search for: ); and });
+Replace with: ) and } respectively
 
 3) Rename classes by hand
 
