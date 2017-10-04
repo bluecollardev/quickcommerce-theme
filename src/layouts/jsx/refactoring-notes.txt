@@ -2,18 +2,16 @@
 Search for: React.createClass({
 Replace with: class Shop extends Component {
 
-1a) Remove trailing ) on class def
-
-2) Replace render method
-Search for: render: function()
-Replace with: render()
-
 2) Kill semi-colons
 Search for: ); and });
 Replace with: ) and } respectively
 
-3) Rename classes by hand
+3) Replace render method
+Search for: render: function()
+Replace with: render()
 
-4) Fix class defs and add React imports
+4) Rename classes by hand
+
+5) Fix class defs and add React imports
 Search for: class\s{1}([A-Za-z0-9]+)\s{1}extends
 Replace with: import React, { Component } from 'react'\r\n\r\nexport default class \1 extends

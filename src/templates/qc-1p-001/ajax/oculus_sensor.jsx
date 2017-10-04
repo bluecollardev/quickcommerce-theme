@@ -1,5 +1,7 @@
-React.createClass({
-  render: function() {
+import React, { Component } from 'react'
+
+export default class OculusSensor extends Component {
+  render() {
     return (
 
       {/* Content should always be inside "article.order-details". Note hidden inputs with "value" equals to product name being ordered and total cost of purchase. */}
@@ -82,6 +84,6 @@ React.createClass({
           <button type="submit" className="btn btn-pill btn-primary space-top-none waves-effect waves-light">Place Order</button>
         </div>{/* .order-form */}
       </article>{/* .order-details */}
-    );
+    )
   }
-});
+}

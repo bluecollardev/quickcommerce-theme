@@ -1,5 +1,7 @@
-React.createClass({
-  render: function() {
+import React, { Component } from 'react'
+
+export default class Specs extends Component {
+  render() {
     return (
 
       {/* Content should always be inside "article.tech-specs". */}
@@ -68,6 +70,6 @@ React.createClass({
           </table>
         </div>{/* .table-responsive */}
       </article>{/* .order-details */}
-    );
+    )
   }
-});
+}
