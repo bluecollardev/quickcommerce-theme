@@ -36,10 +36,19 @@ var recursiveFolder = require('gulp-recursive-folder');
 
 var es = require('event-stream');
 
-var THEME_DIR = 'src'
-var LAYOUTS_DIR = THEME_DIR + '/layouts'
+// Config files
+var config = require('./build.config.js');
+var webpackConfig = require('./webpack.config.js');
+
+var SOURCE_DIR = './' + config.sourceDirectory
+var APP_DIR = './' + config.appDirectory;
+var LAYOUTS_DIR = SOURCE_DIR + '/layouts'
 var HTML_DIR = LAYOUTS_DIR + '/html'
 var JSX_DIR = LAYOUTS_DIR + '/jsx'
+var BUILD_DIR = './' + config.buildDirectory;
+var LIB_DIR = './' + config.libDirectory;
+var THEME_SOURCE_DIR = './' + config.themeSourceDirectory;
+var THEME_BUILD_DIR = './' + config.themeBuildDirectory;
 
 var files = [
     LAYOUTS_DIR + '/html/qc-1p-001/**/*.html',
@@ -86,12 +95,24 @@ gulp.task('generateJsx', recursiveFolder({
 }));
 
 gulp.task('default', function() {
-	gulp.watch([
-		THEME_DIR + '/js/**/*.jsx', // Watch for JSX/ES6 source changes in JS dir
-		THEME_DIR + '/js/**/*.js', // Watch for JS/ES5 source changes in JS dir
-		THEME_DIR + '/less/*.less', // Watch for changes in LESS dir
-		THEME_DIR + '/scss/*.scss' // Watch for changes in SCSS dir
-		], ['compile-styles']);
+});
+
+gulp.task('watch-templates', function () {
+    gulp.watch([
+        TEMPLATE_DIR + '/js/**/*.jsx', // Watch for JSX/ES6 source changes in JS dir
+		TEMPLATE_DIR + '/js/**/*.js', // Watch for JS/ES5 source changes in JS dir
+		TEMPLATE_DIR + '/less/*.less', // Watch for changes in LESS dir
+		TEMPLATE_DIR + '/scss/*.scss' // Watch for changes in SCSS dir
+    ],['compile-styles']);
+});
+
+gulp.task('watch-themes', function () {
+    gulp.watch([
+        SOURCE_DIR + '/js/**/*.jsx', // Watch for JSX/ES6 source changes in JS dir
+		SOURCE_DIR + '/js/**/*.js', // Watch for JS/ES5 source changes in JS dir
+		SOURCE_DIR + '/less/*.less', // Watch for changes in LESS dir
+		SOURCE_DIR + '/scss/*.scss' // Watch for changes in SCSS dir
+    ],['compile-styles']);
 });
 
 gulp.task('compile-styles', function(cb) {
@@ -102,7 +123,7 @@ gulp.task('compile-styles', function(cb) {
 });
 
 gulp.task('compile-less', function() {
-	return gulp.src(APP_DIR + '/less/**/*.less')
+	return gulp.src(SOURCE + '/less/**/*.less')
 	.pipe(plumber())
     //.pipe(flatten())
     .pipe(less({paths: BUILD_DIR + '/css/'}))
@@ -112,12 +133,16 @@ gulp.task('compile-less', function() {
 });
 
 gulp.task('compile-sass', function() {
-	//return gulp.src(APP_DIR + '/scss/fbwd-theme.scss')
-	return gulp.src(APP_DIR + '/scss/**/*.scss')
+	return gulp.src(SOURCE + '/scss/**/*.scss')
 	.pipe(plumber())
     //.pipe(flatten())
     .pipe(sass())
     .pipe(concat('sassed.css'))
     
     .pipe(gulp.dest(BUILD_DIR + '/css/'));
+});
+
+gulp.task('copy-index', function() {
+	return gulp.src(SOURCE_DIR + '/index.html')
+	.pipe(gulp.dest(BUILD_DIR + '/'));
 });

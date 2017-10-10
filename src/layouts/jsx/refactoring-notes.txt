@@ -15,3 +15,5 @@ Replace with: render()
 5) Fix class defs and add React imports
 Search for: class\s{1}([A-Za-z0-9]+)\s{1}extends
 Replace with: import React, { Component } from 'react'\r\n\r\nexport default class \1 extends
+
+6) Replace stroke-dasharray, stroke-dashoffset, stroke-width, stroke-linecap, stroke-miterlimit
