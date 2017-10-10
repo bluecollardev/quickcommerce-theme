@@ -1,0 +1,8 @@
+Build notes
+
+- Don't run gulp build yet, it will overwrite stuff in build dir
+- Things that we still need to gulp into the build dir
+    - vendor js (js/vendor folder)
+    - assets and images (img folder)
+    
+- Need to run copy-index manually for now
