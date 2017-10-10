@@ -12,7 +12,7 @@ export default class Hero extends Component {
               Simply add necessary data attribute to the ".hero-carousel" with appropriate value to adjust carousel functionality.
             */}
                 <div className="inner">
-                  <div className="slide" style={{backgroundImage: 'url(img/hero-slider/01.jpg)'}}>
+                  <div className="slide" style={{backgroundImage: 'url(' + this.props.slides[0].backgroundImage + ')'}}>
                     <div className="container">
                       <div className="absolute from-top" style={{top: '13%'}}>
                         <span className="h1 hidden-xs">New SPA<br />Cosmetics</span>
@@ -26,7 +26,7 @@ export default class Hero extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="slide" style={{backgroundImage: 'url(img/hero-slider/02.jpg)'}}>
+                  <div className="slide" style={{backgroundImage: 'url(' + this.props.slides[1].backgroundImage + ')'}}>
                     <div className="container text-center padding-top-3x">
                       <span className="h1 from-bottom">Stylish Chair</span><br />
                       <span className="h2 from-bottom"><span className="text-thin">Special offer: </span> <strong>-25%</strong></span><br />
@@ -36,7 +36,7 @@ export default class Hero extends Component {
                       </a>
                     </div>
                   </div>
-                  <div className="slide" style={{backgroundImage: 'url(img/hero-slider/03.jpg)'}}>
+                  <div className="slide" style={{backgroundImage: 'url(' + this.props.slides[2].backgroundImage + ')'}}>
                     <div className="container padding-top-3x">
                       <span className="h1 space-top from-left">Dior Sunglasses</span><br />
                       <span className="h2 from-right"><span className="text-thin">Only <span className="hidden-xs">today</span></span> <strong>-30%</strong></span><br />

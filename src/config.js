@@ -1,4 +1,4 @@
-{
+export default {
     settings: {
         siteName: 'Quick Commerce',
         title: 'Welcome to Quick Commerce',
@@ -44,7 +44,7 @@
             id: 'home',
             layout: {
                 images: {
-                    heroSliders: [
+                    heroSlides: [
                         { id: 'slide-01', className: 'slide', backgroundImage: 'img/hero-slider/01.jpg' },
                         { id: 'slide-02', className: 'slide', backgroundImage: 'img/hero-slider/02.jpg' },
                         { id: 'slide-03', className: 'slide', backgroundImage: 'img/hero-slider/03.jpg' }
@@ -128,4 +128,4 @@
         { image: 'img/shop/special-offer.jpg' },
         { image: 'img/cards.png' },
     ]
-}
+};
