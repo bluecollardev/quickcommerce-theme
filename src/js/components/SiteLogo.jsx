@@ -5,12 +5,10 @@ export default class SiteLogo extends Component {
         return (
             <div className="site-logo-wrapper">
                 <a href="index.html" className="site-logo visible-desktop">
-                  <span>[</span> M
-                  <span className="text-gray">/</span>
-                  STORE <span>]</span>
+                  <span>Phobulous</span>
                 </a>
                 <a href="index.html" className="site-logo visible-mobile">
-                  <span>[</span> M <span>]</span>
+                  <span>Phobulous</span>
                 </a>
             </div>
         )

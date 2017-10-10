@@ -25,15 +25,15 @@ export default class Toolbar extends Component {
                       <ul className="main-navigation space-bottom">
                         <li className="menu-item-has-children current-menu-item">
                           <a href="#">Home</a>
-                          <ul className="sub-menu">
+                          {/*<ul className="sub-menu">
                             <li className="current-menu-item"><a href="index.html">Home Version 1</a></li>
                             <li><a href="home-v2.html">Home Version 2</a></li>
                             <li><a href="home-v3.html">Home Version 3</a></li>
-                          </ul>
+                          </ul>*/}
                         </li>
                         <li className="menu-item-has-children">
-                          <a href="#">Shop</a>
-                          <ul className="sub-menu">
+                          <a href="#">Menu</a>
+                          {/*<ul className="sub-menu">
                             <li><a href="shop-fullwidth-sl.html">Full Width Sidebar Left</a></li>
                             <li><a href="shop-fullwidth-sr.html">Full Width Sidebar Right</a></li>
                             <li><a href="shop-fullwidth-ft.html">Full Width Filters Top</a></li>
@@ -41,35 +41,35 @@ export default class Toolbar extends Component {
                             <li><a href="shop-boxed-sr.html">Boxed Sidebar Right</a></li>
                             <li><a href="shop-boxed-ft.html">Boxed Filters Top</a></li>
                             <li><a href="shop-single.html">Single Product</a></li>
-                          </ul>
+                          </ul>*/}
                         </li>
                         <li><a href="blog.html">Blog</a></li>
                         <li className="menu-item-has-children">
                           <a href="#">Gallery</a>
-                          <ul className="sub-menu">
+                          {/*<ul className="sub-menu">
                             <li><a href="gallery-fullwidth-with-gap.html">Full Width With Gap</a></li>
                             <li><a href="gallery-fullwidth-no-gap.html">Full Width No Gap</a></li>
                             <li><a href="gallery-boxed-with-gap.html">Boxed With Gap</a></li>
                             <li><a href="gallery-boxed-no-gap.html">Boxed No Gap</a></li>
-                          </ul>
+                          </ul>*/}
                         </li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="contacts.html">Contact Us</a></li>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="elements.html">Elements</a></li>
+                        {/*<li><a href="elements.html">Elements</a></li>*/}
                       </ul>
                       <ul className="list-icon text-sm">
                         <li>
                           <i className="material-icons location_on" />
-                          45 Park Avenue, Apt. 303<br />New York, NY 10016, USA
+                          123 Some Street<br />Edmonton, AB T6G 0X5, Canada
                         </li>
                         <li>
                           <i className="material-icons phone" />
-                          001 (917) 555-4836
+                          (780) 555-5555
                         </li>
                         <li>
                           <i className="material-icons email" />
-                          <a href="mailto:info@m-store.com">info@m-store.com</a>
+                          <a href="mailto:info@m-store.com">info@phobulous.com</a>
                         </li>
                         <li>
                           <i className="socicon-skype" />
@@ -148,13 +148,14 @@ export default class Toolbar extends Component {
                   <div className="toolbar-section" id="cart">
                     <div className="shopping-cart">
                       
+                      {this.props.cart && this.props.cart instanceof Array && this.props.cart.map((item, idx) => (
                       <div className="item">
                         <a href="shop-single.html" className="item-thumb">
-                          <img src="img/cart/item01.jpg" alt="Item" />
+                          <img src={item.image} alt="Item" />
                         </a>
                         <div className="item-details">
-                          <h3 className="item-title"><a href="shop-single.html">Concrete Lamp</a></h3>
-                          <h4 className="item-price">$85.90</h4>
+                          <h3 className="item-title"><a href="shop-single.html">{item.name}</a></h3>
+                          <h4 className="item-price">$12.90</h4>
                           <div className="count-input">
                             <a className="incr-btn" data-action="decrease" href="#">–</a>
                             <input className="quantity" type="text" defaultValue={1} />
@@ -165,31 +166,14 @@ export default class Toolbar extends Component {
                           <i className="material-icons remove_shopping_cart" />
                         </a>
                       </div>
-                      
-                      <div className="item">
-                        <a href="shop-single.html" className="item-thumb">
-                          <img src="img/cart/item02.jpg" alt="Item" />
-                        </a>
-                        <div className="item-details">
-                          <h3 className="item-title"><a href="shop-single.html">Resin Storage Box</a></h3>
-                          <h4 className="item-price">$38.00</h4>
-                          <div className="count-input">
-                            <a className="incr-btn" data-action="decrease" href="#">–</a>
-                            <input className="quantity" type="text" defaultValue={2} />
-                            <a className="incr-btn" data-action="increase" href="#">+</a>
-                          </div>
-                        </div>
-                        <a href="#" className="item-remove" data-toggle="tooltip" data-placement="top" title="Remove">
-                          <i className="material-icons remove_shopping_cart" />
-                        </a>
-                      </div>
+                      ))}
                       
                       <div className="cart-subtotal space-bottom">
                         <div className="column">
                           <h3 className="toolbar-title">Subtotal:</h3>
                         </div>
                         <div className="column">
-                          <h3 className="amount">$161.90</h3>
+                          <h3 className="amount">$22.90</h3>
                         </div>
                       </div>
                       

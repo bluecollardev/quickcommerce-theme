@@ -45,17 +45,36 @@ export default {
             layout: {
                 images: {
                     heroSlides: [
-                        { id: 'slide-01', className: 'slide', backgroundImage: 'img/hero-slider/01.jpg' },
-                        { id: 'slide-02', className: 'slide', backgroundImage: 'img/hero-slider/02.jpg' },
-                        { id: 'slide-03', className: 'slide', backgroundImage: 'img/hero-slider/03.jpg' }
+                        { id: 'phobulous', className: 'slide', backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5637.jpg' },
+                        { id: 'salad-rolls', className: 'slide', backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5532.jpg' },
+                        { id: 'rice-dishes', className: 'slide', backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5727.jpg' }
                     ],
                     // Set if mapping static content
                     categories: [
-                        { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/about.jpg' },
-                        { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/account.jpg' },
-                        { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/blog.jpg' },
-                        { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/elements.jpg' },
-                        { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/faq.jpg' }
+                        { 
+                            id: 'pho',
+                            title: 'Noodle Soups (Pho)',
+                            className: 'featured-image', 
+                            backgroundImage: 'img/featured-image/phobulous/fhd/20170911-DSCF5641.jpg' 
+                        },
+                        { 
+                            id: 'bun', 
+                            title: 'Noodle Bowls (Bun)', 
+                            className: 'featured-image', 
+                            backgroundImage: 'img/featured-image/phobulous/fhd/20170911-DSCF5683.jpg' 
+                        },
+                        { 
+                            id: 'rice', 
+                            title: 'Rice Dishes', 
+                            className: 'featured-image', 
+                            backgroundImage: 'img/featured-image/phobulous/fhd/20170911-DSCF5729.jpg' 
+                        },
+                        { 
+                            id: 'appetizers', 
+                            title: 'Appetizers', 
+                            className: 'featured-image', 
+                            backgroundImage: 'img/featured-image/phobulous/fhd/20170911-DSCF5578.jpg'
+                        }
                     ],
                     featured: [
                         { id: null, className: 'featured-image', backgroundImage: 'img/featured-image/about.jpg' },
@@ -85,29 +104,27 @@ export default {
         // Use markdown
     ],
     cart: [
-        { id: '', name: '', image: 'img/cart/item01.jpg' },
-        { id: '', name: '', image: 'img/cart/item02.jpg' }
+        { 
+            id: '', 
+            name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', 
+            image: 'img/products/fhd/20170911-DSCF5603.jpg' 
+        },
+        { 
+            id: '', 
+            name: 'Deep-Fried Spring Rolls', 
+            image: 'img/products/fhd/20170911-DSCF5509.jpg' 
+        }
     ],
     catalog: {
         items: [
-            { id: '', name: '', image: 'img/shop/th01.jpg' },
-            { id: '', name: '', image: 'img/shop/th02.jpg' },
-            { id: '', name: '', image: 'img/shop/th03.jpg' },
-            { id: '', name: '', image: 'img/shop/th04.jpg' },
-            { id: '', name: '', image: 'img/shop/th05.jpg' },
-            { id: '', name: '', image: 'img/shop/th06.jpg' },
-            { id: '', name: '', image: 'img/shop/th07.jpg' },
-            { id: '', name: '', image: 'img/shop/th08.jpg' },
-            { id: '', name: '', image: 'img/shop/th09.jpg' },
-            { id: '', name: '', image: 'img/shop/th10.jpg' },
-            { id: '', name: '', image: 'img/shop/th11.jpg' },
-            { id: '', name: '', image: 'img/shop/th12.jpg' },
-            { id: '', name: '', image: 'img/shop/th13.jpg' },
-            { id: '', name: '', image: 'img/shop/th14.jpg' },
-            { id: '', name: '', image: 'img/shop/th15.jpg' },
-            { id: '', name: '', image: 'img/shop/th16.jpg' },
-            //{ id: '', name: '', image: 'img/shop/th17.jpg' },
-            //{ id: '', name: '', image: 'img/shop/th18.jpg' },
+            { id: '', name: 'Deep-Fried Spring Rolls', image: 'img/products/fhd/20170911-DSCF5509.jpg' },
+            { id: '', name: 'Fresh Salad Rolls', image: 'img/products/fhd/20170911-DSCF5532.jpg' },
+            { id: '', name: 'Gyoza Dumplings', image: 'img/products/fhd/20170911-DSCF5556.jpg' },
+            { id: '', name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', image: 'img/products/fhd/20170911-DSCF5603.jpg' },
+            { id: '', name: 'Spicy Satay Noodle Soup with Seafood', image: 'img/products/fhd/20170911-DSCF5650.jpg' },
+            { id: '', name: 'Vermicelli with Seafood and Spring Rolls', image: 'img/products/fhd/20170911-DSCF5683.jpg' },
+            { id: '', name: 'Vermicelli with Beef and Spring Rolls', image: 'img/products/fhd/20170911-DSCF5701.jpg' },
+            { id: '', name: 'Rice with Satay Shrimp', image: 'img/products/fhd/20170911-DSCF5727.jpg' }
         ],
         categories: [
             { id: '', name: '', image: 'img/categories/cat01.jpg' },

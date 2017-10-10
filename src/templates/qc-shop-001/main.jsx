@@ -42,7 +42,8 @@ export default class QcShop001 extends Component {
             <LanguageSwitcher 
                 settings = {settings} />
             <Toolbar 
-                settings = {settings} />
+                settings = {settings}
+                cart = {settings.config.cart} />
           </header>{/* .navbar.navbar-sticky */}
           
           <Hero
@@ -53,19 +54,21 @@ export default class QcShop001 extends Component {
           {/* Content Wide */}
           <section className="container-fluid padding-top-3x">
             {/* Featured Categories */}
-            <h3 className="text-center padding-top">Categories</h3>
+            <h3 className="text-center padding-top">Our Menu</h3>
             <Categories 
-                settings = {settings} />
+                settings = {settings} 
+                categories = {settings.config.pages[0].layout.images.categories} />
             <div className="row padding-top">
               <Products 
-                settings = {settings} />
+                settings = {settings}
+                items = {settings.config.catalog.items} />
               
             </div>{/* .row */}
           </section>{/* .container-fluid */}
-          <Brands 
-            settings = {settings} />
+          {/*<Brands 
+          settings = {settings} />*/}
           
-          <div className="fw-section space-top-2x padding-top-3x padding-bottom-3x" style={{backgroundImage: 'url(img/video_bg.jpg)'}}>
+          {/*<div className="fw-section space-top-2x padding-top-3x padding-bottom-3x" style={{backgroundImage: 'url(img/video_bg.jpg)'}}>
             <div className="container padding-top-3x padding-bottom-3x text-center">
               <div className="space-top-3x space-bottom">
                 
@@ -75,10 +78,10 @@ export default class QcShop001 extends Component {
               </div>
               <p className="space-bottom-2x">Quick Commerce - your reliable partner.</p>
             </div>
-          </div>
+          </div>*/}
           
-          <Features 
-            settings = {settings} />
+          {/*<Features 
+          settings = {settings} />*/}
           <Footer 
             settings = {settings} />
         </div>{/* .page-wrapper */}

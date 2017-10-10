@@ -11,7 +11,7 @@ export default class Features extends Component {
                       <div className="feature-icon">
                         <i className="material-icons location_on" />
                       </div>
-                      <h4 className="feature-title">Free World-Wide Shipping</h4>
+                      <h4 className="feature-title">Pick-up or Online Delivery</h4>
                       <p className="feature-text">Free shipping on all orders over $100</p>
                     </div>
                   </div>
