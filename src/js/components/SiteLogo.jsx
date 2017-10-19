@@ -5,10 +5,10 @@ export default class SiteLogo extends Component {
         return (
             <div className="site-logo-wrapper">
                 <a href="index.html" className="site-logo visible-desktop">
-                  <span>Phobulous</span>
+                  <span><img src='img/phobulous-logo_green.png' /></span>
                 </a>
                 <a href="index.html" className="site-logo visible-mobile">
-                  <span>Phobulous</span>
+                  <span><img src='img/phobulous-logo_brown.png' /></span>
                 </a>
             </div>
         )

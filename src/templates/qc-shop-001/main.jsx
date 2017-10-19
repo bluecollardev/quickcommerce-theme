@@ -52,13 +52,13 @@ export default class QcShop001 extends Component {
             />
           
           {/* Content Wide */}
-          <section className="container-fluid padding-top-3x">
+          <section className="container-fluid padding-top-3x main-content">
             {/* Featured Categories */}
             <h3 className="text-center padding-top">Our Menu</h3>
             <Categories 
                 settings = {settings} 
                 categories = {settings.config.pages[0].layout.images.categories} />
-            <div className="row padding-top">
+            <div className="row padding-top product-section">
               <Products 
                 settings = {settings}
                 items = {settings.config.catalog.items} />

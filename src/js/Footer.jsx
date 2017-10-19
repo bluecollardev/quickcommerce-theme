@@ -6,7 +6,7 @@ export default class Footer extends Component {
             <footer className="footer">
                 <div className="column">
                   <p className="text-sm">Need help? Call <span className="text-primary">(780) 555-5555</span></p>
-                  <div className="social-bar text-center space-bottom">
+                  {/*<div className="social-bar text-center space-bottom">
                     <a href="#" className="sb-skype" data-toggle="tooltip" data-placement="top" title="Skype">
                       <i className="socicon-skype" />
                     </a>
@@ -22,7 +22,7 @@ export default class Footer extends Component {
                     <a href="#" className="sb-instagram" data-toggle="tooltip" data-placement="top" title data-original-title="Instagram">
                       <i className="socicon-instagram" />
                     </a>
-                  </div>{/* .social-bar */}
+                  </div>*/}{/* .social-bar */}
                   <p className="copyright">© 2017 Phobulous. Made with <i className="text-danger material-icons favorite" /> by Firebrand Web Solutions.</p>
                 </div>{/* .column */}
                 <div className="column">

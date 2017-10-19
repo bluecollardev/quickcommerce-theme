@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Products extends Component {
     render() {
         return (
-            <div className="col-lg-9 col-md-8">
+            <div className="col-xs-12">
                 <ul className="nav-tabs text-center" role="tablist">
                   <li className="active"><a href="#pho" role="tab" data-toggle="tab">Noodle Soups</a></li>
                   <li><a href="#bun" role="tab" data-toggle="tab">Noodle Bowls</a></li>
