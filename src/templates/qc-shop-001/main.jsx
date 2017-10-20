@@ -46,19 +46,27 @@ export default class QcShop001 extends Component {
                 cart = {settings.config.cart} />
           </header>{/* .navbar.navbar-sticky */}
           
-          <Hero
-            settings = {settings}
-            slides = {settings.config.pages[0].layout.images.heroSlides}
-            />
+          <section className="hero-slider" data-loop="true" data-autoplay="true" data-interval={7000}>
+              <Hero
+                settings = {settings}
+                slides = {settings.config.pages[0].layout.images.heroSlides}
+                />
+                
+              <div className="category-wrapper container">
+                  <h3 className="cursive text-center padding-top">~ By Category ~</h3>
+                  <Categories 
+                    settings = {settings} 
+                    categories = {settings.config.pages[0].layout.images.categories} />
+              </div>
+          </section>
           
           {/* Content Wide */}
-          <section className="container-fluid padding-top-3x main-content">
+          {/*<section className="container-fluid main-content">*/}
+          {/* Content */}
+          <section className="container main-content">
             {/* Featured Categories */}
-            <h3 className="text-center padding-top">Our Menu</h3>
-            <Categories 
-                settings = {settings} 
-                categories = {settings.config.pages[0].layout.images.categories} />
             <div className="row padding-top product-section">
+              <h3 className="cursive text-center padding-top">~ Our Menu ~</h3>
               <Products 
                 settings = {settings}
                 items = {settings.config.catalog.items} />

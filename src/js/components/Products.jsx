@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Products extends Component {
     render() {
         return (
-            <div className="col-xs-12">
+            <div className="col-xs-12 col-sm-10 col-sm-push-1">
                 <ul className="nav-tabs text-center" role="tablist">
                   <li className="active"><a href="#pho" role="tab" data-toggle="tab">Noodle Soups</a></li>
                   <li><a href="#bun" role="tab" data-toggle="tab">Noodle Bowls</a></li>
@@ -15,7 +15,7 @@ export default class Products extends Component {
                   <div role="tabpanel" className="tab-pane transition fade scale in active" id="pho">
                     <div className="row space-top-half">
                     {this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
-                      <div className="col-lg-3 col-sm-6">
+                      <div className="col-lg-4 col-sm-6">
                         <div className="shop-item">
                           <div className="shop-thumbnail">
                             <span className="shop-label text-danger">Sale</span>
