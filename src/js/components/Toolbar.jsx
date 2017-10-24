@@ -76,6 +76,8 @@ export default class Toolbar extends Component {
                           <a href="#">skype_id</a>
                         </li>
                       </ul>
+                      <iframe src="https://maps.google.com/maps?q=phobulous edmonton&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height={350} frameBorder={0} style={{border: 0}} />
+                            
                       <span className="text-sm display-inline" style={{marginBottom: 6}}>Social accounts: &nbsp;&nbsp;</span>
                       <div className="social-bar display-inline">
                         <a href="#" className="sb-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
