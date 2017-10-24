@@ -24,7 +24,7 @@ var env = {
 	API_VERSION: JSON.stringify('normal'),
 	API_TARGET: JSON.stringify('normal'),	
 	AUTH_MODE: JSON.stringify('mock'), // [normal|legacy|mock]
-	+//QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
+	//QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
 	//QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
 	//QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
     //QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')
