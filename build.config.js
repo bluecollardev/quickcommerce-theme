@@ -3,7 +3,7 @@ module.exports = {
 	phonegapDirectory: 'phonegap-app',
 	sourceDirectory: 'src',
 	appDirectory: 'src/app',
-	buildDirectory: 'build',
+	buildDirectory: '../build',
 	testDirectory: 'test',
 	libDirectory: 'lib',
 	themeSourceDirectory: 'themes/src',

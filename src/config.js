@@ -49,8 +49,8 @@ export default {
                             id: 'phobulous', 
                             title: 'Fabulously Delicious', 
                             subtitle1: 'Soups and Vermicelli Bowls', 
-                            subtitle2: 'Take a look at', 
-                            subtitle3: 'our all new menu!', 
+                            subtitle2: 'Explore our', 
+                            subtitle3: 'all new menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5637.jpg' 
@@ -59,8 +59,8 @@ export default {
                             id: 'salad-rolls', 
                             title: 'Try Our Fan Favorite', 
                             subtitle1: 'Salad Rolls, Spring Rolls and More', 
-                            subtitle2: 'Take a look at', 
-                            subtitle3: 'our all new menu!',  
+                            subtitle2: 'Explore our', 
+                            subtitle3: 'all new menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5532.jpg' 
@@ -69,8 +69,8 @@ export default {
                             id: 'spring-rolls', 
                             title: 'Hot and Crispy', 
                             subtitle1: 'Spring Rolls, Gyozas and More', 
-                            subtitle2: 'Take a look at', 
-                            subtitle3: 'our all new menu!', 
+                            subtitle2: 'Explore our', 
+                            subtitle3: 'all new menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5512.jpg' 
@@ -79,8 +79,8 @@ export default {
                             id: 'gyozas',
                             title: 'Fan Favorite', 
                             subtitle1: 'Gyozas, Dumplings and More', 
-                            subtitle2: 'Take a look at', 
-                            subtitle3: 'our all new menu!', 
+                            subtitle2: 'Explore our', 
+                            subtitle3: 'all new menu!',  
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5578.jpg' 
@@ -89,8 +89,8 @@ export default {
                             id: 'buns', 
                             title: 'Fabulously Delicious', 
                             subtitle1: 'Vermicelli Bowls and Noodle Soups', 
-                            subtitle2: 'Take a look at', 
-                            subtitle3: 'our all new menu!', 
+                            subtitle2: 'Explore our', 
+                            subtitle3: 'all new menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5683.jpg' 
@@ -154,25 +154,160 @@ export default {
     cart: [
         { 
             id: '', 
-            name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', 
+            name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls',
+            shortDescription: 'Rare Beef, Brisket and Meat Balls',
+            description: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', 
             image: 'img/products/fhd/20170911-DSCF5603.jpg' 
         },
         { 
             id: '', 
             name: 'Deep-Fried Spring Rolls', 
+            shortDescription: 'Deep-Fried Spring Rolls',
+            description: 'Deep-Fried Spring Rolls', 
             image: 'img/products/fhd/20170911-DSCF5509.jpg' 
         }
     ],
     catalog: {
         items: [
-            { id: '', name: 'Spicy Satay Noodle Soup with Seafood', image: 'img/products/fhd/20170911-DSCF5650.jpg' },
-            { id: '', name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', image: 'img/products/fhd/20170911-DSCF5603.jpg' },
-            { id: '', name: 'Vermicelli Bowl with Beef, Shrimp and Spring Rolls', image: 'img/products/fhd/20170911-DSCF5701.jpg' },
-            { id: '', name: 'Vermicelli Bowl with Seafood and Spring Rolls', image: 'img/products/fhd/20170911-DSCF5683.jpg' },
-            { id: '', name: 'Rice Bowl with Spicy Satay Shrimp', image: 'img/products/fhd/20170911-DSCF5727.jpg' },
-            { id: '', name: 'Fresh Vietnamese Salad Rolls with Shrimp', image: 'img/products/fhd/20170911-DSCF5532.jpg' },
-            { id: '', name: 'Steamed Gyoza Dumplings', image: 'img/products/fhd/20170911-DSCF5556.jpg' },
-            { id: '', name: 'Deep-Fried Spring Rolls', image: 'img/products/fhd/20170911-DSCF5509.jpg' }
+            {   id: '', 
+                name: 'Spicy Satay Noodle Soup with Seafood', 
+                shortDescription: 'Spicy Satay Noodle Soup with Seafood', 
+                description: 'Spicy Satay Noodle Soup with Seafood', 
+                image: 'img/products/fhd/20170911-DSCF5650.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Add Squid',
+                        price: 1.00
+                    },
+                    {
+                        id: '',
+                        name: 'Extra Shrimp',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Noodle Soup with Rare Beef, Brisket and Meat Balls',
+                shortDescription: 'Noodle Soup with Rare Beef, Brisket and Meat Balls', 
+                description: 'Noodle Soup with Rare Beef, Brisket and Meat Balls',
+                image: 'img/products/fhd/20170911-DSCF5603.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Meat Balls',
+                        price: 1.00
+                    },
+                    {
+                        id: '',
+                        name: 'Extra Beef',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Vermicelli Bowl with Beef, Shrimp and Spring Rolls', 
+                shortDescription: 'Vermicelli Bowl with Beef, Shrimp and Spring Rolls', 
+                description: 'Vermicelli Bowl with Beef, Shrimp and Spring Rolls', 
+                image: 'img/products/fhd/20170911-DSCF5701.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Extra Shrimp',
+                        price: 1.00
+                    },
+                    {
+                        id: '',
+                        name: 'Extra Beef',
+                        price: 1.00
+                    },
+                    {
+                        id: '',
+                        name: 'Extra Spring Roll',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Vermicelli Bowl with Seafood and Spring Rolls', 
+                shortDescription: 'Vermicelli Bowl with Seafood and Spring Rolls', 
+                description: 'Vermicelli Bowl with Seafood and Spring Rolls', 
+                image: 'img/products/fhd/20170911-DSCF5683.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Extra spring roll',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Rice Bowl with Spicy Satay Shrimp', 
+                shortDescription: 'Rice Bowl with Spicy Satay Shrimp', 
+                description: 'Rice Bowl with Spicy Satay Shrimp', 
+                image: 'img/products/fhd/20170911-DSCF5727.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Extra shrimp',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Fresh Vietnamese Salad Rolls with Shrimp',
+                shortDescription: 'Fresh Vietnamese Salad Rolls with Shrimp',
+                description: 'Fresh Vietnamese Salad Rolls with Shrimp', 
+                image: 'img/products/fhd/20170911-DSCF5532.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Add BBQ Pork',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Steamed Gyoza Dumplings', 
+                shortDescription: 'Steamed Gyoza Dumplings', 
+                description: 'Steamed Gyoza Dumplings', 
+                image: 'img/products/fhd/20170911-DSCF5556.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Add extra dumpling',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            },
+            { 
+                id: '', 
+                name: 'Deep-Fried Spring Rolls', 
+                shortDescription: 'Deep-Fried Spring Rolls', 
+                description: 'Deep-Fried Spring Rolls', 
+                image: 'img/products/fhd/20170911-DSCF5509.jpg',
+                options: [
+                    {
+                        id: '',
+                        name: 'Add squid',
+                        price: 1.00
+                    }
+                ],
+                price: 15.95
+            }
         ],
         categories: [
             { id: '', name: '', image: 'img/categories/cat01.jpg' },

@@ -24,10 +24,14 @@ var env = {
 	API_VERSION: JSON.stringify('normal'),
 	API_TARGET: JSON.stringify('normal'),	
 	AUTH_MODE: JSON.stringify('mock'), // [normal|legacy|mock]
-	QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
-	QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
-	QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
-	QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')
+	+//QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
+	//QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
+	//QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
+    //QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')
+    QC_BASE_URI: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/'),
+	QC_LEGACY_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/api/rest/'),
+	QC_RESOURCE_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/qcapi/api/res/'),
+	QC_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/qcapi/api/v1/')
 }
 
 // Are we connected to a QuickCommerce installation?
@@ -91,6 +95,10 @@ module.exports = [{
         jquery: 'jQuery'
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json']
-    }  
+        //root: path.resolve(__dirname),
+		extensions: ['.js', '.jsx', '.json'],
+		alias: {
+			'quickcommerce-react': LIB_DIR + '/quickcommerce-react/src/js'
+		}
+    }
 }]
