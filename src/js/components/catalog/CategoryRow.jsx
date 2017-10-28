@@ -17,8 +17,10 @@ export default class CategoryRow extends Component {
         return (
             <Col xs={6} sm={3}>
                 <CategoryDragItem 
-                  item = {this.props.data}
+                  displayLabel = {true}
+                  displayThumbnail = {true}
                   id = {this.props.data.id}
+                  item = {this.props.data}
                   onItemClicked = {this.props.onItemClicked} />
             </Col>
         )

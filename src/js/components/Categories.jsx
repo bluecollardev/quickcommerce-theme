@@ -11,27 +11,27 @@ import { Well } from 'react-bootstrap'
 
 import Griddle from 'griddle-react'
 
-import Anchor from 'grommet/components/Anchor';
-import Box from 'grommet/components/Box';
-import Card from 'grommet/components/Card';
-import Chart, { Area, Axis, Base, Layers } from 'grommet/components/chart/Chart';
-import Menu from 'grommet/components/Menu';
-import Footer from 'grommet/components/Footer';
-import FormField from 'grommet/components/FormField';
-import NumberInput from 'grommet/components/NumberInput';
-import Select from 'grommet/components/Select';
-import Heading from 'grommet/components/Heading';
-import Hero from 'grommet/components/Hero';
-import Image from 'grommet/components/Image';
-import Label from 'grommet/components/Label';
-import TableHeader from 'grommet/components/TableHeader';
-import TableRow from 'grommet/components/TableRow';
-import Paragraph from 'grommet/components/Paragraph';
-import Quote from 'grommet/components/Quote';
-import Section from 'grommet/components/Section';
-import SocialShare from 'grommet/components/SocialShare';
-import Video from 'grommet/components/Video';
-import CirclePlayIcon from 'grommet/components/icons/base/CirclePlay';
+import Anchor from 'grommet/components/Anchor'
+import Box from 'grommet/components/Box'
+import Card from 'grommet/components/Card'
+import Chart, { Area, Axis, Base, Layers } from 'grommet/components/chart/Chart'
+import Menu from 'grommet/components/Menu'
+import Footer from 'grommet/components/Footer'
+import FormField from 'grommet/components/FormField'
+import NumberInput from 'grommet/components/NumberInput'
+import Select from 'grommet/components/Select'
+import Heading from 'grommet/components/Heading'
+import Hero from 'grommet/components/Hero'
+import Image from 'grommet/components/Image'
+import Label from 'grommet/components/Label'
+import TableHeader from 'grommet/components/TableHeader'
+import TableRow from 'grommet/components/TableRow'
+import Paragraph from 'grommet/components/Paragraph'
+import Quote from 'grommet/components/Quote'
+import Section from 'grommet/components/Section'
+import SocialShare from 'grommet/components/SocialShare'
+import Video from 'grommet/components/Video'
+import CirclePlayIcon from 'grommet/components/icons/base/CirclePlay'
 
 import StarRating from 'react-star-rating'
 
@@ -49,11 +49,12 @@ import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
 
 export default class Categories extends ProductBrowser {
     render() {
+        // Render categories
         let rowComponent = this.configureRow(this.props.customRowComponent)
         let item = this.props.item || null
 
         return (
-            <div className="row padding-top padding-bottom-3x">
+            <div className="row padding-top padding-bottom">
                 {this.props.displayCategoryFilter && (
                 <CategoryFilterBar
                     items = {this.state.categories}
@@ -88,126 +89,7 @@ export default class Categories extends ProductBrowser {
                       </div>
                   )}
                   
-                  {Object.keys(this.state.items).length > 0 && item !== null && (
-                  <div className='browser-content row'>
-                      <Col xs={12}>
-                          <FormGroup>
-                              <ControlLabel><h4>{this.props.title}</h4></ControlLabel>
-                              <Well>
-                                  <Row>
-                                      <Col sm={6}>
-                                          <Box margin={{top: 'none'}}>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'>
-                                                  <Label size='small'>Retail Price</Label>
-                                                  <Paragraph size='large' margin='none'>
-                                                      <strong style={{ fontSize: '1.5rem' }}>${parseFloat(item.price).toFixed(2)}</strong>
-                                                  </Paragraph>
-                                              </Box>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'
-                                                  separator='top'>
-                                                  <Label size='small'>Rating</Label>
-                                                  <StarRating name='react-star-rating' size={20} totalStars={5} rating={item.rating} />
-                                              </Box>
-                                          </Box>
-                                      </Col>
-                                      <Col sm={6}>
-                                          <Box pad={{vertical: 'small'}}
-                                              direction='row'
-                                              align='center'
-                                              justify='between'>
-                                              <Label size='small'>Status</Label>
-                                              <Paragraph size='large' margin='none'>
-                                                  <strong style={{ fontSize: '1rem' }}>{item.stock_status}</strong>
-                                              </Paragraph>
-                                          </Box>
-                                          <Box margin={{top: 'none'}}>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'
-                                                  separator='top'>
-                                                  <Label size='small'>Quantity</Label>
-                                                  <Paragraph size='large' margin='none'>
-                                                      <strong style={{ fontSize: '1rem' }}>{item.quantity}</strong>
-                                                  </Paragraph>
-                                              </Box>
-                                          </Box>
-                                      </Col>
-                                  </Row>
-                              </Well>
-                          </FormGroup>
-                      </Col>
-                  </div>
-                  )}
-                  
-                  {this.props.children && !(Object.keys(this.state.items).length > 0) && (
-                  <div className='browser-content row'>
-                      <Col sm={6}>
-                          {item !== null && (
-                          <FormGroup>
-                              <ControlLabel><h4>{this.props.title}</h4></ControlLabel>
-                              <Well>
-                                  <Row>
-                                      <Col xs={12}>
-                                          <Box margin={{top: 'none'}}>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'>
-                                                  <Label size='small'>Retail Price</Label>
-                                                  <Paragraph size='large' margin='none'>
-                                                      <strong style={{ fontSize: '1.5rem' }}>${parseFloat(item.price).toFixed(2)}</strong>
-                                                  </Paragraph>
-                                              </Box>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'
-                                                  separator='top'>
-                                                  <Label size='small'>Rating</Label>
-                                                  <StarRating name='react-star-rating' size={20} totalStars={5} rating={item.rating} />
-                                              </Box>
-                                          </Box>
-                                          <Box pad={{vertical: 'small'}}
-                                              direction='row'
-                                              align='center'
-                                              justify='between'>
-                                              <Label size='small'>Status</Label>
-                                              <Paragraph size='large' margin='none'>
-                                                  <strong style={{ fontSize: '1rem' }}>{item.stock_status}</strong>
-                                              </Paragraph>
-                                          </Box>
-                                          <Box margin={{top: 'none'}}>
-                                              <Box pad={{vertical: 'small'}}
-                                                  direction='row'
-                                                  align='center'
-                                                  justify='between'
-                                                  separator='top'>
-                                                  <Label size='small'>Quantity</Label>
-                                                  <Paragraph size='large' margin='none'>
-                                                      <strong style={{ fontSize: '1rem' }}>{item.quantity}</strong>
-                                                  </Paragraph>
-                                              </Box>
-                                          </Box>
-                                      </Col>
-                                  </Row>
-                              </Well>
-                          </FormGroup>
-                          )}
-                      </Col>
-                      <Col sm={6}>
-                          {this.props.children}
-                      </Col>
-                  </div>
-                  )}
-                  
-                  {this.props.children && (Object.keys(this.state.items).length > 0) && (
+                  {this.props.children && (Object.keys(this.state.categories).length > 0) && (
                   <div className='browser-content row'>
                       <Col sm={6}>
                           {/*item !== null && (
@@ -263,8 +145,8 @@ export default class Categories extends ProductBrowser {
                           )*/}
                           <Grid fluid={true}>
                               <Griddle
-                                  showFilter              = {this.props.displayTextFilter}
-                                  columns                 = {[
+                                  showFilter = {this.props.displayTextFilter}
+                                  columns = {[
                                       'manufacturer',
                                       'name',
                                       'model',
@@ -273,13 +155,14 @@ export default class Categories extends ProductBrowser {
                                       //'options',
                                       'price'
                                   ]}
-                                  useGriddleStyles        = {false}
+                                  useGriddleStyles = {false}
+                                  showPager = {false}
                                   useCustomPagerComponent = {true}
-                                  customPagerComponent    = {BootstrapPager}
-                                  useCustomRowComponent   = {true}
-                                  resultsPerPage          = {4}
-                                  customRowComponent      = {rowComponent}
-                                  results                 = {this.state.items}
+                                  customPagerComponent = {BootstrapPager}
+                                  useCustomRowComponent = {true}
+                                  resultsPerPage = {4}
+                                  customRowComponent = {rowComponent}
+                                  results = {this.state.categories}
                               />
                           </Grid>
                       </Col>
@@ -310,13 +193,13 @@ export default class Categories extends ProductBrowser {
                               useCustomRowComponent = {true}
                               resultsPerPage = {4}
                               customRowComponent = {rowComponent}
-                              results = {this.state.items}
+                              results = {this.state.categories}
                           />
                       </Grid>
                   </div>
                   )}
                 </div>
-                {/*<div className="col-sm-3 col-xs-6">
+                <div className="col-sm-3 col-xs-6">
                     <a href="#" className="category-link">
                       <img src={this.props.categories[0].backgroundImage} alt={this.props.categories[0].title} />
                       {this.props.categories[0].title}
@@ -339,7 +222,7 @@ export default class Categories extends ProductBrowser {
                       <img src={this.props.categories[3].backgroundImage} alt={this.props.categories[3].title} />
                       {this.props.categories[3].title}
                     </a>
-                </div>*/}
+                </div>
             </div>
         )
     }

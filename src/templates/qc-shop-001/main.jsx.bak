@@ -258,7 +258,7 @@ export class QcShop001 extends PosComponent {
             <GalleryFullwidthNoGap />
 
             <GalleryBoxedWithGap />
-            <GalleryBoxedNoGap />*/}
+                <GalleryBoxedNoGap />
           </section>{/* .container-fluid */}
           {/*<Brands 
           settings = {settings} />*/}
@@ -279,10 +279,8 @@ export class QcShop001 extends PosComponent {
           settings = {settings} />*/}
           <Footer 
             settings = {settings} />
-        </div>{/* .page-wrapper */}
-        {/* JavaScript (jQuery) libraries, plugins and custom scripts */}
-        {/* <body> */}
         </div>
+      </div>
     )
   }
 }

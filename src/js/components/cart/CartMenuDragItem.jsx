@@ -21,7 +21,7 @@ function collect(connect, monitor) {
     }
 }
 
-const CartDragItem = React.createClass({
+const CartMenuDragItem = React.createClass({
     getDefaultProps() {
         return {
             item : {},
@@ -68,16 +68,18 @@ const CartDragItem = React.createClass({
                 </div>*/}
                 
                 <div className="shop-item-details">
-                    <h5 className="shop-item-title"><a href="shop-single.html"><small><em>"{this.props.item['model']}"</em></small></a></h5>
+                    <h5 className="shop-item-title h6"><a href="shop-single.html">
+                        <small><em className='cursive'>{this.props.item['model']}</em></small>
+                    </a></h5>
                 </div>
                 <div className="shop-item-details">  
-                    <h3 className="shop-item-title"><a href="shop-single.html"><small>{this.props.item['name']}</small></a></h3>
+                    <h3 className="shop-item-title"><a href="shop-single.html"><strong>{this.props.item['name']}</strong></a></h3>
                     {this.props.item.hasOwnProperty('price') && 
                     this.props.item['price'] !== false && 
                     !isNaN(this.props.item['price']) && (
                     <span className="shop-item-price">
-                        <span className="old-price">N/A</span>
-                        {'$' + parseFloat(this.props.item['price']).toFixed(2)}
+                    {/*<span className="old-price">N/A</span>*/}
+                    <h3>{'$' + parseFloat(this.props.item['price']).toFixed(2)}</h3>
                     </span>
                     )}
                 </div>
@@ -90,4 +92,4 @@ const CartDragItem = React.createClass({
     }
 })
 
-module.exports = DragSource('sprite', mySource, collect)(CartDragItem)
+module.exports = DragSource('sprite', mySource, collect)(CartMenuDragItem)

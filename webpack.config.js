@@ -77,12 +77,16 @@ module.exports = [{
 						 'stage-0'
                     ],
                     plugins: [
+                        'transform-decorators-legacy',
                         'transform-class-properties'
                     ]
                 }
             },
             {
                 test: /\.css$/, loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.scss$/, loader: 'style-loader!sass-loader!css-loader'
             }
         ]
     },

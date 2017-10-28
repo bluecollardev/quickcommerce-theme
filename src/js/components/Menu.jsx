@@ -15,7 +15,7 @@ import Anchor from 'grommet/components/Anchor'
 import Box from 'grommet/components/Box'
 import Card from 'grommet/components/Card'
 import Chart, { Area, Axis, Base, Layers } from 'grommet/components/chart/Chart'
-import Menu from 'grommet/components/Menu'
+//import Menu from 'grommet/components/Menu'
 import Footer from 'grommet/components/Footer'
 import FormField from 'grommet/components/FormField'
 import NumberInput from 'grommet/components/NumberInput'
@@ -47,7 +47,7 @@ import BootstrapPager from 'quickcommerce-react/components/common/GriddleBootstr
 
 import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
 
-export default class Products extends ProductBrowser {
+export default class Menu extends ProductBrowser {
     render() {
         let rowComponent = this.configureRow(this.props.customRowComponent)
         let item = this.props.item || null
@@ -148,7 +148,7 @@ export default class Products extends ProductBrowser {
                   
                   {this.props.children && !(Object.keys(this.state.items).length > 0) && (
                   <div className='browser-content row'>
-                      <Col sm={6}>
+                      <Col sm={12}>
                           {item !== null && (
                           <FormGroup>
                               <ControlLabel><h4>{this.props.title}</h4></ControlLabel>
@@ -209,7 +209,10 @@ export default class Products extends ProductBrowser {
                   
                   {this.props.children && (Object.keys(this.state.items).length > 0) && (
                   <div className='browser-content row'>
-                      <Col sm={6}>
+                      <Col sm={12}>
+                          {this.props.children}
+                      </Col>
+                      <Col sm={12}>
                           {/*item !== null && (
                           <FormGroup>
                               <ControlLabel>Product Details</ControlLabel>
@@ -284,9 +287,6 @@ export default class Products extends ProductBrowser {
                               />
                           </Grid>
                       </Col>
-                      <Col sm={6}>
-                          {this.props.children}
-                      </Col>
                   </div>
                   )}
                       
@@ -321,7 +321,7 @@ export default class Products extends ProductBrowser {
               <div className="tab-content">
                   <div role="tabpanel" className="tab-pane transition fade scale in active" id="pho">
                     <div className="row space-top-half">
-                    {/*this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
+                    {this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
                       <div className="col-lg-4 col-sm-6">
                         <div className="shop-item">
                           <div className="shop-thumbnail">
@@ -349,13 +349,13 @@ export default class Products extends ProductBrowser {
                           </div>
                         </div>
                       </div>
-                    ))*/}
+                    ))}
                     </div>
                   </div>
                   
                   <div role="tabpanel" className="tab-pane transition fade scale" id="bun">
                     <div className="row space-top-half">
-                    {/*this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
+                    {this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
                       <div className="col-lg-3 col-sm-6">
                         <div className="shop-item">
                           <div className="shop-thumbnail">
@@ -383,13 +383,13 @@ export default class Products extends ProductBrowser {
                           </div>
                         </div>
                       </div>
-                    ))*/}
+                    ))}
                     </div>
                   </div>
                   
                   <div role="tabpanel" className="tab-pane transition fade scale" id="rice">
                     <div className="row space-top-half">
-                    {/*this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
+                    {this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
                       <div className="col-lg-3 col-sm-6">
                         <div className="shop-item">
                           <div className="shop-thumbnail">
@@ -417,13 +417,13 @@ export default class Products extends ProductBrowser {
                           </div>
                         </div>
                       </div>
-                    ))*/}
+                    ))}
                     </div>
                   </div>
                   
                   <div role="tabpanel" className="tab-pane transition fade scale" id="appetizers">
                     <div className="row space-top-half">
-                    {/*this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
+                    {this.props.items && this.props.items instanceof Array && this.props.items.map((item, idx) => (
                       <div className="col-lg-3 col-sm-6">
                         <div className="shop-item">
                           <div className="shop-thumbnail">
@@ -451,7 +451,7 @@ export default class Products extends ProductBrowser {
                           </div>
                         </div>
                       </div>
-                    ))*/}
+                    ))}
                     </div>
                   </div>
                 </div>

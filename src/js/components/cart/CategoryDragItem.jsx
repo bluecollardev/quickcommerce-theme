@@ -39,7 +39,7 @@ const CategoryDragItem = React.createClass({
         const { id, isDragging, connectDragSource } = this.props
         return connectDragSource(
             <a href="shop-single.html" className="category-link"
-                onClick={this.onClick.bind(this)}>
+                onClick={this.onClick}>
                 <img src={this.props.item.image} />
                 {this.props.item['name']}
             </a>
