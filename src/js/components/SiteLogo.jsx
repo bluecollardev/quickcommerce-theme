@@ -8,7 +8,7 @@ export default class SiteLogo extends Component {
                   <span><img src='img/phobulous-logo_green.png' /></span>
                 </a>
                 <a href="index.html" className="site-logo visible-mobile">
-                  <span><img src='img/phobulous-logo_brown.png' /></span>
+                  <span><img src='img/phobulous-logo_green.png' /></span>
                 </a>
             </div>
         )

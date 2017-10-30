@@ -15,7 +15,7 @@ export default class CategoryRow extends Component {
     
     render() {
         return (
-            <Col xs={6} sm={4}>
+            <Col xs={6} sm={12}>
                 <CategoryDragItem 
                   displayLabel = {true}
                   displayThumbnail = {true}

@@ -46,32 +46,42 @@ export default {
                 images: {
                     heroSlides: [
                         { 
-                            id: 'phobulous', 
+                            id: 'buns', 
                             title: 'Fabulously Delicious', 
-                            subtitle1: 'Soups and Vermicelli Bowls', 
-                            subtitle2: 'Explore our', 
-                            subtitle3: 'all new menu!', 
+                            subtitle1: 'Vermicelli Bowls and Noodle Soups', 
+                            subtitle2: 'Explore our new', 
+                            subtitle3: 'take out menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5637.jpg' 
+                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5683.jpg' 
                         },
                         { 
                             id: 'salad-rolls', 
                             title: 'Try Our Fan Favorite', 
                             subtitle1: 'Salad Rolls, Spring Rolls and More', 
-                            subtitle2: 'Explore our', 
-                            subtitle3: 'all new menu!', 
+                            subtitle2: 'Explore our new', 
+                            subtitle3: 'take out menu!',
                             ctaText: 'View Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5532.jpg' 
                         },
                         { 
+                            id: 'phobulous', 
+                            title: 'Fabulously Delicious', 
+                            subtitle1: 'Soups and Vermicelli Bowls', 
+                            subtitle2: 'Explore our new', 
+                            subtitle3: 'take out menu!', 
+                            ctaText: 'View Takeout Menu', 
+                            className: 'slide', 
+                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5637.jpg' 
+                        },
+                        { 
                             id: 'spring-rolls', 
                             title: 'Hot and Crispy', 
                             subtitle1: 'Spring Rolls, Gyozas and More', 
-                            subtitle2: 'Explore our', 
-                            subtitle3: 'all new menu!', 
-                            ctaText: 'View Menu', 
+                            subtitle2: 'Explore our new', 
+                            subtitle3: 'take out menu!',
+                            ctaText: 'View Takeout Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5512.jpg' 
                         },
@@ -79,21 +89,11 @@ export default {
                             id: 'gyozas',
                             title: 'Fan Favorite', 
                             subtitle1: 'Gyozas, Dumplings and More', 
-                            subtitle2: 'Explore our', 
-                            subtitle3: 'all new menu!',  
-                            ctaText: 'View Menu', 
+                            subtitle2: 'Explore our new', 
+                            subtitle3: 'take out menu!', 
+                            ctaText: 'View Takeout Menu', 
                             className: 'slide', 
                             backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5578.jpg' 
-                        },
-                        { 
-                            id: 'buns', 
-                            title: 'Fabulously Delicious', 
-                            subtitle1: 'Vermicelli Bowls and Noodle Soups', 
-                            subtitle2: 'Explore our', 
-                            subtitle3: 'all new menu!', 
-                            ctaText: 'View Menu', 
-                            className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5683.jpg' 
                         },
                         /*{ id: 'rice-dishes', className: 'slide', backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5727.jpg' }*/
                     ],

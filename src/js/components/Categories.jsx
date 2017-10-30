@@ -40,18 +40,21 @@ import BrowserActions from 'quickcommerce-react/actions/BrowserActions.jsx'
 import BrowserStore from 'quickcommerce-react/stores/BrowserStore.jsx'
 import BrowserMenu from 'quickcommerce-react/components/browser/BrowserMenu.jsx'
 
-import CatalogRow from 'quickcommerce-react/components/catalog/CatalogRow.jsx'
+import CategoryRow from 'quickcommerce-react/components/catalog/CategoryRow.jsx'
 import CategoryFilterBar from './common/CategoryFilterBar.jsx'
 import FilterBar from 'quickcommerce-react/components/common/FilterBar.jsx'
 import BootstrapPager from 'quickcommerce-react/components/common/GriddleBootstrapPager.jsx'
 
 import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
 
-export default class Categories extends ProductBrowser {
+export default class Categories extends ProductBrowser {    
     render() {
         // Render categories
         let rowComponent = this.configureRow(this.props.customRowComponent)
         let item = this.props.item || null
+        
+        console.log('dumping categories')
+        console.log(this.state.categories)
 
         return (
             <div className="row padding-top padding-bottom">
@@ -160,9 +163,9 @@ export default class Categories extends ProductBrowser {
                                   useCustomPagerComponent = {true}
                                   customPagerComponent = {BootstrapPager}
                                   useCustomRowComponent = {true}
-                                  resultsPerPage = {4}
+                                  resultsPerPage = {this.props.resultsPerPage}
                                   customRowComponent = {rowComponent}
-                                  results = {this.state.categories}
+                                  results = {this.state.categories.slice(0, this.props.maxResults)}
                               />
                           </Grid>
                       </Col>
@@ -191,15 +194,15 @@ export default class Categories extends ProductBrowser {
                               useCustomPagerComponent = {true}
                               customPagerComponent = {BootstrapPager}
                               useCustomRowComponent = {true}
-                              resultsPerPage = {4}
+                              resultsPerPage = {this.props.resultsPerPage}
                               customRowComponent = {rowComponent}
-                              results = {this.state.categories}
+                              results = {this.state.categories.slice(0, this.props.maxResults)}
                           />
                       </Grid>
                   </div>
                   )}
                 </div>
-                <div className="col-sm-3 col-xs-6">
+                {/*<div className="col-sm-3 col-xs-6">
                     <a href="#" className="category-link">
                       <img src={this.props.categories[0].backgroundImage} alt={this.props.categories[0].title} />
                       {this.props.categories[0].title}
@@ -222,7 +225,7 @@ export default class Categories extends ProductBrowser {
                       <img src={this.props.categories[3].backgroundImage} alt={this.props.categories[3].title} />
                       {this.props.categories[3].title}
                     </a>
-                </div>
+                </div>*/}
             </div>
         )
     }

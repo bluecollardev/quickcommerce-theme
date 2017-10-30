@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import CategoryDragItem from '../cart/CategoryDragItem.jsx'
 import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'react-bootstrap'
 
-export default class CategoryRow extends Component {
+export default class CategoryRow3x extends Component {
     static defaultProps = {
         data : {}, 
         onItemClicked: () => {}

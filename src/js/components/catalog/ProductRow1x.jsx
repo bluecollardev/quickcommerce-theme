@@ -4,7 +4,7 @@ import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'r
 
 import CartDragItem from '../cart/CartDragItem.jsx'
 
-export default class ProductRow extends Component {
+export default class ProductRow1x extends Component {
     static defaultProps = {
         data : {}, 
         onItemClicked: () => {},
@@ -20,7 +20,7 @@ export default class ProductRow extends Component {
         console.log('props.data')
         console.log(this.props.data)
         return (
-            <Col xs={12} sm={4}>
+            <Col xs={12} sm={12}>
                 <CartDragItem
                     onItemClicked = {this.props.onItemClicked}
                     displayLabel = {true}

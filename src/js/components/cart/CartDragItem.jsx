@@ -2,6 +2,8 @@ import React          from 'react'
 import { DragSource } from 'react-dnd'
 import { Thumbnail, Button }  from 'react-bootstrap'
 
+import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
+
 const mySource = {
 
     beginDrag(props) {
@@ -47,7 +49,7 @@ const CartDragItem = React.createClass({
                 {this.props.displayThumbnail && (
                 <Thumbnail 
                     className='shop-thumbnail'
-                    src={this.props.item.image}>
+                    src={'upload/image/' + this.props.item.image}>
                     {this.props.children}
                     <div className="shop-item-tools">
                         <a href="#" className="add-to-wishlist" data-toggle="tooltip" data-placement="top" title="Wishlist">
@@ -82,9 +84,9 @@ const CartDragItem = React.createClass({
                     )}
                 </div>
                 
-                <p className="shop-item-details">
-                    {this.props.item['description']}
-                </p>
+                {this.props.displayDetails && (
+                <p className="shop-item-details" dangerouslySetInnerHTML={{ __html: HtmlHelper.decodeHtmlEntities(this.props.item['description'])}}></p>
+                )}
             </div>
         )
     }

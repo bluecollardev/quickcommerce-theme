@@ -1,6 +1,8 @@
-import React          from 'react'
+import React from 'react'
 import { DragSource } from 'react-dnd'
 import { Thumbnail, Button }  from 'react-bootstrap'
+
+import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
 
 const mySource = {
 
@@ -84,9 +86,9 @@ const CartMenuDragItem = React.createClass({
                     )}
                 </div>
                 
-                <p className="shop-item-details">
-                    {this.props.item['description']}
-                </p>
+                {this.props.displayDetails && (
+                <p className="shop-item-details" dangerouslySetInnerHTML={{ __html: HtmlHelper.decodeHtmlEntities(this.props.item['description'])}}></p>
+                )}
             </div>
         )
     }

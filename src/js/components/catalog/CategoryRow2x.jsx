@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import CategoryDragItem from '../cart/CategoryDragItem.jsx'
 import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'react-bootstrap'
 
-export default class CategoryRow extends Component {
+export default class CategoryRow2x extends Component {
     static defaultProps = {
         data : {}, 
         onItemClicked: () => {}
@@ -15,7 +15,7 @@ export default class CategoryRow extends Component {
     
     render() {
         return (
-            <Col xs={6} sm={4}>
+            <Col xs={6} sm={6}>
                 <CategoryDragItem 
                   displayLabel = {true}
                   displayThumbnail = {true}

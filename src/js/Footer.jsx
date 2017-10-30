@@ -4,6 +4,7 @@ export default class Footer extends Component {
     render() {
         return (
             <div id="footer">
+                {this.props.children}
                 {/* TODO: props.children */}
                 <div id="contact" className="container">
                     <div className="line5">
@@ -19,6 +20,7 @@ export default class Footer extends Component {
                         <div className="row ftext">
                             <div className="col-md-12">
                                 <a id="features" />
+                                <p>Double click to close me.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
@@ -100,7 +102,11 @@ export default class Footer extends Component {
                 </div>
                 <footer className="footer">
                     <div className="column">
-                      <p className="text-sm">Need help? Call <span className="text-primary">(780) 555-5555</span></p>
+                      <h3 className="widget-title">
+                        Payment Methods
+                        <small>We support the following payment methods.</small>
+                      </h3>
+                      <div className="cards"><img src="img/cards.png" alt="Cards" /></div>
                       {/*<div className="social-bar text-center space-bottom">
                         <a href="#" className="sb-skype" data-toggle="tooltip" data-placement="top" title="Skype">
                           <i className="socicon-skype" />
@@ -118,7 +124,6 @@ export default class Footer extends Component {
                           <i className="socicon-instagram" />
                         </a>
                       </div>*/}{/* .social-bar */}
-                      <p className="copyright">© 2017 Phobulous. Made with <i className="text-danger material-icons favorite" /> by Firebrand Web Solutions.</p>
                     </div>{/* .column */}
                     <div className="column">
                       <h3 className="widget-title">
@@ -133,11 +138,7 @@ export default class Footer extends Component {
                       </form>
                     </div>{/* .column */}
                     <div className="column">
-                      <h3 className="widget-title">
-                        Payment Methods
-                        <small>We support the following payment methods.</small>
-                      </h3>
-                      <div className="cards"><img src="img/cards.png" alt="Cards" /></div>
+                      <p className="text-sm">Need help? Call <span className="text-primary">(780) 555-5555</span></p>
                       {/* Scroll To Top Button */}
                       <div className="scroll-to-top-btn"><i className="material-icons trending_flat" /></div>
                     </div>{/* .column */}
