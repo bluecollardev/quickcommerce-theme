@@ -10,26 +10,31 @@ import { DragDropContext } from 'react-dnd'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import HTML5Backend        from 'react-dnd-html5-backend'
 
-/* Framework imports */
-import SettingActions from 'quickcommerce-react/actions/SettingActions.jsx'
+/* Gfx */
+import { TimelineLite } from 'gsap' // Facade for GSAP parallax containers and effects
+import { Parallax, ParallaxContainer } from 'react-gsap-parallax' // Facade for GSAP parallax containers and effects
 
 /* Generic imports */
-import SiteLogo from '../../js/components/SiteLogo.jsx'
-import LanguageSwitcher from '../../js/components/LanguageSwitcher.jsx'
-import Toolbar from '../../js/components/Toolbar.jsx'
-import Hero from '../../js/components/Hero.jsx'
-import GalleryFullwidthWithGap from '../../js/components/gallery/GalleryFullwidthWithGap.jsx'
-import GalleryFullwidthNoGap from '../../js/components/gallery/GalleryFullwidthNoGap.jsx'
-import GalleryBoxedWithGap from '../../js/components/gallery/GalleryBoxedWithGap.jsx'
-import GalleryBoxedNoGap from '../../js/components/gallery/GalleryBoxedNoGap.jsx'
-import Categories from '../../js/components/Categories.jsx'
-import Menu from '../../js/components/Menu.jsx'
-import Products from '../../js/components/Products.jsx'
-import Brands from '../../js/components/Brands.jsx'
-import Features from '../../js/components/Features.jsx'
+import SiteLogo from 'quickcommerce-react/components/common/SiteLogo.jsx'
+import LanguageSwitcher from 'quickcommerce-react/components/common/LanguageSwitcher.jsx'
+import Toolbar from 'quickcommerce-react/components/common/Toolbar.jsx'
+import Hero from 'quickcommerce-react/components/shop/Hero.jsx'
+import GalleryFullwidthWithGap from 'quickcommerce-react/components/gallery/GalleryFullwidthWithGap.jsx'
+import GalleryFullwidthNoGap from 'quickcommerce-react/components/gallery/GalleryFullwidthNoGap.jsx'
+import GalleryBoxedWithGap from 'quickcommerce-react/components/gallery/GalleryBoxedWithGap.jsx'
+import GalleryBoxedNoGap from 'quickcommerce-react/components/gallery/GalleryBoxedNoGap.jsx'
+import Categories from 'quickcommerce-react/components/shop/Categories.jsx'
+import Menu from 'quickcommerce-react/components/shop/Menu.jsx'
+import Products from 'quickcommerce-react/components/shop/Products.jsx'
+import Brands from 'quickcommerce-react/components/shop/Brands.jsx'
+import Features from 'quickcommerce-react/components/shop/Features.jsx'
 
 /* Site specific imports */
-import PagePreloader from '../../js/PagePreloader.jsx'
+import PagePreloader from 'quickcommerce-react/components/common/PagePreloader.jsx'
+import HomePage from '../../js/components/Home.jsx'
+import ProductPage from 'quickcommerce-react/components/shop/Product.jsx'
+import AboutPage from 'quickcommerce-react/components/shop/About.jsx'
+import ContactPage from 'quickcommerce-react/components/shop/Contact.jsx'
 import Footer from '../../js/Footer.jsx'
 
 import { PosComponent } from 'quickcommerce-react/components/PosComponent.jsx'
@@ -40,15 +45,15 @@ import DragDropCartRow from 'quickcommerce-react/components/cart/DragDropCartRow
 import CartDropTarget from 'quickcommerce-react/components/cart/CartDropTarget.jsx'
 import CartDragItem from 'quickcommerce-react/components/cart/CartDragItem.jsx'
 import CatalogRow from 'quickcommerce-react/components/catalog/CatalogRow.jsx'
-import CategoryRow1x from '../../js/components/catalog/CategoryRow1x.jsx'
-import CategoryRow3x from '../../js/components/catalog/CategoryRow3x.jsx'
-import CategoryRow4x from '../../js/components/catalog/CategoryRow4x.jsx'
-import CategoryRow5x from '../../js/components/catalog/CategoryRow5x.jsx'
+import CategoryRow1x from 'quickcommerce-react/components/catalog/CategoryRow1x.jsx'
+import CategoryRow3x from 'quickcommerce-react/components/catalog/CategoryRow3x.jsx'
+import CategoryRow4x from 'quickcommerce-react/components/catalog/CategoryRow4x.jsx'
+import CategoryRow5x from 'quickcommerce-react/components/catalog/CategoryRow5x.jsx'
 /* Override */
-import ProductRow from '../../js/components/catalog/ProductRow.jsx'
-import ProductRow1x from '../../js/components/catalog/ProductRow1x.jsx'
-import TextMenuRow from '../../js/components/catalog/TextMenuRow.jsx'
-import TextMenuRow1x from '../../js/components/catalog/TextMenuRow1x.jsx'
+import ProductRow from 'quickcommerce-react/components/catalog/ProductRow.jsx'
+import ProductRow1x from 'quickcommerce-react/components/catalog/ProductRow1x.jsx'
+import TextMenuRow from 'quickcommerce-react/components/catalog/TextMenuRow.jsx'
+import TextMenuRow1x from 'quickcommerce-react/components/catalog/TextMenuRow1x.jsx'
 import ProductOptionRow from 'quickcommerce-react/components/catalog/ProductOptionRow.jsx'
 
 import Stepper from 'quickcommerce-react/components/stepper/BrowserStepper.jsx'
@@ -101,25 +106,38 @@ import CategoryStep from 'quickcommerce-react/steps/Category.jsx'
 import ProductStep from 'quickcommerce-react/steps/Product.jsx'
 import ProductOptionStep from 'quickcommerce-react/steps/ProductOption.jsx'
 
-import config from '../../config.js'
-const settings = SettingStore
+import ProductDetail from 'quickcommerce-react/components/catalog/ProductDetail.jsx'
 
-SettingActions.setConfig(config)
+import config from '../../config.js'
 
 @inject(deps => ({
-    authService: deps.authService,
-    customerService: deps.customerService,
+    actions: deps.actions,
+	authService: deps.authService,
+	customerService: deps.customerService,
     checkoutService: deps.checkoutService,
-    loginStore: deps.loginStore,
+    settingService: deps.authService,
+	loginStore: deps.loginStore,
     userStore: deps.userStore,
     customerStore: deps.customerStore,
     checkoutStore: deps.checkoutStore,
     starMicronicsStore: deps.starMicronicsStore,
     productStore: deps.productStore,
-    settingStore: deps.settingStore
+	settingStore: deps.settingStore,
+	mappings: deps.mappings, // Per component or global scope?
+	translations: deps.translations, // i8ln transations
+	roles: deps.roles, // App level roles, general authenticated user (not customer!)
+	userRoles: deps.userRoles, // Shortcut or implement via HoC?
+	user: deps.user // Shortcut or implement via HoC?
 }))
 @observer
 export class QcShop001 extends PosComponent {
+  constructor(props) {
+    super(props)
+    console.log(config)
+    props.actions.setting.setConfig(config)
+    //props.actions.setting.setSettings(config)
+  }
+  
   componentDidMount() {
     /*let orderButton = document.getElementById('cart-button')
     console.log('order button')
@@ -148,15 +166,15 @@ export class QcShop001 extends PosComponent {
     
     // Store our stepper instance
     // Stepper maintains its own state and store
-    this.stepper.setSteps(this.configureSteps())
-    this.stepper.start()
+    //this.stepper.setSteps(this.configureSteps())
+    //this.stepper.start()
     
-    let settings = SettingStore.getSettings().posSettings
+    let settings = this.props.settingStore.getSettings().posSettings
 
     settings['pinned_category_id'] = 9 // 'New' category
     let categoryId = null
     
-    this.menuCategoryBrowser.actions.loadCategories() // Browser load categories via refs
+    //this.menuCategoryBrowser.actions.loadCategories() // Browser load categories via refs
     this.topCategoryBrowser.actions.loadTopCategories() // Browser load categories via refs
     
     if (typeof this.props.match !== 'undefined' && 
@@ -172,10 +190,10 @@ export class QcShop001 extends PosComponent {
     }
     
     // Just load browser products, don't trigger any steps
-    this.menuProductBrowser.actions.loadProducts(categoryId)
+    //this.menuProductBrowser.actions.loadProducts(categoryId)
     
     // Just load browser products, don't trigger any steps
-    this.menuDrinksBrowser.actions.loadProducts(11) // Drinks TODO: Make this configurable
+    //this.menuDrinksBrowser.actions.loadProducts(11) // Drinks TODO: Make this configurable
   }
   
   configureSteps() {
@@ -191,7 +209,7 @@ export class QcShop001 extends PosComponent {
             return true
         },
         action: (step, data, done) => {
-            this.menuCategoryBrowser.actions.loadCategories()
+            //this.menuCategoryBrowser.actions.loadCategories()
 
             if (done) {
                 // Process checkout if done
@@ -228,9 +246,9 @@ export class QcShop001 extends PosComponent {
                 data.hasOwnProperty('category_id') &&
                 !Number.isNaN(data.category_id)) {
 
-                this.menuProductBrowser.actions.loadProducts(data.category_id) // TODO: CONST for prop name?
+                //this.menuProductBrowser.actions.loadProducts(data.category_id) // TODO: CONST for prop name?
             } else {
-                this.menuProductBrowser.actions.loadProducts()
+                //this.menuProductBrowser.actions.loadProducts()
             }
 
             if (done) {
@@ -270,7 +288,7 @@ export class QcShop001 extends PosComponent {
                 data.hasOwnProperty('id') &&
                 !Number.isNaN(data.id)) {
 
-                this.optionBrowser.actions.loadOptions(data) // TODO: CONST for prop name?
+                //this.optionBrowser.actions.loadOptions(data) // TODO: CONST for prop name?
             } else {
                 // Do nothing - options only correlate to a browser item
                 // TODO: This is being triggered when clicking a browser item, but there's no data object...
@@ -319,7 +337,7 @@ export class QcShop001 extends PosComponent {
     
     console.log(item);
     // Just load browser products, don't trigger any steps
-    this.menuProductBrowser.actions.loadProducts(item['category_id'])
+    //this.menuProductBrowser.actions.loadProducts(item['category_id'])
   }
   
   itemClicked(e, item) {
@@ -332,6 +350,8 @@ export class QcShop001 extends PosComponent {
         
         return
     }
+    
+    window.location.hash = '#/product'
     
     /*let stepId = 'options'
     let stepDescriptor = this.stepper.getStepById(stepId) || null
@@ -370,201 +390,175 @@ export class QcShop001 extends PosComponent {
     
     return (
       <div>
-        <div className="parallax-element left condiment condiment-chili"></div>
-        <div className="parallax-element left herb green-onions-1"></div>
-        <div className="parallax-element right condiment condiment-cilantro"></div>
-        <div className="parallax-element left condiment condiment-lime"></div>
-        <div className="parallax-element right herb green-onions-2"></div>    
         {/*<div className="parallax-element right condiment condiment-onion"></div>*/}
         {/* Page Preloading */}
         {/* Modernizr */}
         {/* Body */}
         <PagePreloader 
-            settings = {settings} />
+            settings = {this.props.settingStore} />
         {/* Page Wrapper */}
-        <div className="page-wrapper">
+        <div className="page-wrapper dark">
           {/* Navbar */}
           {/* Remove ".navbar-sticky" class to make navigation bar scrollable with the page. */}
           <header className="navbar navbar-sticky">
             <SiteLogo 
-                settings = {settings} />
+                settings = {this.props.settingStore} />
             {/*<LanguageSwitcher 
                 settings = {settings} />*/}
             <Toolbar 
-                settings = {settings}
-                cart = {settings.config.cart} />
+                settings = {this.props.settingStore}
+                cart = {this.props.settingStore.config.cart} />
           </header>{/* .navbar.navbar-sticky */}
           
           <section className="hero-slider" data-loop="true" data-autoplay="true" data-interval={7000}>
-              <Hero
-                settings = {settings}
-                slides = {settings.config.pages[0].layout.images.heroSlides}
+            <Hero
+                settings = {this.props.settingStore}
+                slides = {this.props.settingStore.config.pages[0].layout.images.heroSlides}
                 />
-                
-              <div className="category-wrapper container-fluid">
-                <div className="container">
-                  <h3 className="cursive text-center padding-top">~ By Category ~</h3>
-                  <Categories
-                    ref = {(browser) => this.topCategoryBrowser = browser}
-                    settings = {settings}
-                    activeStep = 'shop'
-                    title = {this.state.title}
-                    displayTitle = {false}
-                    displayProductFilter = {false}
-                    displayCategoryFilter = {false}
-                    displayTextFilter = {false}
-                    stepper = {this.stepper}
-                    steps = {steps}
-                    customRowComponent = {CategoryRow4x}
-                    results = {this.state.items}
-                    resultsPerPage = {4}
-                    maxResults = {4}
-                    fluxFactory = {fluxFactory}
-                    onItemClicked = {this.categoryClicked}
-                    onFilterSelected = {this.categoryFilterSelected}
-                    onStepClicked = {this.stepClicked}
-                    />
-                </div>
-              </div>
           </section>
           
-          {/* Content Wide */}
-          {/*<section className="container-fluid main-content">*/}
-          {/* Content */}
-          <section className="container main-content">
-            <div className="parallax-element herb basil"></div>
-            {/* Featured Categories */}
-            <div className="row padding-top product-section">
-              <h3 className="cursive text-center padding-top">~ Our Menu ~</h3>
-              <Categories
-                ref = {(browser) => this.menuCategoryBrowser = browser}
-                settings = {settings}
-                //items = {settings.config.catalog.categories}
-                activeStep = 'shop'
-                title = {this.state.title}
-                showPager = {false}
-                resultsPerPage = {15}
-                maxResults = {5}
-                displayTitle = {false}
-                displayProductFilter = {false}
-                displayCategoryFilter = {false}
-                displayTextFilter = {false}
-                stepper = {this.stepper}
-                steps = {steps}
-                customRowComponent = {CategoryRow5x}
-                fluxFactory = {fluxFactory}
-                onItemClicked = {this.categoryClicked}
-                onFilterSelected = {this.categoryFilterSelected}
-                onStepClicked = {this.stepClicked}
-                //categories = {settings.config.pages[0].layout.images.categories} 
-                />
-              <div className="col-lg-8 col-md-7">
-                <Menu
-                    ref = {(browser) => this.menuProductBrowser = browser}
-                    settings = {settings}
-                    //items = {settings.config.catalog.items}
-                    activeStep = 'cart'
-                    displayTitle = {false}
-                    title = {this.state.title}
-                    showPager = {true}
-                    resultsPerPage = {24}
-                    displayCategoryFilter = {false}
-                    displayTextFilter = {false}
-                    stepper = {this.stepper}
-                    steps = {steps}
-                    customRowComponent = {TextMenuRow}
-                    fluxFactory = {fluxFactory}
-                    onItemClicked = {this.itemClicked}
-                    onAddToCartClicked = {this.addToCartClicked}
-                    onFilterSelected = {this.categoryFilterSelected}
-                    onStepClicked = {this.stepClicked}>
-                    {/*<Products
-                        settings = {settings}
-                        //items = {settings.config.catalog.items}
-                        activeStep = 'cart'
-                        displayTitle = {false}
-                        title = {this.state.title}
-                        showPager = {false}
-                        displayProductFilter = {false}
-                        displayCategoryFilter = {false}
-                        displayTextFilter = {false}
-                        stepper = {this.stepper}
-                        steps = {steps}
-                        resultsPerPage = {3}
-                        customRowComponent = {ProductRow}
-                        fluxFactory = {fluxFactory}
-                        onItemClicked = {this.itemClicked}
-                        onAddToCartClicked = {this.addToCartClicked}
-                        onFilterSelected = {this.categoryFilterSelected}
-                        onStepClicked = {this.stepClicked} />*/}
-                    <hr />
-                </Menu>
-              </div>
-              <div className="col-lg-4 col-md-5">
-                {/*<div className="info-box text-center padding-top-3x">
-                    <h2>Special Offer<br /><span className="text-danger">-30%</span></h2>
-                    <a href="shop-single.html" className="inline">
-                    <img src="img/shop/special-offer.jpg" alt="Special Offer" />
-                    </a>
-                    <h3 className="lead text-normal space-bottom-half"><a href="shop-single.html" className="link-title">FLOS Outdoor Lightning</a></h3>
-                    <span className="lead text-normal text-gray text-crossed">$800.00</span>
-                    <span className="h4 text-normal text-danger">$560.00</span>
-                    <div className="countdown space-top-half padding-top" data-date-time="07/30/2017 12:00:00">
-                    <div className="item">
-                      <div className="days">00</div>
-                      <span className="days_ref">Days</span>
-                    </div>
-                    <div className="item">
-                      <div className="hours">00</div>
-                      <span className="hours_ref">Hours</span>
-                    </div>
-                    <div className="item">
-                      <div className="minutes">00</div>
-                      <span className="minutes_ref">Mins</span>
-                    </div>
-                    <div className="item">
-                      <div className="seconds">00</div>
-                      <span className="seconds_ref">Secs</span>
-                    </div>
-                    </div>
-                </div>*/}
-                <div className="padding-top-2x visible-xs" />
-                <h5 className="cursive text-center padding-top">~ Drinks ~</h5>
-                <div className="padding-bottom-2x visible-xs" />
-                <Products
-                    ref = {(browser) => this.menuDrinksBrowser = browser}
-                    settings = {settings}
-                    //items = {settings.config.catalog.items}
-                    activeStep = 'cart'
-                    displayTitle = {false}
-                    title = {this.state.title}
-                    showPager = {false}
-                    displayProductFilter = {false}
-                    displayCategoryFilter = {false}
-                    displayTextFilter = {false}
-                    stepper = {this.stepper}
-                    steps = {steps}
-                    resultsPerPage = {15}
-                    customRowComponent = {TextMenuRow1x}
-                    fluxFactory = {fluxFactory}
-                    onItemClicked = {this.itemClicked}
-                    onAddToCartClicked = {this.addToCartClicked}
-                    onFilterSelected = {this.categoryFilterSelected}
-                onStepClicked = {this.stepClicked} />
-                <div className="padding-bottom-2x visible-xs" />
-              </div>
-            </div>{/* .row */}
-
-            {/*<GalleryFullwidthWithGap />
-            <GalleryFullwidthNoGap />
-
-            <GalleryBoxedWithGap />
-            <GalleryBoxedNoGap />*/}
-          </section>{/* .container-fluid */}
-          {/*<Brands 
-          settings = {settings} />*/}
+          <ParallaxContainer
+            height = {2000}
+            top = {0}
+            scrolljack = {false}
+            onScroll = {x => x}>
+            
+            <Parallax 
+                style = {{ width: '100%', top: '200vh', left: '-6vw' }}
+                keyframes = {{
+                    '20%': { top: '200vh', left: '-16vw', transform: 'rotate(0deg)', WebkitTransform: 'rotate(0deg)' },
+                    '40%': { top: '50vh', left: '-6vw', transform: 'rotate(3.5deg)', WebkitTransform: 'rotate(3.5deg)' },
+                    '60%': { top: '-50vh', left: '-16vw', transform: 'rotate(7deg)', WebkitTransform: 'rotate(7deg)' }
+                }}>
+                <div className='parallax-element left condiment condiment-chili'></div>
+            </Parallax>
+            
+            <Parallax 
+                style = {{ width: '100%', top: '250vh', left: '10vw' }}
+                keyframes = {{
+                    '40%': { top: '250vh' },
+                    '60%': { top: '100vh' },
+                    '80%': { top: '-50vh' }
+                }}>
+                <div className='parallax-element left herb green-onions-1'></div>
+            </Parallax>
+            
+            <Parallax 
+                style = {{ width: '100%', top: '300vh', left: '90vw' }}
+                keyframes = {{
+                    '40%': { top: '300vh', left: '100vw', transform: 'rotate(0deg)', WebkitTransform: 'rotate(0deg)' },
+                    '60%': { top: '50vh', left: '90vw', transform: 'rotate(3.5deg)', WebkitTransform: 'rotate(3.5deg)' },
+                    '80%': { top: '-50vh', left: '100vw', transform: 'rotate(7deg)', WebkitTransform: 'rotate(7deg)' }
+                }}>
+                <div className='parallax-element right condiment condiment-cilantro'></div>
+            </Parallax>
+            
+            {/*<Parallax 
+                style = {{ width: '100%', top: '350vh', left: '70vw' }}
+                keyframes = {{
+                    '60%': { top: '350vh' },
+                    '80%': { top: '100vh' },
+                    '100%': { top: '-25vh' }
+                }}>
+                <div className='parallax-element right herb green-onions-2'></div>
+            </Parallax>*/}
+            
+            <Parallax 
+                style = {{ width: '100%', top: '350vh', left: '70vw' }}
+                keyframes = {{
+                    '60%': { top: '350vh' },
+                    '80%': { top: '100vh' },
+                    '100%': { top: '-50vh' }
+                }}>
+                <div className='parallax-element right herb basil'></div>
+            </Parallax>
+            
+            <Parallax 
+                style = {{ width: '100%', top: '400vh', left: '-6vw' }}
+                keyframes = {{
+                    '60%': { top: '400vh', left: '-16vw', transform: 'rotate(0deg)', WebkitTransform: 'rotate(0deg)' },
+                    '80%': { top: '50vh', left: '-6vw', transform: 'rotate(3.5deg)', WebkitTransform: 'rotate(3.5deg)' }, 
+                    '100%': { top: '-50vh', left: '-16vw', transform: 'rotate(7deg)', WebkitTransform: 'rotate(7deg)' }
+                }}>
+                <div className='parallax-element left condiment condiment-lime'></div>
+            </Parallax>
           
-          {/*<div className="fw-section space-top-2x padding-top-3x padding-bottom-3x" style={{backgroundImage: 'url(img/video_bg.jpg)'}}>
+            <Parallax
+                className = 'hidden-xs'
+                style = {{ top: '85vh', height: '115vh', width: '100%', zIndex: '-1' }}
+                keyframes = {{
+                    '0%': { top: '85vh' },
+                    '22.5%': { top: '0vh' },
+                    '70%': { top: '-100vh' } 
+                }}>
+                <div className="category-wrapper container-fluid">
+                    <div className="container" style={{ paddingTop: '10%' }}>
+                        <h3 className="cursive text-center padding-top">~ By Category ~</h3>
+                        <Categories
+                            ref = {(browser) => this.topCategoryBrowser = browser}
+                            settings = {this.props.settingStore}
+                            activeStep = 'shop'
+                            title = {this.state.title}
+                            displayTitle = {false}
+                            displayProductFilter = {false}
+                            displayCategoryFilter = {false}
+                            displayTextFilter = {false}
+                            stepper = {this.stepper}
+                            steps = {steps}
+                            customRowComponent = {CategoryRow4x}
+                            results = {this.state.items}
+                            resultsPerPage = {4}
+                            maxResults = {4}
+                            fluxFactory = {fluxFactory}
+                            onItemClicked = {this.categoryClicked}
+                            onFilterSelected = {this.categoryFilterSelected}
+                            onStepClicked = {this.stepClicked}
+                        />
+                    </div>
+                </div>
+            </Parallax>
+            
+            <Parallax
+                style = {{ top: '95vh', height: 'auto', width: '100%' }}
+                keyframes = {{
+                    '0%': { top: '95vh' },
+                    '32.5%': { top: '95vh' },
+                    '100%': { top: '-1950px' }
+                }}>
+                <HashRouter>
+                <div className='react-app-wrapper'>
+                    <Switch>
+                        <Route 
+                            exact 
+                            path='/' 
+                            render={() => {
+                                return (
+                                    <HomePage 
+                                        {...this.props} 
+                                        steps = {steps}
+                                        stepper = {this.stepper}
+                                        configureSteps = {this.configureSteps}
+                                        categoryFilterSelected = {this.categoryFilterSelected}
+                                        categoryClicked = {this.categoryClicked}
+                                        itemClicked = {this.itemClicked}
+                                        addToCartClicked = {this.addToCartClicked}
+                                        stepClicked = {this.stepClicked}
+                                        />
+                                    )
+                            }} />
+                        <Route path='/product' render={() => <ProductPage {...this.props} /> } />
+                        <Route path='/about' render={() => <AboutPage {...this.props} /> } />
+                    </Switch>
+                    <Route path='/contact' render={() => <ContactPage {...this.props} /> } />
+                </div>
+                </HashRouter>
+                
+            </Parallax>
+            
+            {/*<Brands 
+            settings = {this.props.settingStore} />*/}
+
+            {/*<div className="fw-section space-top-2x padding-top-3x padding-bottom-3x" style={{backgroundImage: 'url(img/video_bg.jpg)'}}>
             <div className="container padding-top-3x padding-bottom-3x text-center">
               <div className="space-top-3x space-bottom">
                 
@@ -574,23 +568,21 @@ export class QcShop001 extends PosComponent {
               </div>
               <p className="space-bottom-2x">Quick Commerce - your reliable partner.</p>
             </div>
-          </div>*/}
-          
-          
-          
-          {/*<Features 
-          settings = {settings} />*/}
-          <Footer 
-            settings = {settings}>
+            </div>
+            
+            <Features 
+                settings = {this.props.settingStore} />
+            */}
+          </ParallaxContainer>
+        </div>
+        <Footer
+            settings = {this.props.settingStore}>
             <div className="parallax-element bottom herb left cilantro"></div>
             <div className="parallax-element bottom herb right mint"></div>
-          </Footer>
-          <div className="parallax-element fixed bottom right takeout-menu"></div>  
-        </div>{/* .page-wrapper */}
-        <div className="copyright"><p className="copyright">© 2017 Phobulous. Made with <i className="text-danger material-icons favorite" /> by Firebrand Web Solutions.</p></div>
-        {/* JavaScript (jQuery) libraries, plugins and custom scripts */}
-        {/* <body> */}
-        </div>
+            <div className="parallax-element fixed bottom right takeout-menu"></div>
+            <div className="copyright-wrapper"><p className="copyright">© 2017 Phobulous. Made with <i className="text-danger material-icons favorite" /> by Firebrand Web Solutions.</p></div>
+        </Footer>
+      </div>
     )
   }
 }

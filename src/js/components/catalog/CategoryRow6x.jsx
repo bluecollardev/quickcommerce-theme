@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import CategoryDragItem from '../cart/CategoryDragItem.jsx'
 import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'react-bootstrap'
 
-export default class CategoryRow5x extends Component {
+export default class CategoryRow6x extends Component {
     static defaultProps = {
         data: {}, 
         onItemClicked: () => {}
@@ -15,14 +15,14 @@ export default class CategoryRow5x extends Component {
     
     render() {
         return (
-            <div className='col-xs-12 col-sm-4 col-md-2 col-md-push-1'>
+            <Col xs={12} sm={4} md={2}>
                 <CategoryDragItem 
-                  displayLabel = {true}
-                  displayThumbnail = {true}
-                  id = {this.props.data.id}
-                  item = {this.props.data}
-                  onItemClicked = {this.props.onItemClicked} />
-            </div>
+                    displayLabel = {true}
+                    displayThumbnail = {true}
+                    id = {this.props.data.id}
+                    item = {this.props.data}
+                    onItemClicked = {this.props.onItemClicked} />
+            </Col>
         )
     }
 }

@@ -70,10 +70,10 @@ const CartDragItem = React.createClass({
                 </div>*/}
                 
                 <div className="shop-item-details">
-                    <h5 className="shop-item-title"><a href="shop-single.html"><small><em>"{this.props.item['model']}"</em></small></a></h5>
+                    <h5 className="shop-item-title"><a href="#/product"><small><em>"{this.props.item['model']}"</em></small></a></h5>
                 </div>
                 <div className="shop-item-details">  
-                    <h3 className="shop-item-title"><a href="shop-single.html"><small>{this.props.item['name']}</small></a></h3>
+                    <h3 className="shop-item-title"><a href="#/product"><small>{this.props.item['name']}</small></a></h3>
                     {this.props.item.hasOwnProperty('price') && 
                     this.props.item['price'] !== false && 
                     !isNaN(this.props.item['price']) && (

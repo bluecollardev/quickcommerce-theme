@@ -53,49 +53,28 @@ export default {
                             subtitle3: 'take out menu!', 
                             ctaText: 'View Menu', 
                             className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5683.jpg' 
+                            backgroundImage: 'img/products/black/fhd/meatlovers-vermecelli.jpg' 
                         },
                         { 
                             id: 'salad-rolls', 
-                            title: 'Try Our Fan Favorite', 
-                            subtitle1: 'Salad Rolls, Spring Rolls and More', 
+                            title: 'Fresh & Crunchy', 
+                            subtitle1: 'Shrimp & Pork Salad Rolls', 
                             subtitle2: 'Explore our new', 
                             subtitle3: 'take out menu!',
                             ctaText: 'View Menu', 
                             className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5532.jpg' 
-                        },
-                        { 
-                            id: 'phobulous', 
-                            title: 'Fabulously Delicious', 
-                            subtitle1: 'Soups and Vermicelli Bowls', 
-                            subtitle2: 'Explore our new', 
-                            subtitle3: 'take out menu!', 
-                            ctaText: 'View Takeout Menu', 
-                            className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5637.jpg' 
+                            backgroundImage: 'img/products/black/fhd/pork-and-shrimp-salad-rolls.jpg' 
                         },
                         { 
                             id: 'spring-rolls', 
-                            title: 'Hot and Crispy', 
-                            subtitle1: 'Spring Rolls, Gyozas and More', 
+                            title: 'Hot and Delicious', 
+                            subtitle1: 'Spring Rolls, Dumplings and More', 
                             subtitle2: 'Explore our new', 
                             subtitle3: 'take out menu!',
                             ctaText: 'View Takeout Menu', 
                             className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5512.jpg' 
-                        },
-                        { 
-                            id: 'gyozas',
-                            title: 'Fan Favorite', 
-                            subtitle1: 'Gyozas, Dumplings and More', 
-                            subtitle2: 'Explore our new', 
-                            subtitle3: 'take out menu!', 
-                            ctaText: 'View Takeout Menu', 
-                            className: 'slide', 
-                            backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5578.jpg' 
-                        },
-                        /*{ id: 'rice-dishes', className: 'slide', backgroundImage: 'img/hero-slider/phobulous/fhd/20170911-DSCF5727.jpg' }*/
+                            backgroundImage: 'img/products/black/fhd/dumplings.jpg' 
+                        }
                     ],
                     // Set if mapping static content
                     categories: [
