@@ -43,6 +43,7 @@ import { UserStore } from 'quickcommerce-react/stores/UserStore.jsx'
 import { CustomerStore } from 'quickcommerce-react/stores/CustomerStore.jsx'
 //import { CustomerListStore } from 'quickcommerce-react/stores/CustomerListStore.jsx'
 import { ProductStore } from 'quickcommerce-react/stores/ProductStore.jsx'
+import { CartStore } from 'quickcommerce-react/modules/cart/CartStore.jsx'
 import { CheckoutStore } from 'quickcommerce-react/stores/CheckoutStore.jsx'
 import { BrowserStore as CatalogStore } from 'quickcommerce-react/stores/BrowserStore.jsx'
 import { SettingStore } from 'quickcommerce-react/stores/SettingStore.jsx'
@@ -56,6 +57,7 @@ const userStore = new UserStore(dispatcher)
 const customerStore = new CustomerStore(dispatcher)
 //const customerListStore = new CustomerListStore(dispatcher)
 const productStore = new ProductStore(dispatcher)
+const cartStore = new CartStore(dispatcher)
 const checkoutStore = new CheckoutStore(dispatcher)
 const catalogStore = new CatalogStore(dispatcher)
 const settingStore = new SettingStore(dispatcher)
@@ -116,6 +118,7 @@ if ('undefined' !== typeof document) {
             customerStore = {customerStore}
             catalogStore = {catalogStore}
             productStore = {productStore}
+            cartStore = {cartStore}
             checkoutStore = {checkoutStore}
             settingStore = {settingStore}>
             <AuthenticatedApp>
