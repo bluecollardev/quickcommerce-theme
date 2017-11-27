@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
 
 	// Language Dropdown
 	//------------------------------------------------------------------------------
-	var langSwitcher = $('.lang-switcher'),
+	/*var langSwitcher = $('.lang-switcher'),
 			langToggle = $('.lang-toggle');
 	langToggle.on('click', function() {
 		$(this).parent().toggleClass('open');
@@ -111,7 +111,7 @@ jQuery(document).ready(function($) {
 	});
 	$(document).on('click', function(e) {
 		langSwitcher.removeClass('open');
-	});
+	});*/
 
 
 	// Toggle Mobile Menu
@@ -198,7 +198,7 @@ jQuery(document).ready(function($) {
 
 	// Shop Filters Toggle
 	//------------------------------------------------------------------------------
-	var filtersToggle = $('[data-toggle="filters"]'),
+	/*var filtersToggle = $('[data-toggle="filters"]'),
 			filtersWrap = $('.filters'),
 			filtersPane = $('.filters-pane');
 	function closeFilterPane() {
@@ -222,7 +222,7 @@ jQuery(document).ready(function($) {
 		$(window).on('resize', function() {
 			closeFilterPane();
 		});
-	}
+	}*/
 
 	// Sidebar Toggle on Mobile
 	//------------------------------------------------------------------------------
@@ -463,7 +463,7 @@ jQuery(document).ready(function($) {
 
 	// Hero Slider
 	//------------------------------------------------------------------------------
-	var $heroSlider = $( '.hero-slider .inner' );
+	/*var $heroSlider = $( '.hero-slider .inner' );
 	if ( $heroSlider.length > 0 ) {
 		$heroSlider.each( function () {
 
@@ -484,7 +484,7 @@ jQuery(document).ready(function($) {
 				smartSpeed: 450
 			});
 		});
-	}
+	}*/
 
 
 	// Video Popup

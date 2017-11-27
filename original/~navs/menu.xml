@@ -1,0 +1,12 @@
+<Element tabCategory="basic" holidayButton="Christmas_Ornaments" mouseoverEffect="true" mouseoverBold="false" modernButton="Basic_Black" mouseoverBgcolor="" textColor="#FFFFFF" accentType="lines" hasLinks="true" bold="false" lineWidth="1" mouseoverTextcolor="#F4CE53" accentColor="Black" type="Navigation" mouseoverUnderline="false" selectedEffect="true" justification="left" simpleButton="Autumn_Leaves" basicTab="White" selectedUnderline="false" localPreview="true" orientation="vertical" lineColor="#C7BDAE" buttonCategory="basic" imageHeight="31" squareTab="Camel" dirty="false" navID="nav_menu" selectedItalic="false" textFont="Comic Sans MS" texturedButton="Brick" importedImageSelected="" background="" imageWidth="114" selectedBold="false" accentStyle="Arrow" numLinks="10" underline="false" mouseoverItalic="false" verticalSpacing="25" funButton="Arts_and_Crafts" horizontalWrap="5" style="text" basicButton="Gray" importedImageMouseOver="" selectedBgcolor="" graphicSelected="true" border="" shinyButton="Shiny_Aqua" selectedTextcolor="#F4CE53" sophisticatedButton="Antique" version="5" horizontalSpacing="35" graphicMouseover="true" italic="false" importedImage="" darkButton="Basic_Black" brightButton="Chicky" textSize="12">
+  <Link linkIndex="1" displayName="Pho Play (Appetizers)" linkValue="menu_phoplay.html" linkWindow="_self" type="existing"/>
+  <Link linkIndex="2" displayName="Goi Cuon (Salad Rolls)" linkValue="menu_goicuon.html" linkWindow="_self" type="existing"/>
+  <Link linkIndex="3" displayName="Goi  (Salads)" linkValue="menu_goisalads.html" linkWindow="_self" type="existing"/>
+  <Link linkIndex="4" displayName="Hu Tieu  (Soups)" linkValue="menu_hutieu.html" type="existing" linkWindow="_self"/>
+  <Link linkIndex="5" displayName="Phobulous (Noodle Revolution)" linkValue="menu_noodlerev.html" type="existing" linkWindow="_self"/>
+  <Link linkIndex="6" displayName="Grills - To Slurp or Not?" linkValue="menu_slurp.html" type="existing" linkWindow="_self"/>
+  <Link linkIndex="7" displayName="Phobulous Introduces" linkValue="menu_newmenu.html" type="existing" linkWindow="_self"/>
+  <Link linkIndex="8" displayName="Cold Beverages" linkValue="menu_bevs.html" type="existing" linkWindow="_self"/>
+  <Link linkIndex="9" displayName="Teas &amp; Coffee" linkValue="menu_coffee.html" type="existing" linkWindow="_self"/>
+  <Link linkWindow="_self" type="existing" linkIndex="10" linkValue="menu_dacbiet.html" displayName="House Specialties"/>
+</Element>

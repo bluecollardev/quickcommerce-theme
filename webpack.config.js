@@ -20,22 +20,21 @@ var TEMPLATE_SOURCE_DIR = __dirname + '/' + config.templateSourceDirectory; // T
 // TODO: Auto-stringify values
 var env = {
 	QC_SETTING_STORAGE_DRIVER: JSON.stringify('normal'), // Options: [file|uri|text]
-	QC_SETTING_ADAPTER: JSON.stringify('custom'), // Options: [qc|custom|...]
+	QC_SETTING_ADAPTER: JSON.stringify('qc'), // Options: [qc|custom|...]
 	API_VERSION: JSON.stringify('normal'),
 	API_TARGET: JSON.stringify('normal'),	
-	AUTH_MODE: JSON.stringify('mock'), // [normal|legacy|mock]
+	AUTH_MODE: JSON.stringify('legacy'), // [normal|legacy|mock]
 	/*QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
 	QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
 	QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
     QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')*/
-    /*QC_BASE_URI: JSON.stringify('http://phobulous/'),
-	QC_LEGACY_API: JSON.stringify('http://phobulous/api/rest/'),
-	QC_RESOURCE_API: JSON.stringify('http://phobulous/qcapi/api/res/'),
-	QC_API: JSON.stringify('http://phobulous/qcapi/api/v1/')*/
-    QC_BASE_URI: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/'),
-	QC_LEGACY_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/api/rest/'),
-	QC_RESOURCE_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/qcapi/api/res/'),
-	QC_API: JSON.stringify('http://199.167.47.136/~devct/phobulous/upload/qcapi/api/v1/')
+    QC_APP_URL: JSON.stringify('http://acecoffeeroasters.com/staging/'),
+    QC_BASE_URI: JSON.stringify('http://acecoffeeroasters.com/'),
+	QC_LEGACY_API: JSON.stringify('http://acecoffeeroasters.com/api/rest/'),
+	QC_RESOURCE_API: JSON.stringify('http://acecoffeeroasters.com/qcapi/api/res/'),
+	QC_API: JSON.stringify('http://acecoffeeroasters.com/qcapi/api/v1/'),
+    QC_IMAGES_PATH: JSON.stringify('image/'), // Relative path to catalog image folder
+    QC_IMAGES_URI: JSON.stringify('http://acecoffeeroasters.com/image/')
 }
 
 // Are we connected to a QuickCommerce installation?
@@ -100,13 +99,15 @@ module.exports = [{
     externals: {
         //'react-dom': 'ReactDOM',
         //react: 'React',
-        jquery: 'jQuery'
+        //jquery: 'jQuery'
     },
     resolve: {
         //root: path.resolve(__dirname),
 		extensions: ['.js', '.jsx', '.json'],
 		alias: {
-			'quickcommerce-react': LIB_DIR + '/quickcommerce-react/src/js'
+			'quickcommerce-react': LIB_DIR + '/quickcommerce-react/src/js',
+            'masonry': 'masonry-layout',
+            'isotope': 'isotope-layout'
 		}
     }
 }]

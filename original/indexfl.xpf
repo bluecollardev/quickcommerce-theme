@@ -1,0 +1,20 @@
+<Page showingTemplate="false" localPreview="false" lastUpdated="Sun Nov 07 17:21:51 GMT-07:00 2010" lastPublish="1442601177118" lastSave="1289175711889" lastMod="1289175711889" footerSelection="0" dirty="">
+  <Element bgImage="" filename="indexfl" linkColor="#3333CC" bgColor="#000000" title="PHOBULOUS EDMONTON - Vietnamese Cuisine" passwordProtectedFile="" followedLinkColor="#6633CC" description="Authentic Vietnamese Cuisine in Edmonton Alberta." copyrightFooterStyle="Select A Style" headTag="" backgroundType="bgColor" uniqueID="element1" width="1000" onload="" onunload="" keyword="Phobulous Edmonton&#10;Vietnamese &#10;Cuisine&#10;Peter Chan&#10;Linh Vu&#10;7809882696" uidCounter="46" pagePassword="" center="true" onPublish="PageElement" currentWindow="1" bgPattern="ibog:/Backgrounds#algae.gif" changed="@bgColor,@changed,@uidCounter,@width,@pageURI,@filename,@title,@keyword,@description," imageToolbarOff="true" type="Page" pageURI="http://www.phobulousedmonton.com/indexfl.html">
+    <Element alt="" offsetX="0.0" type="ImportedImage" name="Image-2" isImageType="true" fileType="IMAGEFILTER" locked="" offsetY="0.0" deletable="" zoom="1.0" editable="true" height="600" bucketRatio="1.3333334" src="hat.jpg" templateID="" link="" onPreview="ImportedImage" width="1000" originalSource="" imageRatio="1.3333334" y="80" x="0" sizePositionLocked="true" WOHratio="1.3333333333333333" link_target="_self" uniqueID="element32" maintainProportion="false" onPublish="ImportedImage"/>
+    <Element uniqueID="element30" deletable="" y="80" x="0" locked="" cdata="crap" name="HTML-1" height="600" templateID="" type="HTMLSnippet" width="1000" sizePositionLocked="true">
+      <![CDATA[<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="effect280734" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab" type="application/x-shockwave-flash" width="1000" height="600" align="middle" data="http://www.effectgenerator.com/1.0.7/EffectMovie.swf"><param name="allowScriptAccess" value="always" /><param name="movie" value="http://www.effectgenerator.com/1.0.7/EffectMovie.swf" /><param name="quality" value="high" /><param name="FlashVars" value="id=280734" /><param name="wmode" value="transparent" /><param name="bgcolor" value="#000000" /><embed src="http://www.effectgenerator.com/1.0.7/EffectMovie.swf" quality="high" bgcolor="#000000" width="1000" height="600" align="middle" play="true" loop="false" quality="high" wmode="transparent" allowScriptAccess="always" FlashVars="id=280734"type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer"></embed></object><p><a href="http://www.effectgenerator.com/
+ ?id=280734" target="_blank"></a></p>]]>
+    </Element>
+    <Element name="Rectangle-1" onPreview="HSRectangle" link_target="_self" radius="0" deletable="" type="Rectangle" locked="" link="" width="1000" height="38" color="#CBDE98" onPublish="HSRectangle" uniqueID="element43" y="73" templateID="" x="0" sizePositionLocked="false" alt=""/>
+    <Element name="Site Navigation Menu-2" onPublish="Navigation" y="84" x="242" editable="true" locking="left" forceUpdate="true" height="16" sizePositionLocked="true" uniqueID="element44" links="" navID="nav_homepagenav" onPreview="Navigation" locked="" templateID="" deletable="" type="Navigation" width="514"/>
+    <Element name="Rectangle-2" onPreview="HSRectangle" link_target="_self" radius="0" deletable="" type="Rectangle" locked="" link="" width="986" height="1" color="#FFFFFF" onPublish="HSRectangle" uniqueID="element45" y="107" templateID="" x="8" sizePositionLocked="false" alt=""/>
+    <Element name="Rectangle-3" onPreview="HSRectangle" link_target="_self" radius="0" deletable="" type="Rectangle" locked="" link="" width="1000" height="60" color="#000000" onPublish="HSRectangle" uniqueID="element46" y="649" templateID="" x="0" sizePositionLocked="false" alt=""/>
+  </Element>
+  <HeadTag>
+    <![CDATA[]]>
+  </HeadTag>
+  <Version>
+    <Current site="1755511288" fileVersion="13" user="4494255"/>
+    <Initial site="1755511288" fileVersion="13" user="4494255"/>
+  </Version>
+</Page>

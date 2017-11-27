@@ -4,7 +4,7 @@ module.exports = {
 	sourceDirectory: 'src',
 	appDirectory: 'src/app',
 	//buildDirectory: '../build',
-	buildDirectory: '../upload/staging',
+	buildDirectory: 'build',
 	testDirectory: 'test',
 	libDirectory: 'lib',
 	themeSourceDirectory: 'themes/src',

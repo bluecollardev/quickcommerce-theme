@@ -20,12 +20,12 @@ export default class ProductRow extends Component {
         console.log('props.data')
         console.log(this.props.data)
         return (
-            <Col xs={12} sm={4}>
+            <Col xs={12} sm={3}>
                 <CartDragItem
                     onItemClicked = {this.props.onItemClicked}
                     displayLabel = {true}
                     displayThumbnail = {true}
-                    displayDetails = {true}
+                    displayDetails = {false}
                     item = {this.props.data}
                     id = {this.props.data.id}>
                     <Button block onClick={this.props.onAddToCartClicked}><i className='fa fa-shopping-cart' /> Quick Add</Button>

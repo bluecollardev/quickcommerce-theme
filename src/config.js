@@ -2,7 +2,7 @@ export default {
     settings: {
         siteName: 'Quick Commerce',
         title: 'Welcome to Quick Commerce',
-        logo: { image: 'img/phobulous-logo_green.png' },
+        logo: 'img/template/acecoffeeroasters/logo/ace-logo.png',
         address: {
             line1: '123 Test Street',
             line2: '',
@@ -45,35 +45,84 @@ export default {
             layout: {
                 images: {
                     heroSlides: [
-                        { 
-                            id: 'buns', 
-                            title: 'Fabulously Delicious', 
-                            subtitle1: 'Vermicelli Bowls and Noodle Soups', 
-                            subtitle2: 'Explore our new', 
-                            subtitle3: 'take out menu!', 
-                            ctaText: 'View Menu', 
+                        /*{ 
+                            id: 'ace-main-banner', 
+                            title: 'Elevating your', 
+                            subtitle1: 'coffee experience', 
+                            subtitle2: 'Explore our brand new', 
+                            subtitle3: 'subscription options!', 
+                            ctaText: 'Learn more', 
                             className: 'slide', 
-                            backgroundImage: 'img/products/black/fhd/meatlovers-vermecelli.jpg' 
+                            backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-60.jpg' 
+                        },*/
+                        { 
+                            id: 'ace-coffee', 
+                            action: {
+                                href: '#/shop'
+                            },
+                            title: 'Meet the ACE product family',
+                            subtitle1: 'Single Origin and Premium Blended Roasts', 
+                            subtitle2: 'Now available', 
+                            subtitle3: 'by subscription!', 
+                            ctaText: 'Order today', 
+                            className: 'slide', 
+                            backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-13.jpg',
+                            textPosition: {
+                                fromTop: {
+                                    right: '14%',
+                                    left: 'auto'
+                                },
+                                fromBottom: {
+                                    left: '-97.5%',
+                                    right: 'auto'
+                                }
+                            }
                         },
                         { 
-                            id: 'salad-rolls', 
-                            title: 'Fresh & Crunchy', 
-                            subtitle1: 'Shrimp & Pork Salad Rolls', 
-                            subtitle2: 'Explore our new', 
-                            subtitle3: 'take out menu!',
-                            ctaText: 'View Menu', 
+                            id: 'ace-merch',
+                            action: {
+                                href: '#/shop'
+                            },
+                            title: 'Now introducing our', 
+                            subtitle1: 'very own ACE line of accessories', 
+                            subtitle2: 'Cups, mugs, apparel', 
+                            subtitle3: 'and much much more',
+                            ctaText: 'Browse merchandise', 
                             className: 'slide', 
-                            backgroundImage: 'img/products/black/fhd/pork-and-shrimp-salad-rolls.jpg' 
+                            backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-70.jpg',
+                            textPosition: {
+                                fromTop: {
+                                    right: '0%',
+                                    left: 'auto'
+                                },
+                                fromBottom: {
+                                    bottom: '4%',
+                                    left: '-55%'
+                                }
+                            }
                         },
                         { 
-                            id: 'spring-rolls', 
-                            title: 'Hot and Delicious', 
-                            subtitle1: 'Spring Rolls, Dumplings and More', 
-                            subtitle2: 'Explore our new', 
-                            subtitle3: 'take out menu!',
-                            ctaText: 'View Takeout Menu', 
+                            id: 'ace-devices', 
+                            action: {
+                                href: '#/shop'
+                            },
+                            title: 'Coffee making essentials', 
+                            subtitle1: 'for every home-barista', 
+                            subtitle2: "Edmonton's widest selection of", 
+                            subtitle3: 'home-barista equipment',
+                            ctaText: 'Get started', 
                             className: 'slide', 
-                            backgroundImage: 'img/products/black/fhd/dumplings.jpg' 
+                            backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-79.jpg',
+                            textPosition: {
+                                fromTop: {
+                                    left: '-8%',
+                                    right: 'auto'
+                                },
+                                fromBottom: {
+                                    right: '-7%',
+                                    left: 'auto'
+                                }
+                            }
                         }
                     ],
                     // Set if mapping static content

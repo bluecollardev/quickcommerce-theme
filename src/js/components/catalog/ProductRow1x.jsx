@@ -25,7 +25,7 @@ export default class ProductRow1x extends Component {
                     onItemClicked = {this.props.onItemClicked}
                     displayLabel = {true}
                     displayThumbnail = {true}
-                    displayDetails = {true}
+                    displayDetails = {false}
                     item = {this.props.data}
                     id = {this.props.data.id}>
                     <Button block onClick={this.props.onAddToCartClicked}><i className='fa fa-shopping-cart' /> Quick Add</Button>

@@ -43,8 +43,9 @@ import CategoryRow5x from 'quickcommerce-react/components/catalog/CategoryRow5x.
 import CategoryRow6x from 'quickcommerce-react/components/catalog/CategoryRow6x.jsx'
 
 /* Override */
-import ProductRow from 'quickcommerce-react/components/catalog/ProductRow.jsx'
-import ProductRow1x from 'quickcommerce-react/components/catalog/ProductRow1x.jsx'
+import ProductRow from '../../js/components/catalog/ProductRow.jsx'
+import ProductRow1x from '../../js/components/catalog/ProductRow1x.jsx'
+import ProductRow4x from '../../js/components/catalog/ProductRow4x.jsx'
 import TextMenuRow from 'quickcommerce-react/components/catalog/TextMenuRow.jsx'
 import TextMenuRow1x from 'quickcommerce-react/components/catalog/TextMenuRow1x.jsx'
 import ProductOptionRow from 'quickcommerce-react/components/catalog/ProductOptionRow.jsx'
@@ -54,10 +55,8 @@ import Stepper from 'quickcommerce-react/components/stepper/BrowserStepper.jsx'
 import BrowserStore from 'quickcommerce-react/stores/BrowserStore.jsx'
 
 import CheckoutActions from 'quickcommerce-react/actions/CheckoutActions.jsx'
-import CheckoutService from 'quickcommerce-react/services/CheckoutService.jsx'
 
 import CustomerActions from 'quickcommerce-react/actions/CustomerActions.jsx'
-import CustomerService from 'quickcommerce-react/services/CustomerService.jsx'
 
 import ProductActions from 'quickcommerce-react/actions/ProductActions.jsx'
 import ProductBrowser from 'quickcommerce-react/components/browser/ProductBrowser.jsx'
@@ -142,11 +141,14 @@ export default class Home extends Component {
         
         let settings = this.props.settingStore.getSettings().posSettings
 
-        settings['pinned_category_id'] = 9 // 'New' category
+        settings['pinned_category_id'] = 204 // 'New' category
         let categoryId = null
         
-        this.menuCategoryBrowser.actions.loadTopCategories() // Browser load categories via refs
-        //this.topCategoryBrowser.actions.loadTopCategories() // Browser load categories via refs
+        if (typeof this.topCategoryBrowser !== 'undefined') {
+            console.log('TOP CATEGORY BROWSER')
+            console.log(this.topCategoryBrowser)
+            this.topCategoryBrowser.actions.loadTopCategories() // Browser load categories via refs
+        }
         
         if (typeof this.props.match !== 'undefined' && 
             typeof this.props.match.params !== 'undefined' && 
@@ -157,15 +159,13 @@ export default class Home extends Component {
             categoryId = parseInt(settings['pinned_category_id'])
         } else {
             //categoryId = null
-            categoryId = 9
+            categoryId = 204
         }
         
         // Just load browser products, don't trigger any steps
-        this.menuProductBrowser.actions.loadProducts(categoryId)
-        
-        // Just load browser products, don't trigger any steps
-        this.menuDrinksBrowser.actions.loadProducts(11) // Drinks TODO: Make this configurable
-        this.menuExtrasBrowser.actions.loadProducts(10) // Extras TODO: Make this configurable
+        this.currentlyRoastingBrowser.actions.loadProducts(categoryId)
+        this.specialRoastsBrowser.actions.loadProducts(categoryId)
+        this.newArrivalsBrowser.actions.loadProducts(categoryId)
     }
     
     configureSteps() {
@@ -181,7 +181,7 @@ export default class Home extends Component {
                 return true
             },
             action: (step, data, done) => {
-                this.menuCategoryBrowser.actions.loadCategories()
+                this.topCategoryBrowser.actions.loadCategories()
 
                 if (done) {
                     // Process checkout if done
@@ -217,10 +217,14 @@ export default class Home extends Component {
                 if (data !== null &&
                     data.hasOwnProperty('category_id') &&
                     !Number.isNaN(data.category_id)) {
-
-                    this.menuProductBrowser.actions.loadProducts(data.category_id) // TODO: CONST for prop name?
+                        
+                    this.currentlyRoastingBrowser.actions.loadProducts(data.categoryId)
+                    this.specialRoastsBrowser.actions.loadProducts(data.categoryId)
+                    this.newArrivalsBrowser.actions.loadProducts(data.categoryId)
                 } else {
-                    this.menuProductBrowser.actions.loadProducts()
+                    this.currentlyRoastingBrowser.actions.loadProducts()
+                    this.specialRoastsBrowser.actions.loadProducts()
+                    this.newArrivalsBrowser.actions.loadProducts()
                 }
 
                 if (done) {
@@ -340,10 +344,13 @@ export default class Home extends Component {
         
         console.log(item);
         // Just load browser products, don't trigger any steps
-        this.menuProductBrowser.actions.loadProducts(item['category_id'])
+        this.currentlyRoastingBrowser.actions.loadProducts(item['category_id'])
+        this.specialRoastsBrowser.actions.loadProducts(item['category_id'])
+        this.newArrivalsBrowser.actions.loadProducts(item['category_id'])
     }
   
     itemClicked(e, item) {
+        // Home Page itemClicked
         e.preventDefault()
         e.stopPropagation()
         
@@ -353,6 +360,8 @@ export default class Home extends Component {
             
             return
         }
+        
+        this.props.actions.product.setProduct(item)
         
         window.location.hash = '#/product'
         
@@ -475,7 +484,7 @@ export default class Home extends Component {
             this.stepper.addItem(item.id, 1, item)
         }*/
         
-        this.stepper.addItem(item.id, 0, item) // Don't set a quantity just register the item
+        this.stepper.addItem(item['product_id'], 0, item) // Don't set a quantity just register the item
         
         this.setState({
             chooseQuantity: true
@@ -486,159 +495,220 @@ export default class Home extends Component {
         let steps = this.stepper.getSteps() // Stepper extends store, we're good
         
         return (
-            <section className="container main-content">
-                {/* Featured Categories */}
-                <div className="row product-section">
-                  
-                  <div className="col-md-10 col-md-push-1">
-                    <h3 className="cursive text-center padding-top hidden-xs">~ Our Menu ~</h3>
-                    <Categories
-                        ref = {(browser) => this.menuCategoryBrowser = browser}
+            <main className="content-wrapper">{/* Main Content Wrapper */}
+                <section className="hero-slider" data-loop="true" data-autoplay="true" data-interval={7000}>
+                    <Hero
                         settings = {this.props.settingStore}
-                        //items = {settings.config.catalog.categories}
-                        activeStep = 'shop'
-                        title = {this.props.title}
-                        showPager = {false}
-                        resultsPerPage = {8}
-                        maxResults = {8}
-                        displayTitle = {false}
-                        displayProductFilter = {false}
-                        displayCategoryFilter = {false}
-                        displayTextFilter = {false}
-                        stepper = {this.stepper}
-                        steps = {steps}
-                        customRowComponent = {CategoryRow4x}
-                        fluxFactory = {fluxFactory}
-                        onItemClicked = {this.categoryClicked}
-                        onFilterSelected = {this.categoryFilterSelected}
-                        onStepClicked = {this.stepClicked}
-                        //categories = {settings.config.pages[0].layout.images.categories} 
+                        slides = {this.props.settingStore.config.pages[0].layout.images.heroSlides}
+                        loop = {false}
                         />
-                  </div>
-                  <div className="col-lg-8 col-md-7">
-                    <Menu
-                        ref = {(browser) => this.menuProductBrowser = browser}
-                        settings = {this.props.settingStore}
-                        //items = {settings.config.catalog.items}
-                        activeStep = 'cart'
-                        displayTitle = {false}
-                        title = {this.props.title}
-                        showPager = {true}
-                        resultsPerPage = {24}
-                        displayCategoryFilter = {false}
-                        displayTextFilter = {false}
-                        stepper = {this.stepper}
-                        steps = {steps}
-                        customRowComponent = {TextMenuRow}
-                        fluxFactory = {fluxFactory}
-                        onItemClicked = {this.itemClicked}
-                        onAddToCartClicked = {this.addToCartClicked}
-                        onFilterSelected = {this.categoryFilterSelected}
-                        onStepClicked = {this.stepClicked}>
-                        <hr />
-                        <Products
-                            ref = {(browser) => this.menuExtrasBrowser = browser}
+                </section>
+                <section className="container main-content padding-top-3x padding-bottom">
+                    {/* Move this out into a custom module */}
+                    <div className='section_wrapper mcb-section-inner'>
+                        <div className='wrap mcb-wrap one valign-top clearfix'>
+                            <div className='mcb-wrap-inner'>
+                                <div className='column mcb-column one-fourth column_icon_box'>
+                                    <div className='icon_box icon_position_top no_border'>
+                                        <a className='load-checkout' href='#/shop'>
+                                            <div className='icon_wrapper'>
+                                                <div className='icon'>
+                                                    <i className='icon-cup-line'></i>
+                                                </div>
+                                            </div>
+                                            <div className='desc_wrapper'>
+                                                <h4 className='title'>Coffee</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className='column mcb-column one-fourth column_icon_box'>
+                                    <div className='icon_box icon_position_top no_border'>
+                                        <a className='load-checkout' href='#/shop'>
+                                            <div className='icon_wrapper'>
+                                                <div className='icon'>
+                                                    <i className='icon-t-shirt-line'></i>
+                                                </div>
+                                            </div>
+                                            <div className='desc_wrapper'>
+                                                <h4 className='title'>Merchandise</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className='column mcb-column one-fourth column_icon_box'>
+                                    <div className='icon_box icon_position_top no_border'>
+                                        <a className='load-checkout' href='#/shop'>
+                                            <div className='icon_wrapper'>
+                                                <div className='icon'>
+                                                    <i className='icon-tag-line'></i>
+                                                </div>
+                                            </div>
+                                            <div className='desc_wrapper'>
+                                                <h4 className='title'>Brewing</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className='column mcb-column one-fourth column_icon_box'>
+                                    <div className='icon_box icon_position_top no_border'>
+                                        <a className='load-checkout' href='#/shop'>
+                                            <div className='icon_wrapper'>
+                                                <div className='icon'>
+                                                    <i className='icon-wallet-line'></i>
+                                                </div>
+                                            </div>
+                                            <div className='desc_wrapper'>
+                                                <h4 className='title'>Subscriptions</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div className='column mcb-column one column_divider column-margin-40px'>
+                                    <hr className='no_line'/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {/* Featured Categories */}
+                    {/*<h3 className="text-center padding-top">Categories</h3>
+                    <div className="row padding-top padding-bottom-3x">
+                        <Categories
+                            ref = {(browser) => this.topCategoryBrowser = browser}
                             settings = {this.props.settingStore}
-                            //items = {settings.config.catalog.items}
-                            activeStep = 'cart'
-                            displayTitle = {false}
+                            //items = {settings.config.catalog.categories}
+                            activeStep = 'shop'
                             title = {this.props.title}
                             showPager = {false}
+                            resultsPerPage = {8}
+                            maxResults = {8}
+                            displayTitle = {false}
                             displayProductFilter = {false}
                             displayCategoryFilter = {false}
                             displayTextFilter = {false}
                             stepper = {this.stepper}
                             steps = {steps}
-                            resultsPerPage = {15}
-                            customRowComponent = {TextMenuRow1x}
+                            customRowComponent = {CatalogRow}
                             fluxFactory = {fluxFactory}
-                            onItemClicked = {this.itemClicked}
-                            onAddToCartClicked = {this.addToCartClicked}
+                            onItemClicked = {this.categoryClicked}
                             onFilterSelected = {this.categoryFilterSelected}
-                            onStepClicked = {this.stepClicked} />
-                    </Menu>
-                  </div>
-                  <div className="col-lg-4 col-md-5">
-                    {/*<div className="info-box text-center padding-top-3x">
-                        <h2>Special Offer<br /><span className="text-danger">-30%</span></h2>
-                        <a href="#/product" className="inline">
-                        <img src="img/shop/special-offer.jpg" alt="Special Offer" />
-                        </a>
-                        <h3 className="lead text-normal space-bottom-half"><a href="#/product" className="link-title">FLOS Outdoor Lightning</a></h3>
-                        <span className="lead text-normal text-gray text-crossed">$800.00</span>
-                        <span className="h4 text-normal text-danger">$560.00</span>
-                        <div className="countdown space-top-half padding-top" data-date-time="07/30/2017 12:00:00">
-                        <div className="item">
-                          <div className="days">00</div>
-                          <span className="days_ref">Days</span>
-                        </div>
-                        <div className="item">
-                          <div className="hours">00</div>
-                          <span className="hours_ref">Hours</span>
-                        </div>
-                        <div className="item">
-                          <div className="minutes">00</div>
-                          <span className="minutes_ref">Mins</span>
-                        </div>
-                        <div className="item">
-                          <div className="seconds">00</div>
-                          <span className="seconds_ref">Secs</span>
-                        </div>
-                        </div>
+                            onStepClicked = {this.stepClicked}
+                            //categories = {settings.config.pages[0].layout.images.categories} 
+                            />
                     </div>*/}
-                    <div className="padding-top-2x visible-xs" />
-                    <h5 className="cursive text-center padding-top">~ Drinks ~</h5>
-                    <div className="padding-bottom-2x visible-xs" />
-                    <Products
-                        ref = {(browser) => this.menuDrinksBrowser = browser}
-                        settings = {this.props.settingStore}
-                        //items = {settings.config.catalog.items}
-                        activeStep = 'cart'
-                        displayTitle = {false}
-                        title = {this.props.title}
-                        showPager = {false}
-                        displayProductFilter = {false}
-                        displayCategoryFilter = {false}
-                        displayTextFilter = {false}
-                        stepper = {this.stepper}
-                        steps = {steps}
-                        resultsPerPage = {15}
-                        customRowComponent = {TextMenuRow1x}
-                        fluxFactory = {fluxFactory}
-                        onItemClicked = {this.itemClicked}
-                        onAddToCartClicked = {this.addToCartClicked}
-                        onFilterSelected = {this.categoryFilterSelected}
-                        onStepClicked = {this.stepClicked} />
-                    <div className="padding-bottom-2x visible-xs" />
+                    <div className="row padding-top">
+                        {/* Products */}
+                        <div className="col-sm-12">
+                          {/* Nav Tabs */}
+                          <ul className="nav-tabs text-center" role="tablist">
+                            <li className="active"><a href="#newcomers" role="tab" data-toggle="tab">Currently Roasting</a></li>
+                            <li><a href="#toprated" role="tab" data-toggle="tab">New Arrivals + On Sale</a></li>
+                            <li><a href="#onsale" role="tab" data-toggle="tab">Special / Seasonal Roasts (Pre-Order)</a></li>
+                          </ul>{/* .nav-tabs */}
+                          {/* Tab Panes */}
+                          <div className="tab-content">
+                            {/* #newcomers */}
+                            <div role="tabpanel" className="tab-pane transition fade scale in active" id="newcomers">
+                              <div className="row space-top-half">
+                                <Products
+                                    ref = {(browser) => this.currentlyRoastingBrowser = browser}
+                                    settings = {this.props.settingStore}
+                                    //items = {settings.config.catalog.items}
+                                    activeStep = 'cart'
+                                    displayTitle = {false}
+                                    title = {this.props.title}
+                                    showPager = {false}
+                                    displayProductFilter = {false}
+                                    displayCategoryFilter = {false}
+                                    displayTextFilter = {false}
+                                    stepper = {this.stepper}
+                                    steps = {steps}
+                                    resultsPerPage = {8}
+                                    customRowComponent = {ProductRow4x}
+                                    fluxFactory = {fluxFactory}
+                                    onItemClicked = {this.itemClicked}
+                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onFilterSelected = {this.categoryFilterSelected}
+                                    onStepClicked = {this.stepClicked} 
+                                    />
+                              </div>{/* .row */}
+                            </div>{/* .tab-pane#newcomers */}
+                            {/* #toprated */}
+                            <div role="tabpanel" className="tab-pane transition fade scale" id="toprated">
+                              <div className="row">
+                                <Products
+                                    ref = {(browser) => this.newArrivalsBrowser = browser}
+                                    settings = {this.props.settingStore}
+                                    //items = {settings.config.catalog.items}
+                                    activeStep = 'cart'
+                                    displayTitle = {false}
+                                    title = {this.props.title}
+                                    showPager = {false}
+                                    displayProductFilter = {false}
+                                    displayCategoryFilter = {false}
+                                    displayTextFilter = {false}
+                                    stepper = {this.stepper}
+                                    steps = {steps}
+                                    resultsPerPage = {12}
+                                    customRowComponent = {ProductRow4x}
+                                    fluxFactory = {fluxFactory}
+                                    onItemClicked = {this.itemClicked}
+                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onFilterSelected = {this.categoryFilterSelected}
+                                    onStepClicked = {this.stepClicked} 
+                                    />
+                              </div>{/* .row */}
+                            </div>{/* .tab-pane#toprated */}
+                            {/* #onsale */}
+                            <div role="tabpanel" className="tab-pane transition fade scale" id="onsale">
+                              <div className="row">
+                                <Products
+                                    ref = {(browser) => this.specialRoastsBrowser = browser}
+                                    settings = {this.props.settingStore}
+                                    //items = {settings.config.catalog.items}
+                                    activeStep = 'cart'
+                                    displayTitle = {false}
+                                    title = {this.props.title}
+                                    showPager = {false}
+                                    displayProductFilter = {false}
+                                    displayCategoryFilter = {false}
+                                    displayTextFilter = {false}
+                                    stepper = {this.stepper}
+                                    steps = {steps}
+                                    resultsPerPage = {4}
+                                    customRowComponent = {ProductRow4x}
+                                    fluxFactory = {fluxFactory}
+                                    onItemClicked = {this.itemClicked}
+                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onFilterSelected = {this.categoryFilterSelected}
+                                    onStepClicked = {this.stepClicked} 
+                                    />
+                              </div>{/* .row */}
+                            </div>{/* .tab-pane#onsale */}
+                          </div>{/* .tab-content */}
+                        </div>{/* .col-lg-9.col-md-8 */}
+                    </div>
+                </section>
+                
+                {/*<Brands 
+                settings = {this.props.settingStore} />*/}
+                {/* Video Popup */}
+                <div className="ace-video fw-section space-top-2x padding-top-3x padding-bottom-3x">
+                  <div className="container padding-top-3x padding-bottom-3x text-center">
+                    <div className="space-top-3x space-bottom">
+                      {/* Add ".light-skin" class to alter appearance. */}
+                      <a href="https://player.vimeo.com/video/135832597?color=77cde3&title=0&byline=0&portrait=0" className="video-popup-btn">
+                        <i className="material-icons play_arrow" />
+                      </a>
+                      <h3 className="padding-top-2x padding-bottom-2x">The ACE Coffee Story</h3>
+                    </div>
                   </div>
-                  {/*<Products
-                    ref = {(browser) => this.menuExtrasBrowser = browser}
-                    settings = {this.props.settingStore}
-                    //items = {settings.config.catalog.items}
-                    activeStep = 'cart'
-                    displayTitle = {false}
-                    title = {this.props.title}
-                    showPager = {false}
-                    displayProductFilter = {false}
-                    displayCategoryFilter = {false}
-                    displayTextFilter = {false}
-                    stepper = {this.stepper}
-                    steps = {steps}
-                    resultsPerPage = {15}
-                    customRowComponent = {TextMenuRow1x}
-                    fluxFactory = {fluxFactory}
-                    onItemClicked = {this.itemClicked}
-                    onAddToCartClicked = {this.addToCartClicked}
-                    onFilterSelected = {this.categoryFilterSelected}
-                  onStepClicked = {this.stepClicked} />*/}
-                </div>
-
-                {/*<GalleryFullwidthWithGap />
-                <GalleryFullwidthNoGap />
-
-                <GalleryBoxedWithGap />
-                <GalleryBoxedNoGap />*/}
-            </section>
+                </div>{/* .fw-section */}
+                <Features 
+                    settings = {this.props.settingStore} />
+            </main>
         )
     }
 }

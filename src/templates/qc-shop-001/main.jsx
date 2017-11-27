@@ -404,7 +404,7 @@ export class QcShop001 extends PosComponent {
             <SiteLogo 
                 settings = {this.props.settingStore} />
             {/*<LanguageSwitcher 
-                settings = {settings} />*/}
+                settings = {this.props.settingStore} />*/}
             <Toolbar 
                 settings = {this.props.settingStore}
                 cart = {this.props.settingStore.config.cart} />
