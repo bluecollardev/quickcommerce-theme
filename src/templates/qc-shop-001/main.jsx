@@ -78,15 +78,6 @@ import CustomerProfile from 'quickcommerce-react/components/customer/Authenticat
 import Keypad from 'quickcommerce-react/components/common/Keypad.jsx'
 import Notes from 'quickcommerce-react/components/common/Notes.jsx'
 
-import Cart from 'quickcommerce-react/modules/Cart.jsx'
-import InternalCartStore from 'quickcommerce-react/modules/CartStore.jsx'
-
-// Dirty global hack to maintain store instance until I refactor 
-// this component to use context or switch from flux to redux
-window.CartStore = (typeof window.CartStore === 'undefined') ? InternalCartStore : window.CartStore
-
-let CartStore = window.CartStore
-
 import { bubble as MainMenu, fallDown as CustomerMenu } from 'react-burger-menu'
 
 import Factory from 'quickcommerce-react/factory/Factory.jsx'

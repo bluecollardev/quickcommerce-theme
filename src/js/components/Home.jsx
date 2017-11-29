@@ -28,7 +28,7 @@ import Footer from '../../js/Footer.jsx'
 //import MainContent from '../../js/components/Product.jsx'
 import MainContent from '../../js/components/Home.jsx'
 
-import { PosComponent } from 'quickcommerce-react/components/PosComponent.jsx'
+import CartContext from 'quickcommerce-react/modules/cart/CartContext.jsx'
 
 /* Copied from PosCompoent */
 import DragDropContainer from 'quickcommerce-react/components/cart/DragDropContainer.jsx'
@@ -70,25 +70,10 @@ import CustomerProfile from 'quickcommerce-react/components/customer/Authenticat
 import Keypad from 'quickcommerce-react/components/common/Keypad.jsx'
 import Notes from 'quickcommerce-react/components/common/Notes.jsx'
 
-import Cart from 'quickcommerce-react/modules/Cart.jsx'
-import InternalCartStore from 'quickcommerce-react/modules/CartStore.jsx'
-
-// Dirty global hack to maintain store instance until I refactor 
-// this component to use context or switch from flux to redux
-window.CartStore = (typeof window.CartStore === 'undefined') ? InternalCartStore : window.CartStore
-
-let CartStore = window.CartStore
-
-import { bubble as MainMenu, fallDown as CustomerMenu } from 'react-burger-menu'
-
-import Factory from 'quickcommerce-react/factory/Factory.jsx'
-
 import StringHelper from 'quickcommerce-react/helpers/String.js'
 import ArrayHelper from 'quickcommerce-react/helpers/Array.js'
 import JSONHelper from 'quickcommerce-react/helpers/JSON.js'
 import UrlHelper from 'quickcommerce-react/helpers/URL.js'
-
-let fluxFactory = new Factory()
 
 let categories = [] // Empty init containers
 let products = [] // Empty init containers
@@ -100,7 +85,7 @@ import ProductOptionStep from 'quickcommerce-react/steps/ProductOption.jsx'
 
 import ProductDetail from 'quickcommerce-react/components/catalog/ProductDetail.jsx'
 
-export default class Home extends Component {    
+class Home extends Component {   
     constructor(props) {
         super(props)
         
@@ -108,7 +93,6 @@ export default class Home extends Component {
         this.setStep = this.setStep.bind(this)
         this.categoryClicked = this.categoryClicked.bind(this)
         this.itemClicked = this.itemClicked.bind(this)
-        this.addToCartClicked = this.addToCartClicked.bind(this)
         this.optionClicked = this.optionClicked.bind(this)
         this.itemDropped = this.itemDropped.bind(this)
         this.stepClicked = this.stepClicked.bind(this)
@@ -116,6 +100,13 @@ export default class Home extends Component {
         // Store our stepper instance
         // Stepper maintains its own state and store
         this.stepper = new Stepper()
+        this.stepper.setSteps(this.configureSteps())
+        
+        this.state = {
+            blockUi: false,
+            chooseQuantity: false,
+            settings: {}
+        }
     }
     
     componentDidMount() {
@@ -169,8 +160,7 @@ export default class Home extends Component {
     }
     
     configureSteps() {
-        // An array of step functions
-        return [{
+        let steps = [{
             config: assign({}, CategoryStep, {
                 stepId: 'shop',
                 indicator: '1',
@@ -181,7 +171,7 @@ export default class Home extends Component {
                 return true
             },
             action: (step, data, done) => {
-                this.topCategoryBrowser.actions.loadCategories()
+                //this.topCategoryBrowser.actions.loadCategories()
 
                 if (done) {
                     // Process checkout if done
@@ -302,6 +292,8 @@ export default class Home extends Component {
             action: (step, data, done) => {
             }
         }*/]
+        
+        return steps
     }
     
     setStep(stepId, stepDescriptor, data) {
@@ -321,8 +313,8 @@ export default class Home extends Component {
         // Get the BrowserStepDescriptor instance by stepId (shop|cart|checkout|etc).
         // We can't get it by index because the Step argument for this method is the config prop
         // provided to the Step component, not an instance of BrowserStepDescriptor.
+        if (this.steps instanceof Array) {            
         // Maybe I'll change this later...
-        if (this.stepper.getSteps() instanceof Array) {            
             let stepDescriptor = this.stepper.getStepById(stepProps.stepId) || null
 
             if (stepDescriptor !== null) {
@@ -379,7 +371,7 @@ export default class Home extends Component {
     }
     
     itemDropped(item) {
-        //let cart = (typeof this.refs.cart.getDecoratedComponentInstance === 'function') ? this.refs.cart.getDecoratedComponentInstance() : this.refs.cart
+        //let cart = this.props.getCart()
     }
     
     optionClicked(item) {
@@ -419,76 +411,6 @@ export default class Home extends Component {
             // Execute the step handler
             this.stepper.load(stepDescriptor, data, isEnded, this.setStep.bind(this, stepId))
         }
-    }
-    
-    addToCart(e) {
-        e.preventDefault()
-        e.stopPropagation()
-        
-        let quantity = 0
-        
-        if (this.state.chooseQuantity) {
-            // If the keypad popup modal is open, use its value
-            quantity = parseFloat(this.popupKeypad.getForm().value)
-        } else {
-            quantity = parseFloat(this.keypad.getForm().value)
-        }
-        
-        if (!isNaN(quantity) && quantity > 0) {
-            let cart = (typeof this.refs.cart.getDecoratedComponentInstance === 'function') ? this.refs.cart.getDecoratedComponentInstance() : this.refs.cart
-            let item = this.stepper.getItem(0) // Hardcoded to zero indexed item, should be fine because we explicitly clear the stepper selection
-            
-            //alert('Adding ' + quantity + 'x ' + item.data.name + '(s) to the order.')
-            cart.addItem(item.id, quantity, item)
-            this.keypad.component.clear()
-            
-            this.stepper.start()
-            
-            let settings = this.props.settingStore.getSettings().posSettings
-            if (settings.hasOwnProperty('pinned_category_id') && !isNaN(settings['pinned_category_id'])) {
-                console.log('pinned category, auto select category : ' + settings['pinned_category'])
-                this.categoryClicked(null, {
-                    category_id: settings['pinned_category_id']
-                })
-            } else {
-                this.setStep('shop')
-            }
-        } else {
-            alert('Please enter the desired quantity.')
-        }
-    }
-    
-    quickAddToCart(e) {
-        this.addToCart(e) // Add to cart
-        this.popupKeypad.component.clear()
-        
-        // Close quantity keypad popup modal
-        this.setState({
-            chooseQuantity: false
-        })
-    }
-    
-    addToCartClicked(e, item) {
-        e.preventDefault()
-        e.stopPropagation()
-        
-        /*let stepId = 'options'
-        let stepDescriptor = this.stepper.getStepById(stepId) || null
-
-        if (stepDescriptor !== null) {
-            let data = item
-            
-            let isEnded = false
-            // Execute the step handler
-            this.stepper.load(stepDescriptor, data, isEnded, this.setStep.bind(this, stepId))
-            this.stepper.addItem(item.id, 1, item)
-        }*/
-        
-        this.stepper.addItem(item['product_id'], 0, item) // Don't set a quantity just register the item
-        
-        this.setState({
-            chooseQuantity: true
-        })
     }
     
     render() {
@@ -591,7 +513,6 @@ export default class Home extends Component {
                             stepper = {this.stepper}
                             steps = {steps}
                             customRowComponent = {CatalogRow}
-                            fluxFactory = {fluxFactory}
                             onItemClicked = {this.categoryClicked}
                             onFilterSelected = {this.categoryFilterSelected}
                             onStepClicked = {this.stepClicked}
@@ -627,9 +548,8 @@ export default class Home extends Component {
                                     steps = {steps}
                                     resultsPerPage = {8}
                                     customRowComponent = {ProductRow4x}
-                                    fluxFactory = {fluxFactory}
                                     onItemClicked = {this.itemClicked}
-                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onAddToCartClicked = {this.props.addToCartClicked}
                                     onFilterSelected = {this.categoryFilterSelected}
                                     onStepClicked = {this.stepClicked} 
                                     />
@@ -653,7 +573,6 @@ export default class Home extends Component {
                                     steps = {steps}
                                     resultsPerPage = {12}
                                     customRowComponent = {ProductRow4x}
-                                    fluxFactory = {fluxFactory}
                                     onItemClicked = {this.itemClicked}
                                     onAddToCartClicked = {this.addToCartClicked}
                                     onFilterSelected = {this.categoryFilterSelected}
@@ -679,7 +598,6 @@ export default class Home extends Component {
                                     steps = {steps}
                                     resultsPerPage = {4}
                                     customRowComponent = {ProductRow4x}
-                                    fluxFactory = {fluxFactory}
                                     onItemClicked = {this.itemClicked}
                                     onAddToCartClicked = {this.addToCartClicked}
                                     onFilterSelected = {this.categoryFilterSelected}
@@ -712,3 +630,5 @@ export default class Home extends Component {
         )
     }
 }
+
+export default CartContext(Home)

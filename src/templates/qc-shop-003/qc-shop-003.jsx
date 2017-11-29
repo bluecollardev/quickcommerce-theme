@@ -26,6 +26,7 @@ import CustomerActions from 'quickcommerce-react/actions/CustomerActions.jsx'
 import CustomerListActions from 'quickcommerce-react/actions/CustomerListActions.jsx'
 import CustomerSearchActions from 'quickcommerce-react/actions/CustomerSearchActions.jsx'
 //import OmniSearchActions from 'quickcommerce-react/actions/OmniSearchActions.jsx'
+import CartActions from 'quickcommerce-react/modules/cart/CartActions.jsx'
 import CheckoutActions from 'quickcommerce-react/actions/CheckoutActions.jsx'
 import CatalogActions from 'quickcommerce-react/actions/BrowserActions.jsx'
 import ProductActions from 'quickcommerce-react/actions/ProductActions.jsx'
@@ -77,6 +78,7 @@ let actionCreators = [
     //{ key: 'customerSearch', value: CustomerSearchActions },
     //{ key: 'omniSearch', value: OmniSearchActions },
     { key: 'product', value: ProductActions },
+    { key: 'cart', value: CartActions },
     { key: 'catalog', value: CatalogActions },
     { key: 'checkout', value: CheckoutActions },
     { key: 'setting', value: SettingActions }
@@ -104,9 +106,17 @@ const checkoutService = new CheckoutService({ actions: actionRegistry })
 
 import MainComponent from './main.jsx'
 
+import config from '../../config.js'
+//import instagramStore from '../../config.js'
+import instagramFeed from '../../instagram-feed.json'
+//import steps from '../../step-config.js'
+//import homepageSteps from '../../step-config-home.js'
+
 if ('undefined' !== typeof document) {
     ReactDOM.render(
         <Provider 
+            config = {config}
+            instagramFeed = {instagramFeed} 
             dispatcher = {dispatcher}
             actions = {actionRegistry}
             authService = {authService}

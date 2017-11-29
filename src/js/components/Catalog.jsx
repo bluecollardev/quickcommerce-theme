@@ -3,12 +3,13 @@ import assign from 'object-assign'
 import React, { Component } from 'react'
 
 import QcCatalog from 'quickcommerce-react/components/shop/Catalog.jsx'
+import CartContext from 'quickcommerce-react/modules/cart/CartContext.jsx'
 
 import CatalogFilterBar from 'quickcommerce-react/components/common/CatalogFilterBar.jsx'
 import Products from 'quickcommerce-react/components/shop/Products.jsx'
 import ProductRow4x from './catalog/ProductRow4x.jsx'
 
-export default class Catalog extends QcCatalog {
+class Catalog extends QcCatalog {
     componentDidMount() {
         /*let orderButton = document.getElementById('cart-button')
         console.log('order button')
@@ -147,7 +148,7 @@ export default class Catalog extends QcCatalog {
                             resultsPerPage = {15}
                             customRowComponent = {ProductRow4x}
                             onItemClicked = {this.itemClicked}
-                            onAddToCartClicked = {this.addToCartClicked}
+                            onAddToCartClicked = {this.props.addToCartClicked}
                             onFilterSelected = {this.categoryFilterSelected}
                             onStepClicked = {this.stepClicked} 
                             />
@@ -174,3 +175,5 @@ export default class Catalog extends QcCatalog {
         )
     }
 }
+
+export default CartContext(Catalog)

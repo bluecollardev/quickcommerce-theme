@@ -8,9 +8,8 @@ import {inject, observer, Provider} from 'mobx-react'
 
 import { DragDropContext } from 'react-dnd'
 import { HashRouter, Switch, Route } from 'react-router-dom'
-import HTML5Backend        from 'react-dnd-html5-backend'
 
-/* Gfx */
+import HTML5Backend from 'react-dnd-html5-backend' /* Gfx */
 import { TimelineLite } from 'gsap' // Facade for GSAP parallax containers and effects
 import { Parallax, ParallaxContainer } from 'react-gsap-parallax' // Facade for GSAP parallax containers and effects
 
@@ -43,7 +42,6 @@ import ContactPage from 'quickcommerce-react/components/shop/Contact.jsx'
 import GalleryPage from '../../js/components/Gallery.jsx'
 import Footer from '../../js/Footer.jsx'
 
-import { PosComponent } from 'quickcommerce-react/components/PosComponent.jsx'
 import PosContext from 'quickcommerce-react/modules/pos/PosContext.jsx'
 import CartContext from 'quickcommerce-react/modules/cart/CartContext.jsx'
 
@@ -86,41 +84,25 @@ import CustomerProfile from 'quickcommerce-react/components/customer/Authenticat
 import Keypad from 'quickcommerce-react/components/common/Keypad.jsx'
 import Notes from 'quickcommerce-react/components/common/Notes.jsx'
 
-import Cart from 'quickcommerce-react/modules/Cart.jsx'
-import InternalCartStore from 'quickcommerce-react/modules/CartStore.jsx'
-
-// Dirty global hack to maintain store instance until I refactor 
-// this component to use context or switch from flux to redux
-window.CartStore = (typeof window.CartStore === 'undefined') ? InternalCartStore : window.CartStore
-
-let CartStore = window.CartStore
+import CartStore from 'quickcommerce-react/modules/cart/CartStore.jsx'
 
 import { bubble as MainMenu, fallDown as CustomerMenu } from 'react-burger-menu'
-
-import Factory from 'quickcommerce-react/factory/Factory.jsx'
 
 import StringHelper from 'quickcommerce-react/helpers/String.js'
 import ArrayHelper from 'quickcommerce-react/helpers/Array.js'
 import JSONHelper from 'quickcommerce-react/helpers/JSON.js'
 import UrlHelper from 'quickcommerce-react/helpers/URL.js'
 
-let fluxFactory = new Factory()
-
 let categories = [] // Empty init containers
 let products = [] // Empty init containers
 
-// Pre-configured step types
-import CategoryStep from 'quickcommerce-react/steps/Category.jsx'
-import ProductStep from 'quickcommerce-react/steps/Product.jsx'
-import ProductOptionStep from 'quickcommerce-react/steps/ProductOption.jsx'
-
 import ProductDetail from 'quickcommerce-react/components/catalog/ProductDetail.jsx'
 
-import config from '../../config.js'
-//import instagramStore from '../../config.js'
-import instagramFeed from '../../instagram-feed.json'
-
 @inject(deps => ({
+    config: deps.config,
+    steps: deps.steps,
+    homepageSteps: deps.homepageSteps,
+    instagramFeed: deps.instagramFeed,
     actions: deps.actions,
 	authService: deps.authService,
 	customerService: deps.customerService,
@@ -144,8 +126,10 @@ import instagramFeed from '../../instagram-feed.json'
 class QcShop003 extends Component {
     constructor(props) {
         super(props)
-        console.log(config)
-        props.actions.setting.setConfig(config)
+        
+        console.log('CONFIG')
+        console.log(props.config)
+        props.actions.setting.setConfig(props.config)
     }
     
     render() {
@@ -169,6 +153,8 @@ class QcShop003 extends Component {
                 orderTotal = orderTotalValue.toFixed(2) 
             }
         }*/
+        
+        let logo = (this.props.settingStore.config.hasOwnProperty('settings')) ? this.props.settingStore.config.settings.logo : ''
         
         return (
             <div>
@@ -218,7 +204,7 @@ class QcShop003 extends Component {
                     {/* Navbar Header */}
                     <div className="navbar-header">
                       <SiteLogo 
-                        image = {this.props.settingStore.config.settings.logo} />
+                        image = {logo} />
                       {/*<br />*/}
                       {/*<LanguageSwitcher 
                       settings = {this.props.settingStore} />*/}
@@ -300,13 +286,13 @@ class QcShop003 extends Component {
                                     render={() => {
                                         return (
                                             <HomePage 
-                                                {...this.props} 
-                                                steps = {steps}
-                                                stepper = {this.stepper}
-                                                configureSteps = {this.configureSteps}
+                                                {...this.props}
+                                                stepper = {this.props.stepper}
+                                                configureSteps = {this.props.componentConfigureSteps}
                                                 categoryFilterSelected = {this.categoryFilterSelected}
                                                 categoryClicked = {this.categoryClicked}
                                                 itemClicked = {this.itemClicked}
+                                                addToCartMode = 'instant'
                                                 addToCartClicked = {this.quickAddToCart}
                                                 stepClicked = {this.stepClicked}
                                                 />
@@ -320,7 +306,7 @@ class QcShop003 extends Component {
                                 <Route path='/account' render={() => <AccountPage {...this.props} /> } />
                                 <Route path='/orders' render={() => <AccountPage {...this.props} /> } />
                                 <Route path='/wishlist' render={() => <AccountPage {...this.props} /> } />
-                                <Route path='/gallery' render={() => <GalleryPage dataSource={instagramFeed} {...this.props} /> } />
+                                <Route path='/gallery' render={() => <GalleryPage dataSource={this.props.instagramFeed} {...this.props} /> } />
                             </Switch>
                             <Route path='/contact' render={() => <ContactPage {...this.props} /> } />
                             <Route path='/cart' 

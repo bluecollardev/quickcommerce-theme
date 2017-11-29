@@ -35,8 +35,6 @@ import Footer from '../../js/Footer.jsx'
 //import MainContent from '../../js/components/Product.jsx'
 import MainContent from '../../js/components/Home.jsx'
 
-import { PosComponent } from 'quickcommerce-react/components/PosComponent.jsx'
-
 /* Copied from PosCompoent */
 import DragDropContainer from 'quickcommerce-react/components/cart/DragDropContainer.jsx'
 import DragDropCartRow from 'quickcommerce-react/components/cart/DragDropCartRow.jsx'
