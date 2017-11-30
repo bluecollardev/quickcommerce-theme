@@ -5,7 +5,7 @@ import {inject, observer, Provider} from 'mobx-react'
 
 import { DragDropContext } from 'react-dnd'
 import { HashRouter, Switch, Route } from 'react-router-dom'
-import HTML5Backend        from 'react-dnd-html5-backend'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 /* Generic imports */
 import SiteLogo from 'quickcommerce-react/components/common/SiteLogo.jsx'
@@ -43,9 +43,9 @@ import CategoryRow5x from 'quickcommerce-react/components/catalog/CategoryRow5x.
 import CategoryRow6x from 'quickcommerce-react/components/catalog/CategoryRow6x.jsx'
 
 /* Override */
-import ProductRow from '../../js/components/catalog/ProductRow.jsx'
-import ProductRow1x from '../../js/components/catalog/ProductRow1x.jsx'
-import ProductRow4x from '../../js/components/catalog/ProductRow4x.jsx'
+import ProductRow from './catalog/ProductRow.jsx'
+import ProductRow1x from './catalog/ProductRow1x.jsx'
+import ProductRow4x from './catalog/ProductRow4x.jsx'
 import TextMenuRow from 'quickcommerce-react/components/catalog/TextMenuRow.jsx'
 import TextMenuRow1x from 'quickcommerce-react/components/catalog/TextMenuRow1x.jsx'
 import ProductOptionRow from 'quickcommerce-react/components/catalog/ProductOptionRow.jsx'
@@ -574,7 +574,7 @@ class Home extends Component {
                                     resultsPerPage = {12}
                                     customRowComponent = {ProductRow4x}
                                     onItemClicked = {this.itemClicked}
-                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onAddToCartClicked = {this.props.addToCartClicked}
                                     onFilterSelected = {this.categoryFilterSelected}
                                     onStepClicked = {this.stepClicked} 
                                     />
@@ -599,7 +599,7 @@ class Home extends Component {
                                     resultsPerPage = {4}
                                     customRowComponent = {ProductRow4x}
                                     onItemClicked = {this.itemClicked}
-                                    onAddToCartClicked = {this.addToCartClicked}
+                                    onAddToCartClicked = {this.props.addToCartClicked}
                                     onFilterSelected = {this.categoryFilterSelected}
                                     onStepClicked = {this.stepClicked} 
                                     />

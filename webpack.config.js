@@ -53,12 +53,12 @@ console.log(env)
 module.exports = [{
    // For POS
    entry: {
-       qc1p001: TEMPLATE_SOURCE_DIR + '/qc-1p-001/qc-1p-001.jsx',
-       qcShop001: TEMPLATE_SOURCE_DIR + '/qc-shop-001/qc-shop-001.jsx',
-       qcShop002: TEMPLATE_SOURCE_DIR + '/qc-shop-002/qc-shop-002.jsx',
+       //qc1p001: TEMPLATE_SOURCE_DIR + '/qc-1p-001/qc-1p-001.jsx',
+       //qcShop001: TEMPLATE_SOURCE_DIR + '/qc-shop-001/qc-shop-001.jsx',
+       //qcShop002: TEMPLATE_SOURCE_DIR + '/qc-shop-002/qc-shop-002.jsx',
        qcShop003: TEMPLATE_SOURCE_DIR + '/qc-shop-003/qc-shop-003.jsx',
        //demoFormComponents: APP_DIR + '/js/qc/demo/FormComponents.jsx',
-	   test: TEST_DIR + '/index.jsx'
+	   //test: TEST_DIR + '/index.jsx'
    },
    output: {
         path: BUILD_DIR + '/js',

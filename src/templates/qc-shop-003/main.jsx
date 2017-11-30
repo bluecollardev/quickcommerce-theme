@@ -36,7 +36,7 @@ import AccountPage from '../../js/components/Account.jsx'
 import CartPage from '../../js/components/Cart.jsx'
 import CheckoutPage from '../../js/components/Checkout.jsx'
 import CatalogPage from '../../js/components/Catalog.jsx'
-import ProductPage from 'quickcommerce-react/components/shop/Product.jsx'
+import ProductPage from '../../js/components/Product.jsx'
 import AboutPage from 'quickcommerce-react/components/shop/About.jsx'
 import ContactPage from 'quickcommerce-react/components/shop/Contact.jsx'
 import GalleryPage from '../../js/components/Gallery.jsx'
@@ -130,6 +130,10 @@ class QcShop003 extends Component {
         console.log('CONFIG')
         console.log(props.config)
         props.actions.setting.setConfig(props.config)
+        
+        props.cartStore.on('change', () => {
+            this.forceUpdate() // TODO: This is a bit much! Temporary...
+        })
     }
     
     render() {
@@ -220,7 +224,7 @@ class QcShop003 extends Component {
                           <a href="#/cart">
                             <i>
                               <span className="material-icons shopping_basket" />
-                              <span className="count">2</span>
+                              <span className="count">{this.props.cartStore.getCount()}</span>
                             </i>
                           </a>
                         </div>{/* .cart-btn */}
@@ -293,20 +297,80 @@ class QcShop003 extends Component {
                                                 categoryClicked = {this.categoryClicked}
                                                 itemClicked = {this.itemClicked}
                                                 addToCartMode = 'instant'
-                                                addToCartClicked = {this.quickAddToCart}
                                                 stepClicked = {this.stepClicked}
                                                 />
                                             )
                                     }} />
-                                <Route path='/filters' render={() => <CatalogPage {...this.props} /> } />
-                                <Route path='/shop' render={() => <CatalogPage {...this.props} /> } />
-                                <Route path='/product' render={() => <ProductPage {...this.props} /> } />
-                                <Route path='/about' render={() => <AboutPage {...this.props} /> } />
-                                <Route path='/register' render={() => <RegisterPage {...this.props} /> } />
-                                <Route path='/account' render={() => <AccountPage {...this.props} /> } />
-                                <Route path='/orders' render={() => <AccountPage {...this.props} /> } />
-                                <Route path='/wishlist' render={() => <AccountPage {...this.props} /> } />
-                                <Route path='/gallery' render={() => <GalleryPage dataSource={this.props.instagramFeed} {...this.props} /> } />
+                                <Route 
+                                    path='/filters' 
+                                    render={() => {
+                                        return (
+                                            <CatalogPage 
+                                                {...this.props}
+                                                stepper = {this.props.stepper}
+                                                configureSteps = {this.props.componentConfigureSteps}
+                                                categoryFilterSelected = {this.categoryFilterSelected}
+                                                categoryClicked = {this.categoryClicked}
+                                                itemClicked = {this.itemClicked}
+                                                addToCartMode = 'instant'
+                                                stepClicked = {this.stepClicked}
+                                                />
+                                            )
+                                    }} />
+                                <Route 
+                                    path='/shop' 
+                                    render={() => {
+                                        return (
+                                            <CatalogPage 
+                                                {...this.props}
+                                                stepper = {this.props.stepper}
+                                                configureSteps = {this.props.componentConfigureSteps}
+                                                categoryFilterSelected = {this.categoryFilterSelected}
+                                                categoryClicked = {this.categoryClicked}
+                                                itemClicked = {this.itemClicked}
+                                                addToCartMode = 'instant'
+                                                stepClicked = {this.stepClicked}
+                                                />
+                                            )
+                                    }} />
+                                <Route 
+                                    path='/product' 
+                                    render={() => {
+                                        return (
+                                            <ProductPage 
+                                                {...this.props}
+                                                stepper = {this.props.stepper}
+                                                configureSteps = {this.props.componentConfigureSteps}
+                                                categoryFilterSelected = {this.categoryFilterSelected}
+                                                categoryClicked = {this.categoryClicked}
+                                                itemClicked = {this.itemClicked}
+                                                addToCartMode = 'instant'
+                                                stepClicked = {this.stepClicked}
+                                                />
+                                            )
+                                    }} />
+                                <Route 
+                                    path='/about' 
+                                    render={() => <AboutPage {...this.props} /> } />
+                                <Route 
+                                    path='/register' 
+                                    render={() => <RegisterPage {...this.props} /> } />
+                                <Route 
+                                    path='/account' 
+                                    render={() => <AccountPage {...this.props} /> } />
+                                <Route 
+                                    path='/orders' 
+                                    render={() => <AccountPage {...this.props} /> } />
+                                <Route 
+                                    path='/wishlist' 
+                                    render={() => <AccountPage {...this.props} /> } />
+                                <Route 
+                                    path='/gallery' 
+                                    render={() => {
+                                        return (
+                                            <GalleryPage dataSource={this.props.instagramFeed} {...this.props} />
+                                        )
+                                    }} />
                             </Switch>
                             <Route path='/contact' render={() => <ContactPage {...this.props} /> } />
                             <Route path='/cart' 

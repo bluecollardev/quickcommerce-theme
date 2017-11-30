@@ -16,6 +16,7 @@ export default class ProductRow4x extends Component {
     }
     
     render() {
+        // QuickCommerce Theme ProductRow4x.render
         return (
             <Col xs={12} sm={3}>
                 <CartDragItem

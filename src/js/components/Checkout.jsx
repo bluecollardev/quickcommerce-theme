@@ -3,6 +3,10 @@ import assign from 'object-assign'
 import React, { Component } from 'react'
 import {inject, observer, Provider} from 'mobx-react'
 
+import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'react-bootstrap'
+
+import CreditCardForm from 'quickcommerce-react/components/payment/CreditCardForm.jsx'
+
 export default class Checkout extends Component {        
     render() {
         return (

@@ -47,6 +47,7 @@ const CartDragItem = React.createClass({
         }
     },
     render() {
+        // QuickCommerce Theme CartDragItem.render
         const { id, isDragging, connectDragSource } = this.props
         
         return connectDragSource(

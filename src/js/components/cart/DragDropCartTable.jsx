@@ -7,6 +7,7 @@ import StringHelper from 'quickcommerce-react/helpers/String.js'
 
 @inject(deps => ({
     actions: deps.actions,
+    cartStore: deps.cartStore,
     checkoutStore: deps.checkoutStore,
     settingStore: deps.settingStore
 }))
@@ -116,27 +117,67 @@ class DragDropCartTable extends Component {
     }
     
     render() {
-        return (
-            <table className={this.props.tableClassName}>
-                <thead>
-                    <tr>
-                        <th>{'Name'}</th>
-                        {this.props.columns.map(column => {
-                        return (
-                        <th key={column}>{StringHelper.capitalizeFirstLetter(column)}</th>
-                        )}
-                        )}
-                        <th>{'Qty'}</th>
-                    </tr>
-                </thead>
-                <tbody>
+        let count = this.props.cartStore.getCount()
+        
+        if (this.props.displayLegacy) {
+            return (
+                <table className={this.props.tableClassName}>
+                    <thead>
+                        <tr>
+                            <td colSpan={3}>
+                                <p className="text-sm">
+                                    <span className="text-gray">Currently</span> {count} items
+                                    <span className="text-gray"> in cart</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{'Name'}</th>
+                            {this.props.columns.map(column => {
+                            return (
+                            <th key={column}>{StringHelper.capitalizeFirstLetter(column)}</th>
+                            )}
+                            )}
+                            <th>{'Qty'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.body}
+                    </tbody>
+                    <tfoot>
+                        {this.renderTotals()}
+                    </tfoot>
+                </table>
+            )
+        } else {
+            return (
+                <div className='shopping-cart'>
+                    <p className='text-sm'>
+                    <span className='text-gray'>Currently</span> {count} items
+                    <span className='text-gray'> in cart</span>
+                    </p>
                     {this.props.body}
-                </tbody>
-                <tfoot>
-                    {this.renderTotals()}
-                </tfoot>
-            </table>
-        )
+                    {/*<div className="item">
+                      <a href="shop-single.html" className="item-thumb">
+                        <img src="img/cart/item03.jpg" alt="Item" />
+                      </a>
+                      <div className="item-details">
+                        <h3 className="item-title"><a href="shop-single.html">Ceramic Watch</a></h3>
+                        <h4 className="item-price">$299.00</h4>
+                        <div className="count-input">
+                          <a className="incr-btn" data-action="decrease" href="#">–</a>
+                          <input className="quantity" type="text" defaultValue={1} />
+                          <a className="incr-btn" data-action="increase" href="#">+</a>
+                        </div>
+                      </div>
+                      <a href="#" className="item-remove" data-toggle="tooltip" data-placement="top" title="Remove">
+                        <i className="material-icons remove_shopping_cart" />
+                      </a>
+                    </div>*/}
+                </div>
+            )
+        }
+        
     }
 }
 

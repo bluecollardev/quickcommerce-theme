@@ -66,74 +66,64 @@ class DragDropCartRow extends Component {
         
         price = (price + optionTotal).toFixed(2)
         
-        return (
-            <tr>
-                <td key='name' className='cart-product-col'>
-                    <div className='cart-product-delete item-remove'>
-                        <Button 
-                          bsSize   = 'small'
-                          bsStyle  = 'danger'
-                          onClick  = {this.props.removeItem}>
-                            <i className="material-icons remove_shopping_cart" />
-                        </Button>
-                        {/*<Button 
+        if (this.props.displayLegacy) {
+            return (
+                <tr>
+                    <td key='name' className='cart-product-col'>
+                        <div className='cart-product-delete'>
+                            <Button 
                               bsSize   = 'small'
                               bsStyle  = 'danger'
                               onClick  = {this.props.removeItem}>
                                 <i className='fa fa-remove' />
-                        </Button>*/}
+                            </Button>
+                        </div>
+                        <strong className='cart-product-name'>{data['name']}</strong><br />
+                        <div className='cart-product-detail'>
+                            <Thumbnail src={data.image} />
+                            {this.renderOptions()}
+                        </div>
+                    </td>
+                    <td style={{width: '100px'}}>
+                        <div className='form-group form-group-sm' style={{width: '80px'}}>
+                            ${price}
+                        </div>
+                    </td>
+                    <td style={{width: '40px'}}>
+                        <div className='form-group form-group-sm' style={{width: '40px'}}>
+                            {this.props.item.quantity}
+                        </div>
+                    </td>    
+                </tr>
+            )
+        } else {
+            return (
+                <div className='cart-product-detail item'>
+                    <a href='#/' className='item-thumb'>{/* TODo: Link back to item */}
+                        <img src={data.image} alt='Item' />
+                    </a>
+                    
+                    <div className='item-details'>
+                        <h3 className='item-title'><a href='#/'>{data['name']}</a></h3>
+                        <h4 className='item-price'>${price}</h4>
+                        <div className='count-input'>
+                            <a className='incr-btn' data-action='decrease' href='#'>–</a>
+                            <input className='quantity' type='text' defaultValue={this.props.item.quantity} />
+                            <a className='incr-btn' data-action='increase' href='#'>+</a>
+                        </div>
                     </div>
-                    <strong className='cart-product-name'>{data['name']}</strong><br />
-                    <div className='cart-product-detail'>
-                        <Thumbnail src={data.image} />
-                        {/*<div style={{maxWidth: '220px'}}><pre>{JSON.stringify(this.props.item.options)}</pre></div>*/}
-                        {this.renderOptions()}
-                    </div>
-                </td>
-                <td style={{width: '100px'}}>
-                    <div className='form-group form-group-sm' style={{width: '80px'}}>
-                        ${price}
-                    </div>
-                </td>
-                <td style={{width: '100px'}}>
-                    <div className='count-input form-group form-group-sm' style={{width: '100px'}}>
-                        <a className="incr-btn" data-action="decrease" href="#">–</a>
-                        <input className="quantity" type="text" defaultValue={this.props.item.quantity} />
-                        <a className="incr-btn" data-action="increase" href="#">+</a>
-                    </div>
-                </td>    
-            </tr>
-        )
-        
-        /*return (
-            <tr>
-                <td key='name' className='cart-product-col'>
-                    <div className='cart-product-delete'>
-                        <Button 
-                          bsSize   = 'small'
-                          bsStyle  = 'danger'
-                          onClick  = {this.props.removeItem}>
-                            <i className='fa fa-remove' />
-                        </Button>
-                    </div>
-                    <strong className='cart-product-name'>{data['name']}</strong><br />
-                    <div className='cart-product-detail'>
-                        <Thumbnail src={data.image} />
-                        {this.renderOptions()}
-                    </div>
-                </td>
-                <td style={{width: '100px'}}>
-                    <div className='form-group form-group-sm' style={{width: '80px'}}>
-                        ${price}
-                    </div>
-                </td>
-                <td style={{width: '40px'}}>
-                    <div className='form-group form-group-sm' style={{width: '40px'}}>
-                        {this.props.item.quantity}
-                    </div>
-                </td>    
-            </tr>
-        )*/
+                    
+                    <a href='#' 
+                        onClick = {this.props.removeItem}
+                        className='item-remove' 
+                        data-toggle='tooltip' 
+                        data-placement='top' 
+                        title='Remove'>
+                        <i className='material-icons remove_shopping_cart' />
+                    </a>
+                </div>
+            )   
+        }
     }
 }
 
