@@ -15,7 +15,7 @@ import { Button, Checkbox, Radio } from 'react-bootstrap'
 import { Jumbotron } from 'react-bootstrap'
 
 /* Generic imports */
-import SiteLogo from 'quickcommerce-react/components/common/SiteLogo.jsx'
+/*import SiteLogo from 'quickcommerce-react/components/common/SiteLogo.jsx'
 import LanguageSwitcher from 'quickcommerce-react/components/common/LanguageSwitcher.jsx'
 import Toolbar from 'quickcommerce-react/components/common/Toolbar.jsx'
 import Hero from 'quickcommerce-react/components/shop/Hero.jsx'
@@ -27,13 +27,7 @@ import Categories from 'quickcommerce-react/components/shop/Categories.jsx'
 import Menu from 'quickcommerce-react/components/shop/Menu.jsx'
 import Products from 'quickcommerce-react/components/shop/Products.jsx'
 import Brands from 'quickcommerce-react/components/shop/Brands.jsx'
-import Features from 'quickcommerce-react/components/shop/Features.jsx'
-
-/* Site specific imports */
-import PagePreloader from 'quickcommerce-react/components/common/PagePreloader.jsx'
-import Footer from '../../js/Footer.jsx'
-//import MainContent from '../../js/components/Product.jsx'
-import MainContent from '../../js/components/Home.jsx'
+import Features from 'quickcommerce-react/components/shop/Features.jsx'*/
 
 /* Copied from PosCompoent */
 import DragDropContainer from 'quickcommerce-react/components/cart/DragDropContainer.jsx'
@@ -54,50 +48,28 @@ import TextMenuRow from 'quickcommerce-react/components/catalog/TextMenuRow.jsx'
 import TextMenuRow1x from 'quickcommerce-react/components/catalog/TextMenuRow1x.jsx'
 import ProductOptionRow from 'quickcommerce-react/components/catalog/ProductOptionRow.jsx'
 
-import CustomerActions from 'quickcommerce-react/actions/CustomerActions.jsx'
-import CustomerService from 'quickcommerce-react/services/CustomerService.jsx'
-
-import BrowserMenu from 'quickcommerce-react/components/browser/BrowserMenu.jsx'
-
 import CustomerPicker from 'quickcommerce-react/components/customer/CustomerPicker.jsx'
 import SignInForm from 'quickcommerce-react/components/account/SignInForm.jsx'
 import CreditCardForm from 'quickcommerce-react/components/payment/CreditCardForm.jsx'
 import CustomerProfile from 'quickcommerce-react/components/customer/AuthenticatedCustomerFullProfile.jsx'
-
-import { bubble as MainMenu, fallDown as CustomerMenu } from 'react-burger-menu'
-
-import Factory from 'quickcommerce-react/factory/Factory.jsx'
 
 import StringHelper from 'quickcommerce-react/helpers/String.js'
 import ArrayHelper from 'quickcommerce-react/helpers/Array.js'
 import JSONHelper from 'quickcommerce-react/helpers/JSON.js'
 import UrlHelper from 'quickcommerce-react/helpers/URL.js'
 
-let fluxFactory = new Factory()
-
-let categories = [] // Empty init containers
-let products = [] // Empty init containers
-
-// Pre-configured step types
-import CategoryStep from 'quickcommerce-react/steps/Category.jsx'
-import ProductStep from 'quickcommerce-react/steps/Product.jsx'
-import ProductOptionStep from 'quickcommerce-react/steps/ProductOption.jsx'
-
-import ProductDetail from 'quickcommerce-react/components/catalog/ProductDetail.jsx'
 import QcAccountComponent from 'quickcommerce-react/components/AccountComponent.jsx'
-
-// TODO: Qc Lib is f****d after refactoring, this needs to eventually extend AccountComponent
-export default class Account extends Component {    
-    constructor(props) {
-        super(props)
-        
-        this.doLogin = this.doLogin.bind(this)
-        this.doLogout = this.doLogout.bind(this)
-        this.onLoginSuccess = this.onLoginSuccess.bind(this)
-        this.onLoginError = this.onLoginError.bind(this)
-        this.onCreateSuccess = this.onCreateSuccess.bind(this)
-    }
-    
+// Find Me
+@inject(deps => ({
+    actions: deps.actions,
+    authService: deps.authService,
+    customerService: deps.customerService,
+    loginStore: deps.loginStore,
+    userStore: deps.userStore,
+    customerStore: deps.customerStore
+}))
+@observer
+export default class Account extends QcAccountComponent.wrappedComponent {       
     componentWillMount() {
         /*if (this.props.location.pathname === '/account/edit' && !this.props.loggedIn) {
             window.location.hash = '/account/login'
@@ -117,27 +89,27 @@ export default class Account extends Component {
             window.location.hash = '/account/edit'
         }*/
     }
-	
-	doLogin(formData, onSuccess, onError) {		
-		this.props.authService.login(
-			formData['account'], 
-			formData['password'], 
-			onSuccess,
-			onError
-		).catch(function(err) {
-			console.log('Error logging in', err)
-		})
-	}
-	
-	doLogout() {
-		try {
+    
+    doLogin(formData, onSuccess, onError) {        
+        this.props.authService.login(
+            formData['account'], 
+            formData['password'], 
+            onSuccess,
+            onError
+        ).catch(function(err) {
+            console.log('Error logging in', err)
+        })
+    }
+    
+    doLogout() {
+        try {
             this.props.authService.logout()
         } catch (err) {
             console.log('Error logging out', err)
         }
         
         window.location.hash = '/account/login'
-	}
+    }
     
     // TODO: Can I move these next group of methods up a level to AuthenticatedComponent?
     onLoginSuccess(response) {
@@ -179,6 +151,37 @@ export default class Account extends Component {
                     {/* TODO: Optional via prop */}
                 {/*<div className="featured-image" style={{backgroundImage: 'url(img/featured-image/account.jpg)'}} />*/}
                 {/* Content */}
+                {!this.props.loginStore.isLoggedIn() && (
+                <Modal
+                    show = {true}>
+                    {!this.props.loggedIn && this.props.location.pathname === '/account/login' && false && (
+                    <Modal.Header>
+                        <Modal.Title>
+                            <div className='column_attr clearfix align_center'>
+                                <h2 className='heading-with-border' style={{textAlign: 'center'}}>Sign Into Your Account</h2>
+                            </div>
+                        </Modal.Title>
+                    </Modal.Header>
+                    )}
+                    <Modal.Body>
+                        {this.props.children} 
+                        <SignInForm 
+                            onSubmit = {this.doLogin}
+                            onLoginSuccess = {this.onLoginSuccess}
+                            onLogout = {this.doLogout}
+                            onCreate = {() => {window.location.hash = '/account/register'}}
+                            />
+                            
+                        {/*this.props.loggedIn && (
+                        <SignInForm 
+                            user = {this.props.customer}
+                            onLoginSuccess = {this.onLoginSuccess}
+                            onCreate = {() => {window.location.hash = '/account/register'}}
+                            />
+                        )*/}
+                    </Modal.Body>
+                </Modal>
+                )}
                 <section className="container padding-top-3x padding-bottom-2x">
                     <h1 className="mobile-center">Howdy, <span className="text-semibold">John</span></h1>
                     <div className="row padding-top">
@@ -265,9 +268,10 @@ export default class Account extends Component {
 
                                 <Row>
                                     <CustomerProfile
-                                        customer = {this.props.customer}
-                                        billingAddress = {this.props.billingAddress}
-                                        shippingAddress = {this.props.shippingAddress}
+                                        customer = {this.props.customerStore.customer}
+                                        displayAddresses = 'single'
+                                        billingAddress = {this.props.customerStore.billingAddress}
+                                        shippingAddress = {this.props.customerStore.shippingAddress}
                                         editAccount = {true}
                                         createAccount = {false}
                                         displayProfile = {true}
@@ -278,113 +282,6 @@ export default class Account extends Component {
                                         onCancel = {() => {window.location.hash = '/'}}>
                                     </CustomerProfile>
                                 </Row>
-                                
-                                <form method="post">
-                                {/*<div className="row">
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="first_name">First Name</label>
-                                      <input type="text" id="first_name" className="form-control" defaultValue="John" />
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="last_name">Last Name</label>
-                                      <input type="text" id="last_name" className="form-control" defaultValue="Doe" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="email">Email Address</label>
-                                      <input type="email" id="email" className="form-control" defaultValue="johndoe@mail.com" />
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="phone">Phone Number</label>
-                                      <input type="text" id="phone" className="form-control" defaultValue="+1 809 765 350 92" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="password">Password</label>
-                                      <input type="password" id="password" className="form-control" defaultValue="abracadabra" />
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="password_confirm">Confirm Password</label>
-                                      <input type="password" id="password_confirm" className="form-control" defaultValue="abracadabra" />
-                                    </div>
-                                  </div>
-                                </div>*/}
-                                <div className="form-element">
-                                  <label htmlFor="address">Address</label>
-                                  <input type="text" id="address" className="form-control" defaultValue="33 Bedford Str." />
-                                </div>
-                                <div className="row">
-                                  <div className="col-sm-6">
-                                    <label htmlFor="country">Country</label>
-                                    <div className="form-element form-select">
-                                      <select className="form-control" id="country">
-                                        <option value>Country</option>
-                                        <option value="australia">Australia</option>
-                                        <option value="gb">Great Britain</option>
-                                        <option value="poland">Poland</option>
-                                        <option value="switzerland">Switzerland</option>
-                                        <option value="usa" selected>USA</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <label htmlFor="state">State</label>
-                                    <div className="form-element form-select">
-                                      <select className="form-control" id="state">
-                                        <option value>State</option>
-                                        <option value={1} selected>New York</option>
-                                        <option value={2}>State 2</option>
-                                        <option value={3}>State 3</option>
-                                        <option value={4}>State 4</option>
-                                        <option value={5}>State 5</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-sm-6">
-                                    <label htmlFor="city">City</label>
-                                    <div className="form-element form-select">
-                                      <select className="form-control" id="city">
-                                        <option value>City</option>
-                                        <option value="bern">Bern</option>
-                                        <option value="london">London</option>
-                                        <option value="ny" selected>New York</option>
-                                        <option value="warsaw">Warsaw</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <div className="form-element">
-                                      <label htmlFor="zip">ZIP Code</label>
-                                      <input type="text" id="zip" className="form-control" defaultValue={10021} />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="row">
-                                  <div className="col-sm-6">
-                                    <label className="checkbox space-top">
-                                      <input type="checkbox" defaultChecked /> Subscribe me to newsletter
-                                    </label>
-                                  </div>
-                                  <div className="col-sm-6 text-right mobile-center">
-                                    <button type="submit" className="btn btn-primary waves-effect waves-light">Update Profile</button>
-                                  </div>
-                                </div>
-                                </form>
                             </div>{/* .tab-pane#profile */}
                             <div role="tabpanel" className="tab-pane transition fade scale" id="orders">
                               <div className="table-responsive">

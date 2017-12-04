@@ -23,9 +23,7 @@ import Brands from 'quickcommerce-react/components/shop/Brands.jsx'
 import Features from 'quickcommerce-react/components/shop/Features.jsx'
 
 /* Site specific imports */
-import PagePreloader from 'quickcommerce-react/components/common/PagePreloader.jsx'
-import Footer from '../../js/Footer.jsx'
-//import MainContent from '../../js/components/Product.jsx'
+import VimeoVideo from '../../js/components/video/VimeoVideo.jsx'
 import MainContent from '../../js/components/Home.jsx'
 
 import CartContext from 'quickcommerce-react/modules/cart/CartContext.jsx'
@@ -141,7 +139,7 @@ class Home extends Component {
             this.topCategoryBrowser.actions.loadTopCategories() // Browser load categories via refs
         }
         
-        if (typeof this.props.match !== 'undefined' && 
+        /*if (typeof this.props.match !== 'undefined' && 
             typeof this.props.match.params !== 'undefined' && 
             typeof this.props.match.params.cat !== 'undefined' && !isNaN(this.props.match.params.cat)) {
             console.log('load category id: ' + this.props.match.params.cat)
@@ -151,12 +149,12 @@ class Home extends Component {
         } else {
             //categoryId = null
             categoryId = 204
-        }
+        }*/
         
         // Just load browser products, don't trigger any steps
-        this.currentlyRoastingBrowser.actions.loadProducts(categoryId)
-        this.specialRoastsBrowser.actions.loadProducts(categoryId)
-        this.newArrivalsBrowser.actions.loadProducts(categoryId)
+        this.currentlyRoastingBrowser.actions.loadProducts(230)
+        this.newArrivalsBrowser.actions.loadProducts(232)
+        this.specialRoastsBrowser.actions.loadProducts(233)
     }
     
     configureSteps() {
@@ -355,7 +353,10 @@ class Home extends Component {
         
         this.props.actions.product.setProduct(item)
         
-        window.location.hash = '#/product'
+        // TODO: Leave this in as log if debug mode
+        console.log('opening product page for item:')
+        console.log(item)
+        window.location.hash = '#/product/' + item['product_id'] + '/' + item['name'] // TODO: Use mappings! And use websafe/SEO URL (currently unavailable)
         
         /*let stepId = 'options'
         let stepDescriptor = this.stepper.getStepById(stepId) || null
@@ -432,7 +433,7 @@ class Home extends Component {
                             <div className='mcb-wrap-inner'>
                                 <div className='column mcb-column one-fourth column_icon_box'>
                                     <div className='icon_box icon_position_top no_border'>
-                                        <a className='load-checkout' href='#/shop'>
+                                        <a className='load-checkout' href='#/shop/category/204'>
                                             <div className='icon_wrapper'>
                                                 <div className='icon'>
                                                     <i className='icon-cup-line'></i>
@@ -446,7 +447,7 @@ class Home extends Component {
                                 </div>
                                 <div className='column mcb-column one-fourth column_icon_box'>
                                     <div className='icon_box icon_position_top no_border'>
-                                        <a className='load-checkout' href='#/shop'>
+                                        <a className='load-checkout' href='#/shop/category/223'>
                                             <div className='icon_wrapper'>
                                                 <div className='icon'>
                                                     <i className='icon-t-shirt-line'></i>
@@ -460,7 +461,7 @@ class Home extends Component {
                                 </div>
                                 <div className='column mcb-column one-fourth column_icon_box'>
                                     <div className='icon_box icon_position_top no_border'>
-                                        <a className='load-checkout' href='#/shop'>
+                                        <a className='load-checkout' href='#/shop/category/88'>
                                             <div className='icon_wrapper'>
                                                 <div className='icon'>
                                                     <i className='icon-tag-line'></i>
@@ -474,7 +475,7 @@ class Home extends Component {
                                 </div>
                                 <div className='column mcb-column one-fourth column_icon_box'>
                                     <div className='icon_box icon_position_top no_border'>
-                                        <a className='load-checkout' href='#/shop'>
+                                        <a className='load-checkout' href='#/shop/category/224'>
                                             <div className='icon_wrapper'>
                                                 <div className='icon'>
                                                     <i className='icon-wallet-line'></i>
@@ -613,17 +614,7 @@ class Home extends Component {
                 {/*<Brands 
                 settings = {this.props.settingStore} />*/}
                 {/* Video Popup */}
-                <div className="ace-video fw-section space-top-2x padding-top-3x padding-bottom-3x">
-                  <div className="container padding-top-3x padding-bottom-3x text-center">
-                    <div className="space-top-3x space-bottom">
-                      {/* Add ".light-skin" class to alter appearance. */}
-                      <a href="https://player.vimeo.com/video/135832597?color=77cde3&title=0&byline=0&portrait=0" className="video-popup-btn">
-                        <i className="material-icons play_arrow" />
-                      </a>
-                      <h3 className="padding-top-2x padding-bottom-2x">The ACE Coffee Story</h3>
-                    </div>
-                  </div>
-                </div>{/* .fw-section */}
+                <VimeoVideo />
                 <Features 
                     settings = {this.props.settingStore} />
             </main>

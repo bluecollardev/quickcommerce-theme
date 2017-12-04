@@ -5,9 +5,33 @@ import {inject, observer, Provider} from 'mobx-react'
 
 import { Alert, Table, Grid, Col, Row, Thumbnail, Input, Button, Modal } from 'react-bootstrap'
 
+import SignInForm from 'quickcommerce-react/components/account/SignInForm.jsx'
 import CreditCardForm from 'quickcommerce-react/components/payment/CreditCardForm.jsx'
+import CustomerProfile from 'quickcommerce-react/components/customer/AuthenticatedCustomerFullProfile.jsx'
 
-export default class Checkout extends Component {        
+import { PosComponent } from 'quickcommerce-react/components/PosComponent.jsx'
+
+@inject(deps => ({
+    actions: deps.actions,
+	authService: deps.authService,
+	customerService: deps.customerService,
+    checkoutService: deps.checkoutService,
+    settingService: deps.authService,
+	loginStore: deps.loginStore,
+    userStore: deps.userStore,
+    customerStore: deps.customerStore,
+    checkoutStore: deps.checkoutStore,
+    //starMicronicsStore: deps.starMicronicsStore,
+    productStore: deps.productStore,
+	settingStore: deps.settingStore,
+	mappings: deps.mappings, // Per component or global scope?
+	translations: deps.translations, // i8ln transations
+	roles: deps.roles, // App level roles, general authenticated user (not customer!)
+	//userRoles: deps.userRoles, // Shortcut or implement via HoC?
+	user: deps.user // Shortcut or implement via HoC?
+}))
+@observer
+export default class Checkout extends PosComponent.wrappedComponent {
     render() {
         return (
             <main className="content-wrapper">{/* Main Content Wrapper */}
@@ -16,74 +40,41 @@ export default class Checkout extends Component {
                     <h1 className="space-top-half">Checkout</h1>
                     <div className="row padding-top">
                         {/* Checkout Form */}
-                        <div className="col-sm-8 padding-bottom">
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <input type="text" className="form-control" name="co_f_name" placeholder="First name" required />
-                              <input type="email" className="form-control" name="co_email" placeholder="Email" required />
-                              <input type="text" className="form-control" name="co_address1" placeholder="Address 1" required />
-                            </div>
-                            <div className="col-sm-6">
-                              <input type="text" className="form-control" name="co_l_name" placeholder="Last name" required />
-                              <input type="tel" className="form-control" name="co_phone" placeholder="Phone" required />
-                              <input type="text" className="form-control" name="co_address2" placeholder="Address 2" />
-                            </div>
-                          </div>{/* .row */}
-                          <input type="text" className="form-control" name="co_company" placeholder="Company" />
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <div className="form-element form-select">
-                                <select className="form-control" name="co_country">
-                                  <option value>Country</option>
-                                  <option value="australia">Australia</option>
-                                  <option value="gb">Great Britain</option>
-                                  <option value="poland">Poland</option>
-                                  <option value="switzerland">Switzerland</option>
-                                  <option value="usa">USA</option>
-                                </select>
-                              </div>
-                              <div className="form-element form-select">
-                                <select className="form-control" name="co_city">
-                                  <option value>City</option>
-                                  <option value="bern">Bern</option>
-                                  <option value="london">London</option>
-                                  <option value="ny">New York</option>
-                                  <option value="warsaw">Warsaw</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="col-sm-6">
-                              <div className="form-element form-select">
-                                <select className="form-control" name="co_state">
-                                  <option value>State</option>
-                                  <option value={1}>State 1</option>
-                                  <option value={2}>State 2</option>
-                                  <option value={3}>State 3</option>
-                                  <option value={4}>State 4</option>
-                                  <option value={5}>State 5</option>
-                                </select>
-                              </div>
-                              <input type="text" className="form-control" name="co_zip" placeholder="ZIP code" required />
-                            </div>
-                          </div>{/* .row */}
-                          <div className="form-group">
-                            <label className="radio radio-inline">
-                              <input type="radio" name="co_shipping" defaultChecked /> Ship to this address
-                            </label>
-                            <label className="radio radio-inline">
-                              <input type="radio" name="co_shipping" /> Ship to different address
-                            </label>
-                          </div>{/* .form-group */}
-                          <Row>
-                            <Col md={12}>
-                                <Row>
-                                    <CreditCardForm />
-                                </Row>
-                            </Col>
-                          </Row>
+                        <div className="col-sm-7 padding-bottom">
+                            <Row>
+                                <CustomerProfile
+                                    customer = {this.props.customerStore.customer}
+                                    displayAddresses = 'single'
+                                    billingAddress = {this.props.customerStore.billingAddress}
+                                    shippingAddress = {this.props.customerStore.shippingAddress}
+                                    editAccount = {true}
+                                    createAccount = {false}
+                                    displayProfile = {true}
+                                    displayCurrentAddress = {true}
+                                    displayBillingAddress = {true}
+                                    displayShippingAddress = {true}
+                                    onCreateSuccess = {this.onCreateSuccess}
+                                    onCancel = {() => {window.location.hash = '/'}}>
+                                </CustomerProfile>
+                            </Row>
+                            <div className="form-group">
+                                <label className="radio radio-inline">
+                                    <input type="radio" name="co_shipping" defaultChecked /> Ship to this address
+                                </label>
+                                <label className="radio radio-inline">
+                                    <input type="radio" name="co_shipping" /> Ship to different address
+                                </label>
+                            </div>{/* .form-group */}
+                            <Row>
+                                <Col md={12}>
+                                    <Row>
+                                        <CreditCardForm />
+                                    </Row>
+                                </Col>
+                            </Row>
                         </div>{/* .col-sm-8 */}
                         {/* Sidebar */}
-                        <div className="col-md-3 col-md-offset-1 col-sm-4 padding-bottom">
+                        <div className="col-md-4 col-md-offset-1 col-sm-4 padding-bottom">
                           <aside>
                             <h3>Cart total:</h3>
                             <h4>$460.90</h4>
@@ -93,6 +84,17 @@ export default class Checkout extends Component {
                               Back To Cart
                             </a>
                             <button type="submit" className="btn btn-primary btn-block waves-effect waves-light space-top-none">Checkout</button>
+                          </aside>
+                          <aside>
+                            <div className='receipt'
+                            style={{
+                                margin: '0 auto',
+                                boxSizing: 'border-box',
+                                padding: '18px',
+                                border: '1px solid black'
+                            }}>
+                            {this.renderCachedReceipt()}
+                            </div>
                           </aside>
                         </div>{/* .col-md-3.col-sm-4 */}
                     </div>{/* .row */}

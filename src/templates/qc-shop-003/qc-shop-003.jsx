@@ -37,6 +37,7 @@ import UserService from 'quickcommerce-react/services/UserService.jsx'
 //import LoginService from 'quickcommerce-react/services/LoginService.jsx'
 import CustomerService from 'quickcommerce-react/services/CustomerService.jsx'
 import CustomerAddressService from 'quickcommerce-react/services/CustomerAddressService.jsx'
+import ProductService from 'quickcommerce-react/services/ProductService.jsx'
 import CheckoutService from 'quickcommerce-react/services/CheckoutService.jsx'
 
 import { LoginStore } from 'quickcommerce-react/stores/LoginStore.jsx'
@@ -102,6 +103,7 @@ const authService = new AuthService({ actions: actionRegistry })
 const userService = new UserService({ actions: actionRegistry })
 const customerService = new CustomerService({ actions: actionRegistry })
 const customerAddressService = new CustomerAddressService({ actions: actionRegistry })
+const productService = new ProductService({ actions: actionRegistry })
 const checkoutService = new CheckoutService({ actions: actionRegistry })
 
 import MainComponent from './main.jsx'
@@ -112,29 +114,33 @@ import instagramFeed from '../../instagram-feed.json'
 //import steps from '../../step-config.js'
 //import homepageSteps from '../../step-config-home.js'
 
+import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
+const theme = getMuiTheme()
+
 if ('undefined' !== typeof document) {
     ReactDOM.render(
         <Provider 
-            config = {config}
-            instagramFeed = {instagramFeed} 
-            dispatcher = {dispatcher}
-            actions = {actionRegistry}
-            authService = {authService}
-            customerService = {customerService}
-            customerAddressService = {customerAddressService}
-            checkoutService = {checkoutService}
-            userStore = {userStore}
-            loginStore = {loginStore}
-            customerStore = {customerStore}
-            catalogStore = {catalogStore}
-            productStore = {productStore}
-            cartStore = {cartStore}
-            checkoutStore = {checkoutStore}
-            settingStore = {settingStore}>
-            <AuthenticatedApp>
-                <MainComponent />
-            </AuthenticatedApp>
-        </Provider>,
+                config = {config}
+                instagramFeed = {instagramFeed} 
+                dispatcher = {dispatcher}
+                actions = {actionRegistry}
+                authService = {authService}
+                customerService = {customerService}
+                customerAddressService = {customerAddressService}
+                productService = {productService}
+                checkoutService = {checkoutService}
+                userStore = {userStore}
+                loginStore = {loginStore}
+                customerStore = {customerStore}
+                catalogStore = {catalogStore}
+                productStore = {productStore}
+                cartStore = {cartStore}
+                checkoutStore = {checkoutStore}
+                settingStore = {settingStore}>
+                <AuthenticatedApp>
+                    <MainComponent />
+                </AuthenticatedApp>
+            </Provider>,
         document.getElementById('react-ws')
     )
 } else {
