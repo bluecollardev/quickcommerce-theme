@@ -28,20 +28,20 @@ var env = {
 	QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
 	QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
     QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')*/
-    QC_APP_URL: JSON.stringify('http://acecoffeeroasters.com/staging/'),
+    /*QC_APP_URL: JSON.stringify('http://acecoffeeroasters.com/staging/'),
     QC_BASE_URI: JSON.stringify('http://acecoffeeroasters.com/'),
 	QC_LEGACY_API: JSON.stringify('http://acecoffeeroasters.com/api/rest/'),
 	QC_RESOURCE_API: JSON.stringify('http://acecoffeeroasters.com/qcapi/api/res/'),
 	QC_API: JSON.stringify('http://acecoffeeroasters.com/qcapi/api/v1/'),
     QC_IMAGES_PATH: JSON.stringify('image/'), // Relative path to catalog image folder
-    QC_IMAGES_URI: JSON.stringify('http://acecoffeeroasters.com/image/')
-    /*QC_APP_URL: JSON.stringify('http://quickcommerce/qc-shop-003.html'),
+    QC_IMAGES_URI: JSON.stringify('http://acecoffeeroasters.com/image/')*/
+    QC_APP_URL: JSON.stringify('http://quickcommerce/qc-shop-003.html'),
     QC_BASE_URI: JSON.stringify('http://qcpos/'),
     QC_LEGACY_API: JSON.stringify('http://qcpos/api/rest/'),
     QC_RESOURCE_API: JSON.stringify('http://qcpos/qcapi/api/res/'),
     QC_API: JSON.stringify('http://qcpos/qcapi/api/v1/'),
     QC_IMAGES_PATH: JSON.stringify('image/'), // Relative path to catalog image folder
-    QC_IMAGES_URI: JSON.stringify('http://acecoffeeroasters.com/image/')*/
+    QC_IMAGES_URI: JSON.stringify('http://acecoffeeroasters.com/image/')
 }
 
 // Are we connected to a QuickCommerce installation?

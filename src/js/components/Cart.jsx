@@ -54,10 +54,15 @@ class ShoppingCart extends QcCart.wrappedComponent {
         const rowComponent = this.props.rowComponent || DragDropCartRow
         
         return (
-            <main className='content-wrapper'>{/* Main Content Wrapper */}
+            <main className='content-wrapper'>
+                <section className='fw-section slide catalog-slide text-center'>
+                    <span className='h1'>
+                        <i className="cursive"><strong>Ready to order?</strong></i>
+                    </span>
+                </section>
+                
                 {/* Container */}
                 <section className='container padding-top-3x padding-bottom'>
-                  <h1 className='space-top-half'>Shopping Cart</h1>
                   <div className='row padding-top'>
                     {/* Cart */}
                     <div className='col-sm-8 padding-bottom-2x'>

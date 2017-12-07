@@ -30,7 +30,7 @@ import Brands from 'quickcommerce-react/components/shop/Brands.jsx'
 import Features from 'quickcommerce-react/components/shop/Features.jsx'
 //import ProfileMenu from 'quickcommerce-react/components/menu/ProfileMenu.jsx'
 
-// Material UI is fucked fucking hell
+// Material UI is fucked
 //import Avatar from 'material-ui/Avatar'
 //import AccountCircleIcon from 'material-ui-icons/AccountCircle'
 //import List, { ListItem, ListItemText } from 'material-ui/List'
@@ -143,15 +143,39 @@ class QcShop003 extends Component {
         console.log(props.config)
         props.actions.setting.setConfig(props.config)
         
-        props.cartStore.on('change', () => {
+        let { actions } = props
+        let { checkoutStore, checkoutService, cartStore } = props
+        let { settingStore } = props
+        
+        cartStore.on('change', () => {
             this.forceUpdate() // TODO: This is a bit much! Temporary...
         })
+        
+        /*settingStore.once('settings-loaded', (payload) => {
+            console.log('PosContext SETTINGS LOADED')
+            checkoutStore.settings = payload
+
+            // We only wanna do this once, so stick 'er right up top
+           checkoutService.createOrder({
+                action: 'insert'
+                //orderTaxRates: this.orderTaxRates
+            })
+        })*/
+        
+        // TODO: Code above isn't working, see if I can temporarily wire this up outside the block
+        // We only wanna do this once, so stick 'er right up top
+       checkoutService.createOrder({
+            action: 'insert',
+            customer: this.props.customerStore.customer,
+            //orderTaxRates: this.orderTaxRates
+        })
+        
+        actions.setting.fetchStore(8)
+        actions.setting.fetchSettings()
     }
     
     componentDidMount() {
         let container = ReactDOM.findDOMNode(this)
-        
-        
     }
     
     render() {
@@ -419,24 +443,65 @@ class QcShop003 extends Component {
                                     }} />
                                 <Route 
                                     path='/about' 
-                                    render={(props) => <AboutPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AboutPage 
+                                                {...props} 
+                                                {...this.props}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/register' 
-                                    render={(props) => <RegisterPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/account' 
-                                    render={(props) => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/orders' 
-                                    render={(props) => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/wishlist' 
-                                    render={() => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/gallery' 
                                     render={(props) => {
                                         return (
-                                            <GalleryPage dataSource={this.props.instagramFeed} {...props} {...this.props} />
+                                            <GalleryPage 
+                                                dataSource={this.props.instagramFeed} 
+                                                {...props} {...this.props} />
                                         )
                                     }} />
                             </Switch>

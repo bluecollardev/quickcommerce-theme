@@ -516,13 +516,13 @@ class Product extends QcProduct {
                                 <input className='quantity' type='text' defaultValue={1} />
                                 <a className='incr-btn' data-action='increase' href='#'>+</a>
                               </div>
-                              <div className='form-element'>
+                              {/*<div className='form-element'>
                                 <select className='form-control form-control-sm color-select'>
                                   <option value='blue' data-image='preview02'>Blue</option>
                                   <option value='creme' data-image='preview01'>Creme</option>
                                   <option value='red' data-image='preview03'>Red</option>
                                 </select>
-                              </div>
+                              </div>*/}
                               <Button className='add-to-cart' onClick={this.onAddToCartClicked}>
 
                                 <em>Add to Order</em>
@@ -596,8 +596,6 @@ class Product extends QcProduct {
                           </Row>
                         )}
                       </Col>
-                      
-                      
                       
                       <div className='row product-section'>
                         <div className='col-xs-12'>

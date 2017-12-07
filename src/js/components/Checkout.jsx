@@ -35,9 +35,14 @@ export default class Checkout extends PosComponent.wrappedComponent {
     render() {
         return (
             <main className="content-wrapper">{/* Main Content Wrapper */}
+                <section className='fw-section slide catalog-slide text-center'>
+                    <span className='h1'>
+                        <i className="cursive"><strong>Checkout your order.</strong></i>
+                    </span>
+                </section>
+                
                 {/* Container */}
                 <form method="post" className="container padding-top-3x padding-bottom-2x">
-                    <h1 className="space-top-half">Checkout</h1>
                     <div className="row padding-top">
                         {/* Checkout Form */}
                         <div className="col-sm-7 padding-bottom">
@@ -50,6 +55,7 @@ export default class Checkout extends PosComponent.wrappedComponent {
                                     editAccount = {true}
                                     createAccount = {false}
                                     displayProfile = {true}
+                                    cloneAddressCheckbox = {true}
                                     displayCurrentAddress = {true}
                                     displayBillingAddress = {true}
                                     displayShippingAddress = {true}
@@ -57,14 +63,6 @@ export default class Checkout extends PosComponent.wrappedComponent {
                                     onCancel = {() => {window.location.hash = '/'}}>
                                 </CustomerProfile>
                             </Row>
-                            <div className="form-group">
-                                <label className="radio radio-inline">
-                                    <input type="radio" name="co_shipping" defaultChecked /> Ship to this address
-                                </label>
-                                <label className="radio radio-inline">
-                                    <input type="radio" name="co_shipping" /> Ship to different address
-                                </label>
-                            </div>{/* .form-group */}
                             <Row>
                                 <Col md={12}>
                                     <Row>

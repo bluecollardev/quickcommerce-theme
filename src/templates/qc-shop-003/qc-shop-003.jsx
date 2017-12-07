@@ -51,22 +51,28 @@ import { BrowserStore as CatalogStore } from 'quickcommerce-react/stores/Browser
 import { SettingStore } from 'quickcommerce-react/stores/SettingStore.jsx'
 import { StarMicronicsStore } from 'quickcommerce-react/stores/StarMicronicsStore.jsx'
 
+import FluxHelper from 'quickcommerce-react/helpers/Flux.js'
+import HashProxy from 'quickcommerce-react/utils/HashProxy.js'
+
 const dispatcher = AppDispatcher
 
 // Initialize stores
+const settingStore = new SettingStore(dispatcher)
 const loginStore = new LoginStore(dispatcher)
 const userStore = new UserStore(dispatcher)
 const customerStore = new CustomerStore(dispatcher)
 //const customerListStore = new CustomerListStore(dispatcher)
 const productStore = new ProductStore(dispatcher)
 const cartStore = new CartStore(dispatcher)
-const checkoutStore = new CheckoutStore(dispatcher)
+
+let checkoutStoreStores = new HashProxy()
+checkoutStoreStores['setting'] = settingStore
+checkoutStoreStores['cart'] = cartStore
+const checkoutStore = new CheckoutStore(dispatcher, checkoutStoreStores)
+
 const catalogStore = new CatalogStore(dispatcher)
-const settingStore = new SettingStore(dispatcher)
 const starMicronicsStore = new StarMicronicsStore(dispatcher)
 
-import FluxHelper from 'quickcommerce-react/helpers/Flux.js'
-import HashProxy from 'quickcommerce-react/utils/HashProxy.js'
 //FluxHelper.bindActionCreators()
 
 const actionRegistry = new HashProxy()
@@ -104,7 +110,14 @@ const userService = new UserService({ actions: actionRegistry })
 const customerService = new CustomerService({ actions: actionRegistry })
 const customerAddressService = new CustomerAddressService({ actions: actionRegistry })
 const productService = new ProductService({ actions: actionRegistry })
-const checkoutService = new CheckoutService({ actions: actionRegistry })
+const checkoutService = new CheckoutService({ 
+    actions: actionRegistry,
+    stores: {
+        checkout: checkoutStore,
+        setting: settingStore,
+        customer: customerStore
+    }
+})
 
 import MainComponent from './main.jsx'
 

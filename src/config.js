@@ -60,8 +60,8 @@ export default {
                             action: {
                                 href: '#/shop'
                             },
-                            title: 'Meet the ACE product family',
-                            subtitle1: 'Single Origin and Premium Blended Roasts', 
+                            title: 'Meet the ACE product family.',
+                            subtitle1: 'Single origin and premium blended roasts.', 
                             subtitle2: 'Now available', 
                             subtitle3: 'by subscription!', 
                             ctaText: 'Order today', 
@@ -84,9 +84,9 @@ export default {
                                 href: '#/shop'
                             },
                             title: 'Now introducing our', 
-                            subtitle1: 'very own ACE line of accessories', 
+                            subtitle1: 'very own ACE line of accessories!', 
                             subtitle2: 'Cups, mugs, apparel', 
-                            subtitle3: 'and much much more',
+                            subtitle3: 'and much, much more.',
                             ctaText: 'Browse merchandise', 
                             className: 'slide', 
                             backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-70.jpg',
@@ -107,9 +107,9 @@ export default {
                                 href: '#/shop'
                             },
                             title: 'Coffee making essentials', 
-                            subtitle1: 'for every home-barista', 
+                            subtitle1: 'for every home-barista.', 
                             subtitle2: "Edmonton's widest selection of", 
-                            subtitle3: 'home-barista equipment',
+                            subtitle3: 'home-barista equipment.',
                             ctaText: 'Get started', 
                             className: 'slide', 
                             backgroundImage: 'img/template/acecoffeeroasters/banners/ACE-79.jpg',

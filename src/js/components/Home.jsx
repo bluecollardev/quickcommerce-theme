@@ -440,7 +440,7 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                             <div className='desc_wrapper'>
-                                                <h4 className='title'>Coffee</h4>
+                                                <i className='cursive'><span className='title'>Coffee</span></i>
                                             </div>
                                         </a>
                                     </div>
@@ -454,7 +454,7 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                             <div className='desc_wrapper'>
-                                                <h4 className='title'>Merchandise</h4>
+                                                <i className='cursive'><span className='title'>Merchandise</span></i>
                                             </div>
                                         </a>
                                     </div>
@@ -468,7 +468,7 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                             <div className='desc_wrapper'>
-                                                <h4 className='title'>Brewing</h4>
+                                                <i className='cursive'><span className='title'>Brewing</span></i>
                                             </div>
                                         </a>
                                     </div>
@@ -482,7 +482,7 @@ class Home extends Component {
                                                 </div>
                                             </div>
                                             <div className='desc_wrapper'>
-                                                <h4 className='title'>Subscriptions</h4>
+                                                <i className='cursive'><span className='title'>Subscriptions</span></i>
                                             </div>
                                         </a>
                                     </div>
@@ -491,7 +491,6 @@ class Home extends Component {
                                 <div className='column mcb-column one column_divider column-margin-40px'>
                                     <hr className='no_line'/>
                                 </div>
-
                             </div>
                         </div>
                     </div>

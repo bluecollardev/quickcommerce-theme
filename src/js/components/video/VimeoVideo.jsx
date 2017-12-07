@@ -7,7 +7,7 @@ export default class VimeoVideo extends Component {
     
     render() {
         return (
-            <div className='ace-video-wrapper fw-section space-top-2x padding-top-3x'>
+            <div className='ace-video-wrapper fw-section padding-top-3x'>
                 <div className='ace-video'>
                   <div className='container padding-top-3x padding-bottom-3x text-center'>
                     <div className='space-top-3x space-bottom'>
