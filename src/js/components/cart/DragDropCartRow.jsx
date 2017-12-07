@@ -11,6 +11,41 @@ class DragDropCartRow extends Component {
         this.increment = this.increment.bind(this)
         this.decrement = this.decrement.bind(this)
         this.renderOptions = this.renderOptions.bind(this)
+        this.onClick = this.onClick.bind(this)
+    }
+    
+    componentDidMount() {
+        // TODO: Warning - clear these events when unmounting or memory will leak
+        document.querySelectorAll('.incr-btn').forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                
+                let oldValue = button.parentNode.querySelector('.quantity').value
+                let newVal = oldValue
+                
+                button.parentNode.querySelector('.incr-btn[data-action="decrease"]').classList.remove('inactive')
+                
+                if (button.getAttribute('data-action') === 'increase') {
+                    newVal = parseFloat(oldValue) + 1
+                } else {
+                 // Don't allow decrementing below 1
+                    if (oldValue > 1) {
+                        newVal = parseFloat(oldValue) - 1
+                    } else {
+                        newVal = 1
+                        
+                        button.classList.add('inactive')
+                    }
+                }
+                
+                button.parentNode.querySelector('.quantity').value = newVal
+            })
+        })
+    }
+    
+    onClick(e) {
+        this.props.onItemClicked(e, this.props.item)
     }
     
     handleChange(event) {
@@ -80,7 +115,7 @@ class DragDropCartRow extends Component {
                         </div>
                         <strong className='cart-product-name'>{data['name']}</strong><br />
                         <div className='cart-product-detail'>
-                            <Thumbnail src={data.image} />
+                            <Thumbnail src={QC_IMAGES_URI + data.image} />
                             {this.renderOptions()}
                         </div>
                     </td>
@@ -99,17 +134,17 @@ class DragDropCartRow extends Component {
         } else {
             return (
                 <div className='cart-product-detail item'>
-                    <a href='#/' className='item-thumb'>{/* TODo: Link back to item */}
-                        <img src={data.image} alt='Item' />
+                    <a onClick={this.onClick} className='item-thumb'>{/* TODo: Link back to item */}
+                        <img src={QC_IMAGES_URI + data.image} alt='Item' />
                     </a>
                     
                     <div className='item-details'>
-                        <h3 className='item-title'><a href='#/'>{data['name']}</a></h3>
+                        <h3 className='item-title'><a onClick={this.onClick}>{data['name']}</a></h3>
                         <h4 className='item-price'>${price}</h4>
                         <div className='count-input'>
-                            <a className='incr-btn' data-action='decrease' href='#'>–</a>
+                            <a className='incr-btn' data-action='decrease'>–</a>
                             <input className='quantity' type='text' defaultValue={this.props.item.quantity} />
-                            <a className='incr-btn' data-action='increase' href='#'>+</a>
+                            <a className='incr-btn' data-action='increase'>+</a>
                         </div>
                     </div>
                     

@@ -1,6 +1,40 @@
 import React, { Component } from 'react'
 
-export default class Footer extends Component {
+import Velocity from 'velocity-animate' // Facade for GSAP parallax containers and effects
+
+class Footer extends Component {
+    componentDidMount() {
+        // Animated Scroll to Top Button
+        let scrollTop = document.querySelector('.scroll-to-top-btn')
+        
+        //if (scrollTop.length > 0) {
+            // TODO: Don't forget to detach me!
+            window.addEventListener('scroll', () => {
+                if (typeof document.documentElement === 'undefined' || 
+                    typeof document.documentElement.scrollTop === 'undefined') {
+                    return
+                }
+                
+                if (document.documentElement.scrollTop > 600) {
+                    scrollTop.classList.add('visible')
+                } else {
+                    scrollTop.classList.remove('visible')
+                }
+            })
+            
+            scrollTop.addEventListener('click', (e) => {
+                e.preventDefault()
+                
+                Velocity(document.documentElement, 'scroll', {
+                    offset: 0, 
+                    duration: 1000, 
+                    easing: 'easeOutExpo', 
+                    mobileHA: false 
+                })
+            })
+        //}
+    }
+    
     render() {
         return (
             <div id="footer">
@@ -52,3 +86,5 @@ export default class Footer extends Component {
         )
     }
 }
+
+export default Footer

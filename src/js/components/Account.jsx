@@ -69,7 +69,7 @@ import QcAccountComponent from 'quickcommerce-react/components/AccountComponent.
     customerStore: deps.customerStore
 }))
 @observer
-export default class Account extends QcAccountComponent.wrappedComponent {       
+class Account extends QcAccountComponent.wrappedComponent {       
     componentWillMount() {
         /*if (this.props.location.pathname === '/account/edit' && !this.props.loggedIn) {
             window.location.hash = '/account/login'
@@ -144,14 +144,16 @@ export default class Account extends QcAccountComponent.wrappedComponent {
             this.onLoginSuccess()
         })*/
     }
-    render() {        
+    render() {
+        let signInMode = this.getSignInMode()
+        
         return (
             <main className="content-wrapper">{/* Main Content Wrapper */}
                 {/* Featured Image */}
                     {/* TODO: Optional via prop */}
                 {/*<div className="featured-image" style={{backgroundImage: 'url(img/featured-image/account.jpg)'}} />*/}
                 {/* Content */}
-                {!this.props.loginStore.isLoggedIn() && (
+                {this.getSignInMode() === 'overlay' && !this.props.loginStore.isLoggedIn() && (
                 <Modal
                     show = {true}>
                     {!this.props.loggedIn && this.props.location.pathname === '/account/login' && false && (
@@ -182,10 +184,125 @@ export default class Account extends QcAccountComponent.wrappedComponent {
                     </Modal.Body>
                 </Modal>
                 )}
+                
                 <section className="container padding-top-3x padding-bottom-2x">
-                    <h1 className="mobile-center">Howdy, <span className="text-semibold">John</span></h1>
+                    {/*<h1 className="mobile-center"><span className="text-semibold"></span></h1>*/}
                     <div className="row padding-top">
-                        <div className="col-sm-9 padding-bottom-2x">
+                        <div className="col-sm-8 padding-bottom-2x">
+                            {this.props.loginStore.isLoggedIn() === false && this.state.createAccount === false && (
+                            <div className='slide account-slide text-center'>
+                                <span className='h1'>
+                                    <i className="cursive"><strong>Create an account.</strong></i>
+                                </span>
+                                <p className="text-sm text-gray">If you already have an account, just sign on the right :)</p>
+                                <div className="flex-column action-wrapper">
+                                    <a className="more style03" onClick={this.toggleRegistration}><span></span></a>
+                                </div>
+                            </div>
+                            )}
+                            
+                            {this.props.loginStore.isLoggedIn() && (
+                            <div className='slide account-slide loggedIn text-center'>
+                                <span className='h1'>
+                                    <i className="cursive"><strong>Welcome back!</strong></i>
+                                </span>
+                                <p className="text-sm text-gray">If this isn't you, please sign out :)</p>
+                                <div className="flex-column action-wrapper">
+                                    <a className="more style03" 
+                                        onClick={() => {
+                                            console.log('customer-profile-tools')
+                                            console.log(document.querySelector('.customer-profile-tools'))
+                                            document.querySelector('.customer-profile-tools').scrollIntoView() 
+                                        }}><span></span></a>
+                                </div>
+                            </div>
+                            )}
+                            
+                            {this.state.createAccount && (
+                            <div className='section_wrapper mcb-section-inner'>
+                                <div className='wrap mcb-wrap one valign-top clearfix'>
+                                    <div className='mcb-wrap-inner'>
+                                        <div className='column mcb-column two-third column_column'
+                                            style = {{
+                                                marginLeft: 'auto',
+                                                marginRight: 'auto',
+                                                float: 'none'
+                                            }}>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            )}
+                            
+                            {this.state.createAccount && (
+                            <Row>
+                                <CustomerProfile
+                                    customer = {this.props.customer}
+                                    billingAddress = {this.props.billingAddress}
+                                    shippingAddress = {this.props.shippingAddress}
+                                    editAccount = {false}
+                                    createAccount = {true}
+                                    displayActions = {true}
+                                    displayProfile = {true}
+                                    displayAddresses = {true}
+                                    displayCurrentAddress = {true}
+                                    displayBillingAddress = {true}
+                                    displayShippingAddress = {true}
+                                    onCreateSuccess = {this.onCreateSuccess}
+                                    onCancel = {() => {window.location.hash = '/'}}>
+                                </CustomerProfile>
+                            </Row>
+                            )}
+                        </div>
+
+                        <div className="col-sm-4 padding-bottom-2x padding-top-3x">
+                            <aside className="mobile-center customer-reward-points">
+                                {this.props.loginStore.isLoggedIn() === false && (
+                                <h3>Already have an account?</h3>
+                                )}
+                                
+                                {this.props.loginStore.isLoggedIn() === false && (
+                                <SignInForm 
+                                    onSubmit = {this.doLogin}
+                                    onLoginSuccess = {this.onLoginSuccess}
+                                    onLogout = {this.doLogout}
+                                    onCreate = {() => {window.location.hash = '/account/register'}}
+                                    />
+                                )}
+                                    
+                                {/*this.props.loggedIn && (
+                                <SignInForm 
+                                    user = {this.props.customer}
+                                    onLoginSuccess = {this.onLoginSuccess}
+                                    onCreate = {() => {window.location.hash = '/account/register'}}
+                                    />
+                                )*/}
+                                
+                                {this.props.loginStore.isLoggedIn() && (
+                                <div>
+                                    <h3>Your reward points:</h3>
+                                    <h3><span className="text-semibold">1356</span> <span className="h5">points</span></h3>
+                                    <p className="text-sm text-gray">You can spend these points on products from our shop catalog!</p>
+                                    {/*<a href="#" className="btn btn-default btn-block btn-ghost waves-effect waves-light space-top-none">Forgot Your Password?</a>*/}
+                                    <a href="#/" className="btn btn-default btn-ghost icon-left btn-block">
+                                    {/*<i className="material-icons arrow_back" />*/}
+                                        Go Back to Shop
+                                    </a>
+                                    <a href="#/" className="btn btn-default btn-ghost icon-logout btn-block" onClick={this.doLogout}>
+                                    {/*<i className="material-icons arrow_back" />*/}
+                                        Sign Out
+                                    </a>
+                                </div>
+                                )}
+                            </aside>
+                        </div>{/* .col-sm-4 */}
+                    </div>
+                </section>
+                
+                {this.props.loginStore.isLoggedIn() && (
+                <section className="container padding-top-3x padding-bottom-2x">
+                    <div className="row padding-top">
+                        <div className="customer-profile-tools col-sm-8 padding-bottom-2x">
                           {/* Nav Tabs */}
                           <ul className="nav-tabs mobile-center" role="tablist">
                             <li className="active"><a href="#profile" role="tab" data-toggle="tab">
@@ -274,6 +391,7 @@ export default class Account extends QcAccountComponent.wrappedComponent {
                                         shippingAddress = {this.props.customerStore.shippingAddress}
                                         editAccount = {true}
                                         createAccount = {false}
+                                        displayActions = {true}
                                         displayProfile = {true}
                                         displayCurrentAddress = {true}
                                         displayBillingAddress = {true}
@@ -480,21 +598,15 @@ export default class Account extends QcAccountComponent.wrappedComponent {
                           </div>{/* .tab-content */}
                         </div>{/* .col-sm-8 */}
                         {/* Sidebar */}
-                        <div className="col-sm-3 padding-bottom-2x padding-top-3x">
-                          <aside className="mobile-center customer-reward-points">
-                            <h3>Your reward points:</h3>
-                            <h3><span className="text-semibold">1356</span> <span className="h5">points</span></h3>
-                            <p className="text-sm text-gray">You can spend these points on products from our shop catalog!</p>
-                            <a href="shop-sidebar-left.html" className="btn btn-default btn-ghost icon-left btn-block">
-                            {/*<i className="material-icons arrow_back" />*/}
-                              Go to Shop
-                            </a>
-                            <a href="#" className="btn btn-primary btn-block waves-effect waves-light space-top-none">Get more points</a>
-                          </aside>
+                        <div className="col-sm-4 padding-bottom-2x padding-top-3x">
+                          
                         </div>{/* .col-sm-4 */}
                     </div>{/* .row */}
-                </section>{/* .container */}
+                </section>
+                )}
             </main>
         )
     }
 }
+
+export default Account

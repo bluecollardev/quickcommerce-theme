@@ -5,13 +5,11 @@ import { Thumbnail, Button }  from 'react-bootstrap'
 import HtmlHelper from 'quickcommerce-react/helpers/HTML.js'
 
 const mySource = {
-
     beginDrag(props) {
         return {
             id: props.id
         }
     },
-
     endDrag(props, monitor, component) {}
 
 }
@@ -30,6 +28,47 @@ const CartDragItem = React.createClass({
             onItemClicked: () => {},
             onAddToCartClicked: () => {}
         }
+    },
+    componentDidMount() {
+        // Waves Effect (on Buttons)
+        //------------------------------------------------------------------------------
+        if($('.waves-effect').length) {
+            Waves.displayEffect( { duration: 600 } )
+        }
+
+        // Add to Cart Button Effect
+        //------------------------------------------------------------------------------
+        let animating = false
+        $('.shop-item').each(function() {
+            let addToCartBtn = $(this).find('.add-to-cart')
+            addToCartBtn.on('click', function() {
+                if(!animating) {
+                    //animate if not already animating
+                    animating =  true
+                    // resetCustomization(addToCartBtn)
+
+                    addToCartBtn.addClass('is-added').find('path').eq(0).animate({
+                        //draw the check icon
+                        'stroke-dashoffset':0
+                    }, 300, function(){
+                        setTimeout(function(){
+                            // updateCart()
+                            addToCartBtn.removeClass('is-added').find('em').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+                                //wait for the end of the transition to reset the check icon
+                                addToCartBtn.find('path').eq(0).css('stroke-dashoffset', '19.79')
+                                animating =  false
+                            })
+
+                            if( $('.no-csstransitions').length > 0 ) {
+                                // check if browser doesn't support css transitions
+                                addToCartBtn.find('path').eq(0).css('stroke-dashoffset', '19.79')
+                                animating =  false
+                            }
+                        }, 600)
+                    })
+                }
+            })
+        })
     },
     onClick(e) {
         // onClick handler for CartDragItem

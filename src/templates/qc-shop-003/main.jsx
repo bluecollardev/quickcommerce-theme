@@ -13,6 +13,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import HTML5Backend from 'react-dnd-html5-backend' /* Gfx */
 import { TimelineLite } from 'gsap' // Facade for GSAP parallax containers and effects
 import { Parallax, ParallaxContainer } from 'react-gsap-parallax' // Facade for GSAP parallax containers and effects
+import Velocity from 'velocity-animate' // Facade for GSAP parallax containers and effects
 
 /* Generic imports */
 import SiteLogo from 'quickcommerce-react/components/common/SiteLogo.jsx'
@@ -30,7 +31,7 @@ import Brands from 'quickcommerce-react/components/shop/Brands.jsx'
 import Features from 'quickcommerce-react/components/shop/Features.jsx'
 //import ProfileMenu from 'quickcommerce-react/components/menu/ProfileMenu.jsx'
 
-// Material UI is fucked fucking hell
+// Material UI is fucked
 //import Avatar from 'material-ui/Avatar'
 //import AccountCircleIcon from 'material-ui-icons/AccountCircle'
 //import List, { ListItem, ListItemText } from 'material-ui/List'
@@ -143,15 +144,210 @@ class QcShop003 extends Component {
         console.log(props.config)
         props.actions.setting.setConfig(props.config)
         
-        props.cartStore.on('change', () => {
+        let { actions } = props
+        let { checkoutStore, checkoutService, cartStore } = props
+        let { settingStore } = props
+        
+        cartStore.on('change', () => {
             this.forceUpdate() // TODO: This is a bit much! Temporary...
         })
+        
+        /*settingStore.once('settings-loaded', (payload) => {
+            console.log('PosContext SETTINGS LOADED')
+            checkoutStore.settings = payload
+
+            // We only wanna do this once, so stick 'er right up top
+           checkoutService.createOrder({
+                action: 'insert'
+                //orderTaxRates: this.orderTaxRates
+            })
+        })*/
+        
+        // TODO: Code above isn't working, see if I can temporarily wire this up outside the block
+        // We only wanna do this once, so stick 'er right up top
+       checkoutService.createOrder({
+            action: 'insert',
+            customer: this.props.customerStore.customer,
+            //orderTaxRates: this.orderTaxRates
+        })
+        
+        actions.setting.fetchStore(8)
+        actions.setting.fetchSettings()
     }
     
     componentDidMount() {
         let container = ReactDOM.findDOMNode(this)
+        // TODO: Move this menu stuff to its own component - there's one in development
+        // Sidebar Toggle on Mobile
+        /*let sidebar = document.querySelector('.sidebar'),
+            sidebarToggle = document.querySelector('.sidebar-toggle')
         
+        sidebarToggle.addEventListener('click', (e) => {
+            e.target.classList.add('sidebar-open')
+            sidebar.classList.add('open')
+        })
         
+        document.querySelector('.sidebar-close').addEventListener('click', () => {
+            sidebarToggle.classList.remove('sidebar-open')
+            sidebar.classList.remove('open')
+        })
+        
+        this.countDownFunc(document.querySelector('.countdown'))*/
+        // TODO: Code above doesn't exist in this theme?
+        
+        // Toggle Mobile Menu
+        let menuToggle = document.querySelector('.mobile-menu-toggle'),
+            mobileMenu = document.querySelector('.mobile-menu-wrapper')
+        
+        menuToggle.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            
+            mobileMenu.classList.toggle('open')
+            menuToggle.classList.toggle('active')
+        })
+        
+        let menuItems = document.querySelectorAll('.menu-item > a, .mobile-menu-wrapper .toolbar > a, .mobile-menu-wrapper .toolbar > div')
+        menuItems.forEach((el) => {
+            el.addEventListener('click', (e) => {
+                // Close the menu when an item is clicked
+                menuToggle.click()
+                
+                Velocity(document.documentElement, 'scroll', { 
+                    offset: 0, //(this.hash).offset().top-elemOffsetTop, 
+                    duration: 1000, 
+                    easing: 'easeOutExpo', 
+                    mobileHA: false
+                })
+            })
+        })
+
+        // Toggle Submenu
+        let hasSubmenu = document.querySelectorAll('.menu-item-has-children > a')
+
+        let closeSubmenu = () => {
+            hasSubmenu.parentNode.classList.remove('active')
+        }
+        
+        if (hasSubmenu instanceof Array && hasSubmenu.length > 0) {
+            hasSubmenu.addEventListener('click', (e) => {
+                if (e.target.parentNode.is('.active')) {
+                    closeSubmenu()
+                } else {
+                    closeSubmenu()
+                    e.target.parentNode.classList.add('active')
+                }
+            })            
+        }        
+        
+        let hasScrollbar = function () {
+            if (typeof window.innerWidth === 'number') {
+                return window.innerWidth > document.documentElement.clientWidth
+            }
+
+            // rootElem for quirksmode
+            let rootElem = document.documentElement || document.body
+
+            // Check overflow style property on body for fake scrollbars
+            let overflowStyle
+
+            if (typeof rootElem.currentStyle !== 'undefined') {
+                overflowStyle = rootElem.currentStyle.overflow
+            }
+
+            overflowStyle = overflowStyle || window.getComputedStyle(rootElem, '').overflow
+
+            // Also need to check the Y axis overflow
+            let overflowYStyle
+
+            if (typeof rootElem.currentStyle !== 'undefined') {
+                overflowYStyle = rootElem.currentStyle.overflowY
+            }
+
+            overflowYStyle = overflowYStyle || window.getComputedStyle(rootElem, '').overflowY
+
+            let contentOverflows = rootElem.scrollHeight > rootElem.clientHeight
+            let overflowShown    = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle)
+            let alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll'
+
+            return (contentOverflows && overflowShown) || (alwaysShowScroll)
+        }
+        
+        if (hasScrollbar()) {
+            document.body.classList.add('hasScrollbar')
+        }
+
+        // Smooth scroll to element - TODO: I am not working, just cleaned up syntax a bit
+        let scrollTo = document.querySelectorAll('.scroll-to')
+        
+        if (scrollTo.length > 0) {
+            scrollTo.forEach((el) => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    
+                    let elemOffsetTop = el.data('offset-top')
+                    
+                    Velocity(document.documentElement, 'scroll', { 
+                        offset: 0, //(this.hash).offset().top-elemOffsetTop, 
+                        duration: 1000, 
+                        easing: 'easeOutExpo', 
+                        mobileHA: false
+                    })
+                })
+            })
+        }
+        
+        let subscribeToggle = document.querySelector('.subscribe-btn'),
+			subscribePopup = document.querySelector('.subscribe-popup-wrap'),
+			subscribeBackdrop = document.querySelector('.subscribe-backdrop'),
+			subscribeClose = document.querySelector('.subscribe-popup .close-btn')
+
+        subscribeToggle.addEventListener('click', (e) => {
+            subscribeBackdrop.classList.add('is-visible')
+            subscribePopup.classList.add('is-visible')
+            
+            setTimeout(() => {
+                subscribePopup.querySelectorAll('.form-control').focus()
+            }, 300)
+
+            e.preventDefault()
+        })
+        
+        subscribeClose.addEventListener('click', () => {
+            subscribeBackdrop.classList.remove('is-visible')
+            subscribePopup.classList.remove('is-visible')
+        })
+        
+        /*let emptyLink = ('a[href=#]')
+        emptyLink.addEventListener('click', (e) => {
+            e.preventDefault()
+        })*/
+        
+        // Tooltips
+        //------------------------------------------------------------------------------
+        /*let tooltip = ('[data-toggle="tooltip"]')
+        if (tooltip.length > 0) {
+            tooltip.tooltip()
+        }*/
+    }
+    
+    onCartItemClicked(e, item) {
+        // TODO: Leave this in as log if debug mode
+        console.log('opening product page for item:')
+        console.log(item)
+        window.location.hash = '#/product/' + item['product_id'] + '/' + item['name'] // TODO: Use mappings! And use websafe/SEO URL (currently unavailable)
+        
+        /*let stepId = 'options'
+        let stepDescriptor = this.stepper.getStepById(stepId) || null
+
+        if (stepDescriptor !== null) {
+            let data = item
+            
+            let isEnded = false
+            // Execute the step handler
+            this.stepper.load(stepDescriptor, data, isEnded, this.setStep.bind(this, stepId))
+            this.stepper.addItem(item.id, 1, item)
+        }*/
     }
     
     render() {
@@ -222,7 +418,7 @@ class QcShop003 extends Component {
                 {/* Page Wrapper */}
                 <div className='page-wrapper'>
                     {/* Navbar */}
-                    <header className='navbar'>
+                    <header className='navbar box-trim-shadow z0'>
                     {/* Navbar Header */}
                     <div className='navbar-header'>
                       <SiteLogo 
@@ -231,7 +427,7 @@ class QcShop003 extends Component {
                       {/*<LanguageSwitcher 
                       settings = {this.props.settingStore} />*/}
                       {/* Mobile Menu Toggle */}
-                      <a href='#' className='mobile-menu-toggle'><i className='material-icons menu' /></a>
+                      <a className='mobile-menu-toggle'><i className='material-icons menu' /></a>
                     </div>{/* .navbar-header */}
                     {/* Mobile Menu Wrapper */}
                     <div className='mobile-menu-wrapper'>
@@ -419,24 +615,65 @@ class QcShop003 extends Component {
                                     }} />
                                 <Route 
                                     path='/about' 
-                                    render={(props) => <AboutPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AboutPage 
+                                                {...props} 
+                                                {...this.props}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/register' 
-                                    render={(props) => <RegisterPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/account' 
-                                    render={(props) => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/orders' 
-                                    render={(props) => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/wishlist' 
-                                    render={() => <AccountPage {...props} {...this.props} /> } />
+                                    render={(props) => {
+                                        return (
+                                            <AccountPage 
+                                                {...props} 
+                                                {...this.props}
+                                                signInMode = {'fullpage'}
+                                                />
+                                        )
+                                    }} />
                                 <Route 
                                     path='/gallery' 
                                     render={(props) => {
                                         return (
-                                            <GalleryPage dataSource={this.props.instagramFeed} {...props} {...this.props} />
+                                            <GalleryPage 
+                                                dataSource={this.props.instagramFeed} 
+                                                {...props} {...this.props} />
                                         )
                                     }} />
                             </Switch>
@@ -453,6 +690,7 @@ class QcShop003 extends Component {
                                     return (
                                         <CartPage  
                                             shoppingCart = {(cart) => this.cart = cart}
+                                            onCartItemClicked = {this.onCartItemClicked}
                                             {...props} {...this.props}
                                             />
                                     )

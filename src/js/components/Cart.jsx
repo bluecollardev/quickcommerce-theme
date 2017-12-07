@@ -27,11 +27,18 @@ import UrlHelper from 'quickcommerce-react/helpers/URL.js'
 
 import { CartComponent as QcCart } from 'quickcommerce-react/modules/cart/CartComponent.jsx'
 
-class ShoppingCart extends QcCart.wrappedComponent {
+class ShoppingCart extends Component {   
+    constructor(props) {
+        super(props)
+        
+        this.state = {}
+    }
+    
     render() {
         let props = this.props
         
         let options = false
+        // TODO: This is not correct!
         // TODO: This is wrong, should be checking ID or something
         if (this.state.hasOwnProperty('product') && this.state.product !== null && this.state.product.hasOwnProperty('price')) {
             let price = (parseFloat(this.state.product.price)).toFixed(2)
@@ -50,14 +57,27 @@ class ShoppingCart extends QcCart.wrappedComponent {
             }
         }
         
+        let orderSubTotal = 0.00
+        if (this.props.checkoutStore.payload.orderTotals instanceof Array && this.props.checkoutStore.payload.orderTotals.length > 0) {
+            let orderSubTotalValue = parseFloat(this.props.checkoutStore.getSubTotal().value)
+            if (!isNaN(orderSubTotalValue)) {
+                orderSubTotal = orderSubTotalValue.toFixed(2) 
+            }
+        }
+        
         const containerComponent = this.props.containerComponent || DragDropCartTable
         const rowComponent = this.props.rowComponent || DragDropCartRow
         
         return (
-            <main className='content-wrapper'>{/* Main Content Wrapper */}
+            <main className='content-wrapper'>
+                <section className='fw-section slide catalog-slide text-center'>
+                    <span className='h1'>
+                        <i className="cursive"><strong>Ready to order?</strong></i>
+                    </span>
+                </section>
+                
                 {/* Container */}
                 <section className='container padding-top-3x padding-bottom'>
-                  <h1 className='space-top-half'>Shopping Cart</h1>
                   <div className='row padding-top'>
                     {/* Cart */}
                     <div className='col-sm-8 padding-bottom-2x'>
@@ -65,6 +85,7 @@ class ShoppingCart extends QcCart.wrappedComponent {
                             ref = {props.shoppingCart} 
                             containerComponent = {containerComponent}
                             rowComponent = {rowComponent}
+                            onCartItemClicked = {this.props.onCartItemClicked}
                             />
                         {/* Coupon */}
                         <div className>
@@ -85,10 +106,10 @@ class ShoppingCart extends QcCart.wrappedComponent {
                     <div className='col-md-3 col-md-offset-1 col-sm-4 padding-bottom-2x'>
                       <aside>
                         <h3 className='toolbar-title'>Cart subtotal:</h3>
-                        <h4 className='amount'>$460.90</h4>
+                        <h4 className='amount'>${orderSubTotal}</h4>
                         <p className='text-sm text-gray'>* Note: This amount does not include taxes or costs for international shipping. You will be able to calculate shipping costs on checkout.</p>
                         <a href='#/' className='btn btn-default btn-block waves-effect waves-light'>Update Cart</a>
-                        <a href='#/checkout' className='btn btn-primary btn-block waves-effect waves-light space-top-none'>Checkout</a>
+                        <a onClick={this.props.doCheckout} className='btn btn-primary btn-block waves-effect waves-light space-top-none'>Checkout</a>
                       </aside>
                     </div>{/* .col-md-3.col-sm-4 */}
                   </div>{/* .row */}

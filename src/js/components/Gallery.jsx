@@ -35,6 +35,15 @@ export default class Gallery extends Component {
                   <h1 className="space-top-half tablet-center">Shop Boxed Filters Top</h1>
                 </section>*/}{/* .container-fluid */}
                 {/* Move this out into custom module */}
+                
+                <section className='fw-section slide account-slide text-center'>
+                    <span className='h1'>
+                        <i className="cursive"><strong>Snap!</strong></i>
+                        <br />
+                        Follow #acecoffeeroasters on instagram.
+                    </span>
+                </section>
+                
                 <GalleryFullwidthWithGap 
                     {...this.props} />
             </main>

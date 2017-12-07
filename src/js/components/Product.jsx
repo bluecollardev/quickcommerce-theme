@@ -3,6 +3,8 @@ import assign from 'object-assign'
 import React, { Component } from 'react'
 import {inject, observer, Provider} from 'mobx-react'
 
+import Velocity from 'velocity-animate' // Facade for GSAP parallax containers and effects
+
 import { Alert, Table, Grid, Col, Row, Thumbnail, Modal, Accordion, Panel, HelpBlock } from 'react-bootstrap'
 import { Tabs, Tab, TabContent, TabContainer, TabPanes } from 'react-bootstrap'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap'
@@ -55,8 +57,49 @@ class Product extends QcProduct {
         // Stepper maintains its own state and store
         this.stepper = new Stepper()
         this.stepper.setSteps(this.configureSteps())
+    }
+    
+    /**
+     * It's okay to set this - only componentDidUpdate is declared in the 'Abstract' Product component.
+     */
+    componentDidMount() {
+        // Scroll to top
+        Velocity(document.documentElement, 'scroll', { 
+            offset: 0, //(this.hash).offset().top-elemOffsetTop, 
+            duration: 1000, 
+            easing: 'easeOutExpo', 
+            mobileHA: false
+        })
         
-        console.log('wtf')
+        // TODO: Warning - clear these events when unmounting or memory will leak
+        document.querySelectorAll('.incr-btn').forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                
+                let oldValue = button.parentNode.querySelector('.quantity').value
+                let newVal = oldValue
+                
+                button.parentNode.querySelector('.incr-btn[data-action="decrease"]').classList.remove('inactive')
+                
+                if (button.getAttribute('data-action') === 'increase') {
+                    newVal = parseFloat(oldValue) + 1
+                } else {
+                 // Don't allow decrementing below 1
+                    if (oldValue > 1) {
+                        newVal = parseFloat(oldValue) - 1
+                    } else {
+                        newVal = 1
+                        
+                        button.classList.add('inactive')
+                    }
+                }
+                
+                button.parentNode.querySelector('.quantity').value = newVal
+            })
+        })
+        
+        this.loadProduct()
     }
     
     configureSteps() {
@@ -214,10 +257,6 @@ class Product extends QcProduct {
             // Execute the step handler
             this.stepper.load(stepDescriptor, data, isEnded, this.setStep.bind(this, stepId))
         }
-    }
-    
-    componentDidMount() {
-        this.loadProduct()
     }
     
     loadProduct() {
@@ -512,17 +551,17 @@ class Product extends QcProduct {
                             <div className='text-gray' dangerouslySetInnerHTML={shortDescription}></div>
                             <div className='product-tools shop-item'>
                               <div className='count-input'>
-                                <a className='incr-btn' data-action='decrease' href='#'>–</a>
+                                <a className='incr-btn' data-action='decrease'>–</a>
                                 <input className='quantity' type='text' defaultValue={1} />
-                                <a className='incr-btn' data-action='increase' href='#'>+</a>
+                                <a className='incr-btn' data-action='increase'>+</a>
                               </div>
-                              <div className='form-element'>
+                              {/*<div className='form-element'>
                                 <select className='form-control form-control-sm color-select'>
                                   <option value='blue' data-image='preview02'>Blue</option>
                                   <option value='creme' data-image='preview01'>Creme</option>
                                   <option value='red' data-image='preview03'>Red</option>
                                 </select>
-                              </div>
+                              </div>*/}
                               <Button className='add-to-cart' onClick={this.onAddToCartClicked}>
 
                                 <em>Add to Order</em>
@@ -596,8 +635,6 @@ class Product extends QcProduct {
                           </Row>
                         )}
                       </Col>
-                      
-                      
                       
                       <div className='row product-section'>
                         <div className='col-xs-12'>
