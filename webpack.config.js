@@ -22,12 +22,8 @@ var env = {
 	QC_SETTING_STORAGE_DRIVER: JSON.stringify('normal'), // Options: [file|uri|text]
 	QC_SETTING_ADAPTER: JSON.stringify('qc'), // Options: [qc|custom|...]
 	API_VERSION: JSON.stringify('normal'),
-	API_TARGET: JSON.stringify('normal'),	
+	API_TARGET: JSON.stringify('normal'),
 	AUTH_MODE: JSON.stringify('legacy'), // [normal|legacy|mock]
-	/*QC_BASE_URI: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/'),
-	QC_LEGACY_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/api/rest/'),
-	QC_RESOURCE_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/res/'),
-    QC_API: JSON.stringify('http://firebrandwebsolutions.com/qc-demo/qcapi/api/v1/')*/
     /*QC_APP_URL: JSON.stringify('http://firebrand.solutions/staging/'),
     QC_BASE_URI: JSON.stringify('http://firebrand.solutions/'),
 	QC_LEGACY_API: JSON.stringify('http://firebrand.solutions/api/rest/'),
